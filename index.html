@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToolsLocker | השכרת ציוד וכלי עבודה אוטומטית</title>
+    <meta name="description" content="חנות אוטומטית להשכרת כלי עבודה, ציוד קמפינג, כלי מטבח ועוד. זמין 24/7 בדיזנגוף סנטר">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Varela+Round&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #176635;
+            --primary-dark: #0f4a24;
+            --accent: #d7df23;
+            --accent-hover: #c1c91f;
+            --dark: #231f20;
+            --dark-alt: #3a3637;
+            --light: #f8f8f8;
+            --white: #FFFFFF;
+            --text: #231f20;
+            --text-light: #666666;
+            --border: #E0E0E0;
+            --shadow: rgba(35, 31, 32, 0.1);
+            --shadow-strong: rgba(35, 31, 32, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            background: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--white);
+            box-shadow: 0 2px 10px var(--shadow);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Architects Daughter', cursive;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .phone-btn {
+            background: var(--dark);
+            color: var(--white);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .phone-btn:hover {
+            background: var(--accent);
+            color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: var(--accent);
+            border-radius: 50%;
+            top: -200px;
+            left: -200px;
+            opacity: 0.15;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            border-radius: 50%;
+            bottom: -150px;
+            left: 50%;
+            opacity: 0.15;
+            animation: float 15s infinite ease-in-out reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-text h1 .highlight {
+            color: var(--accent);
+            display: block;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--dark);
+            box-shadow: 0 4px 15px rgba(215, 223, 35, 0.3);
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(215, 223, 35, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--dark);
+        }
+
+        .hero-image {
+            position: relative;
+            animation: fadeInRight 1s ease;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px var(--shadow-strong);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            background: var(--light);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow);
+            transition: all 0.3s;
+            border-top: 4px solid var(--primary);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px var(--shadow-strong);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 2rem;
+            background: var(--white);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px var(--shadow);
+        }
+
+        /* Categories Section */
+        .categories {
+            padding: 6rem 2rem;
+            background: var(--dark);
+        }
+
+        .categories .section-title {
+            color: var(--white);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            background: var(--dark-alt);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .category-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .category-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-card h3 {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .category-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        /* Location Section */
+        .location {
+            padding: 6rem 2rem;
+            background: var(--light);
+        }
+
+        .location-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .location-info h2 {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item .icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-top: 5px;
+        }
+
+        .info-item h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .info-item p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Varela Round', sans-serif;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--dark-alt);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Newsletter */
+        .newsletter-form {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 0.8rem 2rem;
+            background: var(--accent);
+            color: var(--dark);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--accent-hover);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: var(--dark);
+                flex-direction: column;
+                justify-content: center;
+                transition: right 0.3s;
+                padding: 2rem;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links a {
+                color: var(--white);
+                font-size: 1.5rem;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 3rem 1.5rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-text p {
+                font-size: 1.1rem;
+            }
+
+            .about-content,
+            .location-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .btn {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+
+            .hero-text p {
+                font-size: 1rem;
+            }
+
+            .feature-card,
+            .category-card {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading Animation */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#" class="logo">
+                <div class="logo-icon">T</div>
+                ToolsLocker
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">דף הבית</a></li>
+                <li><a href="#about">קצת עלינו</a></li>
+                <li><a href="#categories">כלים להשכרה</a></li>
+                <li><a href="#location">מיקום</a></li>
+                <li><a href="tel:0523442641" class="phone-btn">☎ 052-344-2641</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>
+                    השכרת ציוד וכלי עבודה
+                    <span class="highlight">אוטומטית 24/7</span>
+                </h1>
+                <p>
+                    חנות אוטומטית חכמה לצרכנות ירוקה - כלי עבודה, ציוד קמפינג, כלי מטבח ועוד.
+                    זמין תמיד באיסוף והחזרה עצמאית בדיזנגוף סנטר.
+                </p>
+                <div class="hero-buttons">
+                    <a href="https://online.keynius.app/home/a4a89521-1efb-45cb-a931-80cc5d3bd236" target="_blank" class="btn btn-primary">
+                        🔧 התחל השכרה עכשיו
+                    </a>
+                    <a href="#about" class="btn btn-secondary">
+                        קראו עוד
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=800" alt="כלי עבודה">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">למה ToolsLocker?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3>זמין 24/7</h3>
+                    <p>איסוף והחזרה עצמאית בכל שעה, כל יום - גם בלילה, גם בסופ"ש. הלוקרים שלנו תמיד פתוחים בשבילך.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>חסכון אמיתי</h3>
+                    <p>למה לקנות ציוד יקר שתשתמשו בו פעם בשנה? שכרו רק כשצריך וחסכו אלפי שקלים.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3>ידידותי לסביבה</h3>
+                    <p>שימוש חוזר במוצרים מצמצם בזבוז ומסייע לסביבה. צרכנות חכמה וירוקה יותר.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>ציוד מקצועי</h3>
+                    <p>כלים ומוצרים איכוtiים ומתוחזקים היטב - תמיד במצב מושלם לשימוש.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3>מיקום מרכזי</h3>
+                    <p>בלב תל אביב בדיזנגוף סנטר - קל להגיע, קל לחנות, קל להשכיר.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>תמיכה טכנית</h3>
+                    <p>צוות מקצועי זמין לכל שאלה או בעיה בשעות הפעילות.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2 class="section-title">מה אפשר להשכיר?</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="icon">🔨</div>
+                    <h3>כלי עבודה</h3>
+                    <p>מקדחות, משחזות, מסורים וכלי עבודה מקצועיים</p>
+                </div>
+                <div class="category-card">
+                    <div class="icon">🎨</div>
+                    <h3>עשה זאת בעצמך</h3>
+                    <p>כל מה שצריך לפרויקטים ביתיים ויצירתיים</p>
+                </div>
+                <div class="category-card">
+                    <div class="icon">⛺</div>
+                    <h3>פנאי וקמפינג</h3>
+                    <p>אוהלים, ציוד קמפינג וציוד לחוף הים</p>
+                </div>
+                <div class="category-card">
+                    <div class="icon">🍳</div>
+                    <h3>כלי מטבח</h3>
+                    <p>ציוד מטבח מקצועי לאירוח ובישול</p>
+                </div>
+                <div class="category-card">
+                    <div class="icon">👶</div>
+                    <h3>ציוד לתינוקות</h3>
+                    <p>עגלות, טיולונים ועוד ציוד לפעוטות</p>
+                </div>
+                <div class="category-card">
+                    <div class="icon">🧹</div>
+                    <h3>ציוד ניקיון</h3>
+                    <p>כלים מקצועיים לניקיון ותחזוקת הבית</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>המחסן החכם שלך, זמין 24/7</h2>
+                    <p>
+                        <strong>למה לקנות, לאחסן ולתחזק – אם אפשר פשוט לשכור בקליק?</strong>
+                    </p>
+                    <p>
+                        תשכחו מלבקש מחבר או להיתקע בלי מקדחה בשישי בצהריים. ToolsLocker היא חנות אוטומטית חכמה שפתוחה בשבילך תמיד. 
+                        בין אם אתם משפצים את הסלון, מארחים לארוחת ערב, יוצאים לקמפינג או צריכים ציוד לתינוק לסופ"ש – הציוד מחכה לכם בלוקר, במרחק נגיעה.
+                    </p>
+                    <p>
+                        אנחנו מאמינים בצרכנות חכמה וירוקה - שימוש חוזר בציוד חוסך כסף, מקום בבית, וגם שומר על הסביבה. 
+                        העולם מתקדם לכיוון של שיתוף משאבים, ואנחנו כאן כדי להוביל את השינוי הזה.
+                    </p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800" alt="לוקרים חכמים">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section class="location" id="location">
+        <div class="container">
+            <div class="location-content">
+                <div class="location-info">
+                    <h2>איפה אנחנו?</h2>
+                    <div class="info-item">
+                        <div class="icon">📍</div>
+                        <div>
+                            <h4>מיקום</h4>
+                            <p>דיזנגוף סנטר, גג הקיימות - קומה 4, בניין B<br>תל אביב-יפו</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="icon">⏰</div>
+                        <div>
+                            <h4>שעות איסוף והחזרה</h4>
+                            <p>24/7 - זמין תמיד!<br>
+                            בשעות הלילה (21:00-06:00) כניסה באמצעות אינטרקום</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="icon">💬</div>
+                        <div>
+                            <h4>תמיכה טכנית</h4>
+                            <p>ראשון-חמישי: 08:00-20:00<br>
+                            שישי: 08:00-12:00</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="icon">☎</div>
+                        <div>
+                            <h4>טלפון</h4>
+                            <p><a href="tel:0523442641" style="color: var(--accent); font-weight: 600;">052-344-2641</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800" alt="דיזנגוף סנטר">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>מוכנים להתחיל?</h2>
+            <p>הצטרפו לקהילת ToolsLocker והתחילו לשכור ציוד בצורה החכמה ביותר</p>
+            <a href="https://online.keynius.app/home/a4a89521-1efb-45cb-a931-80cc5d3bd236" target="_blank" class="btn" style="background: var(--accent); color: var(--dark); font-weight: 600;">
+                🚀 לביצוע השכרה
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ToolsLocker</h3>
+                    <p>חנות אוטומטית חכמה להשכרת ציוד וכלי עבודה.</p>
+                    <p>צרכנות חכמה וירוקה יותר.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/people/ToolsLocker-%D7%98%D7%95%D7%9C%D7%A1-%D7%9C%D7%95%D7%A7%D7%A8/61578144201748/" target="_blank" title="Facebook">f</a>
+                        <a href="https://www.instagram.com/tools_locker/" target="_blank" title="Instagram">📷</a>
+                        <a href="https://www.tiktok.com/@toolslocker.org" target="_blank" title="TikTok">🎵</a>
+                        <a href="https://www.youtube.com/@ToolsLocker" target="_blank" title="YouTube">▶</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>קישורים מהירים</h3>
+                    <a href="#home">דף הבית</a>
+                    <a href="#about">קצת עלינו</a>
+                    <a href="#categories">כלים להשכרה</a>
+                    <a href="#location">מיקום ויצירת קשר</a>
+                </div>
+                <div class="footer-section">
+                    <h3>יצירת קשר</h3>
+                    <p>📍 דיזנגוף סנטר, קומה 4</p>
+                    <p>☎ 052-344-2641</p>
+                    <a href="#">תנאי שימוש והשכרה</a>
+                    <a href="#">מדיניות פרטיות</a>
+                </div>
+                <div class="footer-section">
+                    <h3>הירשמו לעדכונים</h3>
+                    <p>קבלו חדשות והטבות ישירות למייל</p>
+                    <form class="newsletter-form" onsubmit="return false;">
+                        <input type="email" placeholder="המייל שלך" required>
+                        <button type="submit">הרשמה</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 ToolsLocker. כל הזכויות שמורות.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header hide on scroll down, show on scroll up
+        let lastScroll = 0;
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll <= 0) {
+                header.style.transform = 'translateY(0)';
+                return;
+            }
+            
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                // Scrolling down
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.feature-card, .category-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
