@@ -39,6 +39,16 @@
             --modal-bg: rgba(26, 26, 46, 0.95);
             --text: #e2e8f0;
             --text-light: #cbd5e0;
+            --input-bg: rgba(255, 255, 255, 0.1);
+            --input-text: #e2e8f0;
+            --input-border: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Light Mode Input Colors */
+        :root {
+            --input-bg: rgba(102, 126, 234, 0.08);
+            --input-text: #1a1a2e;
+            --input-border: rgba(102, 126, 234, 0.25);
         }
 
         * {
@@ -635,6 +645,25 @@
             background: rgba(0, 0, 0, 0.1);
         }
 
+        /* Modal Input Fields */
+        .modal-input {
+            background: var(--input-bg) !important;
+            color: var(--input-text) !important;
+            border: 2px solid var(--input-border) !important;
+        }
+
+        .modal-input::placeholder {
+            color: var(--text-light) !important;
+            opacity: 0.7;
+        }
+
+        .modal-input:focus {
+            background: var(--input-bg) !important;
+            border-color: var(--primary) !important;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
         /* Status badges */
         .status-badge {
             display: inline-block;
@@ -1056,24 +1085,24 @@
             </div>
             <form onsubmit="handleCreateTask(event)">
                 <div class="form-group">
-                    <label id="taskTitleLabel" style="color: var(--text);">Task Title</label>
-                    <input type="text" class="form-control" id="taskTitle" placeholder="e.g., Help move furniture" required style="background: rgba(102, 126, 234, 0.1); color: #1a1a2e; border: 1px solid rgba(102, 126, 234, 0.3);">
+                    <label id="taskTitleLabel" style="color: var(--text); font-weight: 600;">Task Title</label>
+                    <input type="text" class="form-control modal-input" id="taskTitle" placeholder="e.g., Help move furniture" required>
                 </div>
                 <div class="form-group">
-                    <label id="taskDescriptionLabel" style="color: var(--text);">Description</label>
-                    <textarea class="form-control" id="taskDescription" rows="4" placeholder="Describe what needs to be done..." required style="background: rgba(102, 126, 234, 0.1); color: #1a1a2e; border: 1px solid rgba(102, 126, 234, 0.3); resize: vertical;"></textarea>
+                    <label id="taskDescriptionLabel" style="color: var(--text); font-weight: 600;">Description</label>
+                    <textarea class="form-control modal-input" id="taskDescription" rows="4" placeholder="Describe what needs to be done..." required style="resize: vertical;"></textarea>
                 </div>
                 <div class="form-group">
-                    <label id="taskLocationLabel" style="color: var(--text);">Location</label>
-                    <input type="text" class="form-control" id="taskLocation" placeholder="Street address or area" required style="background: rgba(102, 126, 234, 0.1); color: #1a1a2e; border: 1px solid rgba(102, 126, 234, 0.3);">
+                    <label id="taskLocationLabel" style="color: var(--text); font-weight: 600;">Location</label>
+                    <input type="text" class="form-control modal-input" id="taskLocation" placeholder="Street address or area" required>
                 </div>
                 <div class="form-group">
-                    <label id="taskDateTimeLabel" style="color: var(--text);">Date & Time</label>
-                    <input type="datetime-local" class="form-control" id="taskDateTime" required style="background: rgba(102, 126, 234, 0.1); color: #1a1a2e; border: 1px solid rgba(102, 126, 234, 0.3);">
+                    <label id="taskDateTimeLabel" style="color: var(--text); font-weight: 600;">Date & Time</label>
+                    <input type="datetime-local" class="form-control modal-input" id="taskDateTime" required>
                 </div>
                 <div class="form-group">
-                    <label id="taskAmountLabel" style="color: var(--text);">Payment Amount ($)</label>
-                    <input type="number" class="form-control" id="taskAmount" min="5" step="5" placeholder="50" required style="background: rgba(102, 126, 234, 0.1); color: #1a1a2e; border: 1px solid rgba(102, 126, 234, 0.3);">
+                    <label id="taskAmountLabel" style="color: var(--text); font-weight: 600;">Payment Amount ($)</label>
+                    <input type="number" class="form-control modal-input" id="taskAmount" min="5" step="5" placeholder="50" required>
                 </div>
                 <button type="submit" class="btn btn-primary" id="createTaskSubmitBtn">Create Task</button>
             </form>
