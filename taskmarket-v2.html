@@ -299,6 +299,13 @@
             backdrop-filter: blur(10px);
             color: white;
             font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .user-wallet:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
         }
 
         .wallet-amount {
@@ -894,7 +901,7 @@
                         <span>TaskMarket</span>
                     </div>
                     <div class="header-actions">
-                        <div class="user-wallet">
+                        <div class="user-wallet" onclick="openWalletModal()" title="View wallet details">
                             <span>💰</span>
                             <span class="wallet-amount">$<span id="walletBalance">0</span></span>
                         </div>
@@ -1049,24 +1056,24 @@
             </div>
             <form onsubmit="handleCreateTask(event)">
                 <div class="form-group">
-                    <label id="taskTitleLabel">Task Title</label>
-                    <input type="text" class="form-control" id="taskTitle" placeholder="e.g., Help move furniture" required style="background: rgba(0,0,0,0.05); color: var(--text);">
+                    <label id="taskTitleLabel" style="color: var(--text);">Task Title</label>
+                    <input type="text" class="form-control" id="taskTitle" placeholder="e.g., Help move furniture" required style="background: rgba(102, 126, 234, 0.1); color: #1a1a2e; border: 1px solid rgba(102, 126, 234, 0.3);">
                 </div>
                 <div class="form-group">
-                    <label id="taskDescriptionLabel">Description</label>
-                    <textarea class="form-control" id="taskDescription" rows="4" placeholder="Describe what needs to be done..." required style="background: rgba(0,0,0,0.05); color: var(--text); resize: vertical;"></textarea>
+                    <label id="taskDescriptionLabel" style="color: var(--text);">Description</label>
+                    <textarea class="form-control" id="taskDescription" rows="4" placeholder="Describe what needs to be done..." required style="background: rgba(102, 126, 234, 0.1); color: #1a1a2e; border: 1px solid rgba(102, 126, 234, 0.3); resize: vertical;"></textarea>
                 </div>
                 <div class="form-group">
-                    <label id="taskLocationLabel">Location</label>
-                    <input type="text" class="form-control" id="taskLocation" placeholder="Street address or area" required style="background: rgba(0,0,0,0.05); color: var(--text);">
+                    <label id="taskLocationLabel" style="color: var(--text);">Location</label>
+                    <input type="text" class="form-control" id="taskLocation" placeholder="Street address or area" required style="background: rgba(102, 126, 234, 0.1); color: #1a1a2e; border: 1px solid rgba(102, 126, 234, 0.3);">
                 </div>
                 <div class="form-group">
-                    <label id="taskDateTimeLabel">Date & Time</label>
-                    <input type="datetime-local" class="form-control" id="taskDateTime" required style="background: rgba(0,0,0,0.05); color: var(--text);">
+                    <label id="taskDateTimeLabel" style="color: var(--text);">Date & Time</label>
+                    <input type="datetime-local" class="form-control" id="taskDateTime" required style="background: rgba(102, 126, 234, 0.1); color: #1a1a2e; border: 1px solid rgba(102, 126, 234, 0.3);">
                 </div>
                 <div class="form-group">
-                    <label id="taskAmountLabel">Payment Amount ($)</label>
-                    <input type="number" class="form-control" id="taskAmount" min="5" step="5" placeholder="50" required style="background: rgba(0,0,0,0.05); color: var(--text);">
+                    <label id="taskAmountLabel" style="color: var(--text);">Payment Amount ($)</label>
+                    <input type="number" class="form-control" id="taskAmount" min="5" step="5" placeholder="50" required style="background: rgba(102, 126, 234, 0.1); color: #1a1a2e; border: 1px solid rgba(102, 126, 234, 0.3);">
                 </div>
                 <button type="submit" class="btn btn-primary" id="createTaskSubmitBtn">Create Task</button>
             </form>
@@ -1082,6 +1089,19 @@
             </div>
             <div id="taskDetailsContent">
                 <!-- Task details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Wallet/Income Modal -->
+    <div id="walletModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="walletModalTitle">💰 Wallet & Income Report</h2>
+                <button class="close-modal" onclick="closeWalletModal()">×</button>
+            </div>
+            <div id="walletContent">
+                <!-- Wallet content will be populated here -->
             </div>
         </div>
     </div>
@@ -1394,6 +1414,90 @@
 
         function closeTaskDetailsModal() {
             document.getElementById('taskDetailsModal').classList.remove('active');
+        }
+
+        // Wallet Modal Functions
+        function openWalletModal() {
+            const modal = document.getElementById('walletModal');
+            const content = document.getElementById('walletContent');
+            const t = translations[currentLanguage];
+
+            // Get completed tasks for current user
+            const completedTasks = tasks.filter(t =>
+                t.assignedTo === currentUser.id && t.status === 'completed'
+            );
+
+            // Generate income summary
+            const totalIncome = completedTasks.reduce((sum, task) => sum + task.amount, 0);
+            const avgIncome = completedTasks.length > 0 ? (totalIncome / completedTasks.length).toFixed(2) : 0;
+
+            // Create wallet content
+            content.innerHTML = `
+                <div style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); padding: 30px; border-radius: 16px; margin-bottom: 30px; text-align: center;">
+                    <h3 style="color: white; font-size: 1rem; margin-bottom: 10px; opacity: 0.9;">${currentLanguage === 'en' ? 'Current Balance' : 'יתרה נוכחית'}</h3>
+                    <div style="font-size: 3rem; font-weight: 700; color: white; margin-bottom: 10px;">$${currentUser.wallet}</div>
+                    <p style="color: rgba(255,255,255,0.8);">${currentLanguage === 'en' ? 'Available for withdrawal' : 'זמין למשיכה'}</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px;">
+                    <div style="background: rgba(74, 222, 128, 0.1); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid rgba(74, 222, 128, 0.3);">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--success);">$${totalIncome}</div>
+                        <p style="color: var(--text); margin-top: 5px;">${currentLanguage === 'en' ? 'Total Earned' : 'סה"כ הרווחת'}</p>
+                    </div>
+                    <div style="background: rgba(102, 126, 234, 0.1); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid rgba(102, 126, 234, 0.3);">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">${completedTasks.length}</div>
+                        <p style="color: var(--text); margin-top: 5px;">${currentLanguage === 'en' ? 'Tasks Done' : 'משימות שבוצעו'}</p>
+                    </div>
+                    <div style="background: rgba(240, 147, 251, 0.1); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid rgba(240, 147, 251, 0.3);">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--accent);">$${avgIncome}</div>
+                        <p style="color: var(--text); margin-top: 5px;">${currentLanguage === 'en' ? 'Avg per Task' : 'ממוצע למשימה'}</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--text); margin-bottom: 20px; font-size: 1.3rem;">
+                    ${currentLanguage === 'en' ? '📊 Income Report' : '📊 דוח הכנסות'}
+                </h3>
+
+                <div style="max-height: 400px; overflow-y: auto;">
+                    ${completedTasks.length > 0 ?
+                        completedTasks.map(task => `
+                            <div style="background: rgba(74, 222, 128, 0.05); border: 1px solid rgba(74, 222, 128, 0.2); padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                                    <div>
+                                        <h4 style="color: var(--text); font-size: 1.1rem; margin-bottom: 5px;">✅ ${task.title}</h4>
+                                        <p style="color: var(--text-light); font-size: 0.9rem;">${task.description.substring(0, 80)}${task.description.length > 80 ? '...' : ''}</p>
+                                    </div>
+                                    <div style="text-align: ${currentLanguage === 'he' ? 'left' : 'right'};">
+                                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--success);">+$${task.amount}</div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 15px; flex-wrap: wrap; color: var(--text-light); font-size: 0.85rem;">
+                                    <span>📍 ${task.location}</span>
+                                    <span>📅 ${new Date(task.datetime).toLocaleDateString()}</span>
+                                    <span>👤 ${currentLanguage === 'en' ? 'Ordered by' : 'הוזמן על ידי'} ${task.creatorName}</span>
+                                </div>
+                            </div>
+                        `).join('')
+                        :
+                        `<div style="text-align: center; padding: 40px; color: var(--text-light);">
+                            <div style="font-size: 3rem; margin-bottom: 10px;">📭</div>
+                            <p>${currentLanguage === 'en' ? 'No completed tasks yet. Start earning by completing tasks!' : 'עדיין אין משימות שהושלמו. התחל להרוויח על ידי השלמת משימות!'}</p>
+                        </div>`
+                    }
+                </div>
+
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1);">
+                    <button class="btn btn-primary" onclick="closeWalletModal()" style="max-width: 300px; margin: 0 auto; display: block;">
+                        ${currentLanguage === 'en' ? 'Close' : 'סגור'}
+                    </button>
+                </div>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        function closeWalletModal() {
+            document.getElementById('walletModal').classList.remove('active');
         }
 
         function handleCreateTask(event) {
