@@ -73,6 +73,16 @@
             gap: 0.5rem;
         }
 
+        .logo-img {
+            height: 60px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-img {
+            transform: scale(1.05);
+        }
+
         .logo-icon {
             width: 40px;
             height: 40px;
@@ -285,6 +295,24 @@
             box-shadow: 0 20px 60px var(--shadow-strong);
         }
 
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px var(--shadow-strong);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+        }
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -401,6 +429,152 @@
             width: 100%;
             border-radius: 15px;
             box-shadow: 0 10px 40px var(--shadow);
+        }
+
+        /* Products Carousel Section */
+        .products {
+            padding: 6rem 2rem;
+            background: var(--light);
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .carousel-container {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 2rem 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .carousel-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .product-card {
+            flex: 0 0 320px;
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px var(--shadow);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px var(--shadow-strong);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background: var(--light);
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .product-description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .product-price .currency {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .product-period {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 0.2rem;
+        }
+
+        .product-btn {
+            background: var(--accent);
+            color: var(--dark);
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .product-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .carousel-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .carousel-btn-prev {
+            right: -25px;
+        }
+
+        .carousel-btn-next {
+            left: -25px;
         }
 
         /* Categories Section */
@@ -655,6 +829,24 @@
                 transform: rotate(-45deg) translate(6px, -6px);
             }
 
+            .product-card {
+                flex: 0 0 280px;
+            }
+
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .carousel-btn-prev {
+                right: 10px;
+            }
+
+            .carousel-btn-next {
+                left: 10px;
+            }
+
             .hero-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
@@ -698,6 +890,10 @@
                 font-size: 1.4rem;
             }
 
+            .logo-img {
+                height: 50px;
+            }
+
             .hero-text h1 {
                 font-size: 2rem;
             }
@@ -733,8 +929,7 @@
     <header>
         <nav>
             <a href="#" class="logo">
-                <div class="logo-icon">T</div>
-                ToolsLocker
+                <img src="logo.png" alt="ToolsLocker" class="logo-img">
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">דף הבית</a></li>
@@ -773,7 +968,7 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?w=800" alt="כלי עבודה">
+                <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&q=80" alt="כלי עבודה">
             </div>
         </div>
     </section>
@@ -817,41 +1012,20 @@
         </div>
     </section>
 
-    <!-- Categories Section -->
-    <section class="categories" id="categories">
+    <!-- Products Carousel Section -->
+    <section class="products" id="products">
         <div class="container">
-            <h2 class="section-title">מה אפשר להשכיר?</h2>
-            <div class="categories-grid">
-                <div class="category-card">
-                    <div class="icon">🔨</div>
-                    <h3>כלי עבודה</h3>
-                    <p>מקדחות, משחזות, מסורים וכלי עבודה מקצועיים</p>
+            <h2 class="section-title">הכלים והציוד שלנו</h2>
+            <p style="text-align: center; color: var(--text-light); margin-bottom: 3rem; font-size: 1.1rem;">
+                גלול ובחר מתוך 51 כלים ומוצרים להשכרה
+            </p>
+            
+            <div class="carousel-wrapper">
+                <button class="carousel-btn carousel-btn-prev" id="prevBtn">❮</button>
+                <div class="carousel-container" id="carouselContainer">
+                    <!-- Products will be loaded here by JavaScript -->
                 </div>
-                <div class="category-card">
-                    <div class="icon">🎨</div>
-                    <h3>עשה זאת בעצמך</h3>
-                    <p>כל מה שצריך לפרויקטים ביתיים ויצירתיים</p>
-                </div>
-                <div class="category-card">
-                    <div class="icon">⛺</div>
-                    <h3>פנאי וקמפינג</h3>
-                    <p>אוהלים, ציוד קמפינג וציוד לחוף הים</p>
-                </div>
-                <div class="category-card">
-                    <div class="icon">🍳</div>
-                    <h3>כלי מטבח</h3>
-                    <p>ציוד מטבח מקצועי לאירוח ובישול</p>
-                </div>
-                <div class="category-card">
-                    <div class="icon">👶</div>
-                    <h3>ציוד לתינוקות</h3>
-                    <p>עגלות, טיולונים ועוד ציוד לפעוטות</p>
-                </div>
-                <div class="category-card">
-                    <div class="icon">🧹</div>
-                    <h3>ציוד ניקיון</h3>
-                    <p>כלים מקצועיים לניקיון ותחזוקת הבית</p>
-                </div>
+                <button class="carousel-btn carousel-btn-next" id="nextBtn">❯</button>
             </div>
         </div>
     </section>
@@ -981,6 +1155,99 @@
     </footer>
 
     <script>
+        // Products data with local images
+        const products = [
+            {name:"מברגה אימפקט",description:"לעבודות בניה, תחזוקה, עשה זאת בעצמך, מגיע עם מטען, סוללה 4 אמפר טעונה",price:"48",image:"images/Screwdriver.jpg"},
+            {name:"מכונה לניקוי ספות ושטיחים",description:"לעבודות ניקיון ותחזוקה ביתית של ספות, שטיחים, כסאות, מזרונים",price:"120",image:"images/מכונת שאיבה ושטיפה.jpg"},
+            {name:"קיטורית",description:"לניקוי וחיטוי באמצעות אדי קיטור, כל סוגי המשטחים, קירות, שיש",price:"72",image:"images/קיטורית קארשר עם אביזרים.jpg"},
+            {name:"מיקסר למטבח",description:"לעבודות מטבח מקצועיות וביתיות, להכנת בצקים, עוגות, רטבים",price:"72",image:"images/מיקסר עם בלנדר 2.jpeg"},
+            {name:"כירה חשמלית למטבח",description:"לעבודות מטבח מקצועיות וביתיות, לבישול והכנת רטבים",price:"30",image:"images/כיריים אינדוקציה מקצועיות.jpg"},
+            {name:"מיקרופונים אלחוטיים",description:"זוג מיקרופונים אלחוטיים JBL כולל מתאם חיבור אלחוטי ומטען",price:"72",image:"images/זוג מיקרופונים.JPG"},
+            {name:"בידורית JBL",description:"PARTY BOX120 למסיבות, פנאי ובילוי בכל מקום, רמקול עוצמתי",price:"164",image:"images/PARTY BO 120בידורית JBL.JPG"},
+            {name:"גרניק 120 באר",description:"לשטיפה בלחץ, לעבודות קטנות ניקיון הבית/מחסן/רכב",price:"72",image:"images/גרניק 120 בר סט.jpeg"},
+            {name:"מסור שרשרת 12\"",description:"לעבודות גינון ביתיות, לגיזום ענפים או גזעים קטנים",price:"195",image:"images/מסור שרשרת נטען דיוולט.jpg"},
+            {name:"מקדחה נטענת",description:"לעבודות קידוח בעץ, מתכת, בלוק, גבס עשה זאת בעצמך",price:"60",image:"images/מקדחה נטענת מקיטה.JPEG"},
+            {name:"פטישון נטען",description:"פטישון עוצמתי, לקידוח בכל סוגי חומרי הגלם כולל בטון",price:"84",image:"images/פטישון נטען.jpg"},
+            {name:"דיסק 9\" חשמלי",description:"דיסק גדול לעבודות מקצועיות לחיתוך ברזל/אלומיניום",price:"84",image:"images/דיסק 9 אינץ בוש.jpg"},
+            {name:"פלס לייזר",description:"לעבודות פילוס ואיזון מקצועיות, 15 מטר מרחק",price:"96",image:"images/סט מלא של פלס לייזר.jpeg"},
+            {name:"פולישר חשמלי",description:"לעבודות פוליש מקצועיות, משטחי אפוקסי/שיש/פלסטיק",price:"120",image:"images/פולישר מקיטה חשמלי.JPEG"},
+            {name:"מפוח נטען",description:"לעבודות גינון וניקיון קטנות, עם 3 מצבי מהירות",price:"90",image:"images/Photoroom_20250518_081443.JPEG"},
+            {name:"מסור חרב נטען",description:"לחיתוך כל חומרי הגלם, מתכת/פלסטיק/עץ/נירוסטה",price:"96",image:"images/מסור חרב נטען בוש יד אחת.JPEG"},
+            {name:"מקצוע חשמלי",description:"להקצעת עץ ולוחות/קרשים, עד 3 מ\"מ בפעם אחת",price:"72",image:"images/Photoroom_20250515_134745.JPEG"},
+            {name:"רוטר חשמלי",description:"לעבודות עיצוב ועבודות מיוחדות, חריטה ועוד",price:"72",image:"images/רוטר בוש.jpg"},
+            {name:"מערבל חשמלי",description:"לערבב צבעים/חומרים צמנטים/ חימר ועוד",price:"72",image:"images/מערבל בטון ידני חשמלי.jpg"},
+            {name:"סט דרמל חשמלי",description:"סט מלא עם אביזרים נלווים לדרמל 3000",price:"60",image:"images/סט דרמל חשמלי.jpg"},
+            {name:"אקדח מסמרים נטען",description:"אקדח מסמרים וסיכות משולב עד אורך 5 ס\"מ",price:"84",image:"images/אקדח מסמרים וסיכות נייד.jpg"},
+            {name:"אקדח אוויר חם",description:"חשמלי, מגיע עם סט ראשים להחלפה",price:"40.8",image:"images/אקדח אוויר חם עם אביזרים.jpeg"},
+            {name:"פטישון חשמלי",description:"לקידוח במגוון רחב של חומרי גלם",price:"48",image:"images/פטישון חשמלי בוש 2.jpg"},
+            {name:"פטיש חציבה 5 ק\"ג",description:"לעבודות חציבה קטנות בקירות ורצפה",price:"150",image:"images/Quarry hammer 6 kg.jpg"},
+            {name:"משאבת מים",description:"לשאיבה עד גובה 8 מטר, חשמלי",price:"120",image:"images/water pump.jpeg"},
+            {name:"מלטשת טלסקופית 9\"",description:"לליטוש קירות/תקרה לאחר שפכטל",price:"84",image:"images/מלטשת 9 צול טלסקופית.jpg"},
+            {name:"מלטשת אקצנטרית 5\"",description:"לליטוש עץ וקירות, עם מיכל לאיסוף אבק",price:"48",image:"images/מלטשת בוש 5 אקנטרית.jpg"},
+            {name:"ג'יגסו חשמלי",description:"לחיתוך עץ/מתכת/אלומיניום/פלסטיק בצורות",price:"48",image:"images/ג'קסון חשמלי מקיטה.jpg"},
+            {name:"בוסטר חשמלי",description:"להתנעת כלי רכב עד נפח מנוע 4,800 סמ\"ק",price:"40",image:"images/Portable booster.jpg"},
+            {name:"רתכת אלקטרודות",description:"ריתוך באמצעות אלקטרודות, 200 אמפר",price:"72",image:"images/welding electrodes.jpg"},
+            {name:"קומבי נטען",description:"מסור שרשרת 8\" וגם מגזמזת מתכווננת",price:"195",image:"images/rechargeable Combo A.jpg"},
+            {name:"מד מרחק לייזר",description:"עד מרחק של 45 מטר, מעולה למדידות",price:"30",image:"images/גלאי מתכות בקיר בוש.jpg"},
+            {name:"מסור עגול חשמלי",description:"לחיתוך עץ/אלומיניום/פלסטיק בקו ישר",price:"72",image:"images/מסור סקיל מקיטה .jpg"},
+            {name:"שואב אבק תעשייתי",description:"לניקיון ושאיבה של שאריות ולכלוך בניה",price:"195",image:"images/שואב אבק תעשייתי.jpg"},
+            {name:"דיסק חשמלי 4.5 אינץ",description:"לחיתוך ברזל/עץ/אלומיניות/קרמיקה/אבן",price:"40",image:"images/דיסק 4.5 אינטץ מילווקי.jpg"},
+            {name:"עגלה טלסקופית",description:"לנוחות עבודה בשינוע ציוד, מוצרים, ארגזים",price:"50",image:"images/עגלה טלסקופית.JPEG"},
+            {name:"ג'ק הרמה 2 טון",description:"ג'ק הרמה הידראולי איכותי עד 2 טון",price:"48",image:"images/ג'ק הרמה 2 טון.JPG"},
+            {name:"דיסק 4.5 אינץ נטען",description:"לחיתוך ברזל/עץ/אלומיניות, נטען על סוללות",price:"60",image:"images/Rechargeable disc grinder 4.5.jpeg"},
+            {name:"מגהץ קיטור אנכי",description:"מגהצים ישירות על הבגד שתלוי על כולב",price:"35",image:"images/Steam iron.jpg"},
+            {name:"תיק צ'ימיגג",description:"תיק אחסון לנסיעות, בנפח של 500 ליטר",price:"30",image:"images/Chimigag bag.jpg"},
+            {name:"אוהל ים",description:"אוהל חוף ים מבית סולי, במידות 2.8X2",price:"48",image:"images/אוהל ים סולי.JPG"},
+            {name:"פרוז'קטור נטען",description:"מושלם לטיולים, קמפינג, עבודות לילה",price:"72",image:"images/Rechargeable Flashlight.jpg"},
+            {name:"מרסס צבע נטען",description:"לצביעת רהיטים, נגרות, מסגרות, קירות",price:"120",image:"images/מרסס צבע נטען איינל.JPEG"},
+            {name:"פותח סתימות נטען",description:"לפתיחת סתימות ביתיות בכיורים וצנרת",price:"120",image:"images/פותח סתימות נטען.JPEG"},
+            {name:"חצובה 2 מטר",description:"למצלמות או פלסי לייזר ולסמארטפון",price:"42",image:"images/חצובה גובה 2 מטר.jpeg"},
+            {name:"מנקה חלונות רובוטי",description:"רובוט חשמלי לניקוי חלונות וויטרינות",price:"120",image:"images/מנקה חלונות רובוטי 3.JPEG"},
+            {name:"מכונה לניקוי בעלי חיים",description:"מכונה מושלמת לשטיפה וייבוש בעלי חיים",price:"150",image:"images/מכונה לניקוי בעלי חיים 3.JPEG"},
+            {name:"רתמת בטיחות",description:"לעבודות בגובה על סולמות, פיגומים, מנופים",price:"48",image:"images/Safety harness.jpg"},
+            {name:"סט מזוודות בלתי שבירות",description:"סט של 2 מזוודות בלתי שבירות ומתקפלות",price:"30",image:"images/מזוודה בלתי שבירה 29 אינץ'+ טרולי.jpeg"},
+            {name:"גרניק נטען",description:"גרניק נטען עוצמתי עם 4 מצבי עבודה",price:"120",image:"images/גרניק נטען על סוללות.jpeg"},
+            {name:"אקדח סיכות נטען",description:"אקדח סיכות עוצמתי לנגרות ובניה",price:"96",image:"images/אקדח סיכות נטען.jpeg"},
+            {name:"מנשא לתינוק",description:"מנשא אומני בריז - בטיחות נוחות וחופש",price:"48",image:"images/מנשא לתינוק.JPG"}
+        ];
+
+        // Load products into carousel
+        const carouselContainer = document.getElementById('carouselContainer');
+        
+        products.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy">
+                <div class="product-content">
+                    <h3 class="product-name">${product.name}</h3>
+                    <p class="product-description">${product.description}</p>
+                    <div class="product-footer">
+                        <div class="product-price">
+                            <span class="currency">₪</span>${product.price}
+                            <span class="product-period">ל-24 שעות</span>
+                        </div>
+                        <a href="https://online.keynius.app/home/a4a89521-1efb-45cb-a931-80cc5d3bd236" 
+                           target="_blank" 
+                           class="product-btn">השכר עכשיו</a>
+                    </div>
+                </div>
+            `;
+            carouselContainer.appendChild(card);
+        });
+
+        // Carousel navigation
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        prevBtn.addEventListener('click', () => {
+            carouselContainer.scrollBy({ left: -360, behavior: 'smooth' });
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            carouselContainer.scrollBy({ left: 360, behavior: 'smooth' });
+        });
+
         // Mobile Menu Toggle
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
