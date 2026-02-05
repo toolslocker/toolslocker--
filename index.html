@@ -131,19 +131,21 @@
         }
 
         .phone-btn {
-            background: var(--dark);
-            color: var(--white);
+            background: var(--accent);
+            color: var(--dark);
             padding: 0.6rem 1.5rem;
             border-radius: 50px;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(215, 223, 35, 0.3);
         }
 
         .phone-btn:hover {
-            background: var(--accent);
-            color: var(--dark);
+            background: var(--primary);
+            color: var(--white);
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(23, 102, 53, 0.4);
         }
 
         /* Mobile Menu */
@@ -968,7 +970,7 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&q=80" alt="כלי עבודה">
+                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80" alt="ToolsLocker - השכרת כלי עבודה">
             </div>
         </div>
     </section>
@@ -1158,40 +1160,40 @@
         // Products data with local images
         const products = [
             {name:"מברגה אימפקט",description:"לעבודות בניה, תחזוקה, עשה זאת בעצמך, מגיע עם מטען, סוללה 4 אמפר טעונה",price:"48",image:"images/Screwdriver.jpg"},
-            {name:"מכונה לניקוי ספות ושטיחים",description:"לעבודות ניקיון ותחזוקה ביתית של ספות, שטיחים, כסאות, מזרונים",price:"120",image:"images/מכונת שאיבה ושטיפה.jpg"},
-            {name:"קיטורית",description:"לניקוי וחיטוי באמצעות אדי קיטור, כל סוגי המשטחים, קירות, שיש",price:"72",image:"images/קיטורית קארשר עם אביזרים.jpg"},
-            {name:"מיקסר למטבח",description:"לעבודות מטבח מקצועיות וביתיות, להכנת בצקים, עוגות, רטבים",price:"72",image:"images/מיקסר עם בלנדר 2.jpeg"},
-            {name:"כירה חשמלית למטבח",description:"לעבודות מטבח מקצועיות וביתיות, לבישול והכנת רטבים",price:"30",image:"images/כיריים אינדוקציה מקצועיות.jpg"},
+            {name:"מכונה לניקוי ספות ושטיחים",description:"לעבודות ניקיון ותחזוקה ביתית של ספות, שטיחים, כסאות, מזרונים",price:"120",image:"images/cleaning sofas and carpets.jpg"},
+            {name:"קיטורית",description:"לניקוי וחיטוי באמצעות אדי קיטור, כל סוגי המשטחים, קירות, שיש",price:"72",image:"images/Electric steamer.jpg"},
+            {name:"מיקסר למטבח",description:"לעבודות מטבח מקצועיות וביתיות, להכנת בצקים, עוגות, רטבים",price:"72",image:"images/Electric hand mixer.jpg"},
+            {name:"כירה חשמלית למטבח",description:"לעבודות מטבח מקצועיות וביתיות, לבישול והכנת רטבים",price:"30",image:"images/Electric stove.jpg"},
             {name:"מיקרופונים אלחוטיים",description:"זוג מיקרופונים אלחוטיים JBL כולל מתאם חיבור אלחוטי ומטען",price:"72",image:"images/זוג מיקרופונים.JPG"},
             {name:"בידורית JBL",description:"PARTY BOX120 למסיבות, פנאי ובילוי בכל מקום, רמקול עוצמתי",price:"164",image:"images/PARTY BO 120בידורית JBL.JPG"},
             {name:"גרניק 120 באר",description:"לשטיפה בלחץ, לעבודות קטנות ניקיון הבית/מחסן/רכב",price:"72",image:"images/גרניק 120 בר סט.jpeg"},
-            {name:"מסור שרשרת 12\"",description:"לעבודות גינון ביתיות, לגיזום ענפים או גזעים קטנים",price:"195",image:"images/מסור שרשרת נטען דיוולט.jpg"},
-            {name:"מקדחה נטענת",description:"לעבודות קידוח בעץ, מתכת, בלוק, גבס עשה זאת בעצמך",price:"60",image:"images/מקדחה נטענת מקיטה.JPEG"},
-            {name:"פטישון נטען",description:"פטישון עוצמתי, לקידוח בכל סוגי חומרי הגלם כולל בטון",price:"84",image:"images/פטישון נטען.jpg"},
-            {name:"דיסק 9\" חשמלי",description:"דיסק גדול לעבודות מקצועיות לחיתוך ברזל/אלומיניום",price:"84",image:"images/דיסק 9 אינץ בוש.jpg"},
-            {name:"פלס לייזר",description:"לעבודות פילוס ואיזון מקצועיות, 15 מטר מרחק",price:"96",image:"images/סט מלא של פלס לייזר.jpeg"},
-            {name:"פולישר חשמלי",description:"לעבודות פוליש מקצועיות, משטחי אפוקסי/שיש/פלסטיק",price:"120",image:"images/פולישר מקיטה חשמלי.JPEG"},
+            {name:"מסור שרשרת 12\"",description:"לעבודות גינון ביתיות, לגיזום ענפים או גזעים קטנים",price:"195",image:"images/10 electric chain saw.jpg"},
+            {name:"מקדחה נטענת",description:"לעבודות קידוח בעץ, מתכת, בלוק, גבס עשה זאת בעצמך",price:"60",image:"images/Drill.jpg"},
+            {name:"פטישון נטען",description:"פטישון עוצמתי, לקידוח בכל סוגי חומרי הגלם כולל בטון",price:"84",image:"images/Rechargeable hammer.jpg"},
+            {name:"דיסק 9\" חשמלי",description:"דיסק גדול לעבודות מקצועיות לחיתוך ברזל/אלומיניום",price:"84",image:"images/9 disc grinder.jpg"},
+            {name:"פלס לייזר",description:"לעבודות פילוס ואיזון מקצועיות, 15 מטר מרחק",price:"96",image:"images/Laser leveler.jpeg"},
+            {name:"פולישר חשמלי",description:"לעבודות פוליש מקצועיות, משטחי אפוקסי/שיש/פלסטיק",price:"120",image:"images/5 electric sander.jpg"},
             {name:"מפוח נטען",description:"לעבודות גינון וניקיון קטנות, עם 3 מצבי מהירות",price:"90",image:"images/Photoroom_20250518_081443.JPEG"},
             {name:"מסור חרב נטען",description:"לחיתוך כל חומרי הגלם, מתכת/פלסטיק/עץ/נירוסטה",price:"96",image:"images/מסור חרב נטען בוש יד אחת.JPEG"},
             {name:"מקצוע חשמלי",description:"להקצעת עץ ולוחות/קרשים, עד 3 מ\"מ בפעם אחת",price:"72",image:"images/Photoroom_20250515_134745.JPEG"},
-            {name:"רוטר חשמלי",description:"לעבודות עיצוב ועבודות מיוחדות, חריטה ועוד",price:"72",image:"images/רוטר בוש.jpg"},
+            {name:"רוטר חשמלי",description:"לעבודות עיצוב ועבודות מיוחדות, חריטה ועוד",price:"72",image:"images/Electric rotor.jpg"},
             {name:"מערבל חשמלי",description:"לערבב צבעים/חומרים צמנטים/ חימר ועוד",price:"72",image:"images/מערבל בטון ידני חשמלי.jpg"},
-            {name:"סט דרמל חשמלי",description:"סט מלא עם אביזרים נלווים לדרמל 3000",price:"60",image:"images/סט דרמל חשמלי.jpg"},
-            {name:"אקדח מסמרים נטען",description:"אקדח מסמרים וסיכות משולב עד אורך 5 ס\"מ",price:"84",image:"images/אקדח מסמרים וסיכות נייד.jpg"},
-            {name:"אקדח אוויר חם",description:"חשמלי, מגיע עם סט ראשים להחלפה",price:"40.8",image:"images/אקדח אוויר חם עם אביזרים.jpeg"},
-            {name:"פטישון חשמלי",description:"לקידוח במגוון רחב של חומרי גלם",price:"48",image:"images/פטישון חשמלי בוש 2.jpg"},
+            {name:"סט דרמל חשמלי",description:"סט מלא עם אביזרים נלווים לדרמל 3000",price:"60",image:"images/Electric Dremel.jpg"},
+            {name:"אקדח מסמרים נטען",description:"אקדח מסמרים וסיכות משולב עד אורך 5 ס\"מ",price:"84",image:"images/Rechargeable nail gun.jpg"},
+            {name:"אקדח אוויר חם",description:"חשמלי, מגיע עם סט ראשים להחלפה",price:"40.8",image:"images/Electric heat gun.jpeg"},
+            {name:"פטישון חשמלי",description:"לקידוח במגוון רחב של חומרי גלם",price:"48",image:"images/Electric hammer.jpg"},
             {name:"פטיש חציבה 5 ק\"ג",description:"לעבודות חציבה קטנות בקירות ורצפה",price:"150",image:"images/Quarry hammer 6 kg.jpg"},
             {name:"משאבת מים",description:"לשאיבה עד גובה 8 מטר, חשמלי",price:"120",image:"images/water pump.jpeg"},
-            {name:"מלטשת טלסקופית 9\"",description:"לליטוש קירות/תקרה לאחר שפכטל",price:"84",image:"images/מלטשת 9 צול טלסקופית.jpg"},
-            {name:"מלטשת אקצנטרית 5\"",description:"לליטוש עץ וקירות, עם מיכל לאיסוף אבק",price:"48",image:"images/מלטשת בוש 5 אקנטרית.jpg"},
-            {name:"ג'יגסו חשמלי",description:"לחיתוך עץ/מתכת/אלומיניום/פלסטיק בצורות",price:"48",image:"images/ג'קסון חשמלי מקיטה.jpg"},
+            {name:"מלטשת טלסקופית 9\"",description:"לליטוש קירות/תקרה לאחר שפכטל",price:"84",image:"images/9 telescopic sander.jpg"},
+            {name:"מלטשת אקצנטרית 5\"",description:"לליטוש עץ וקירות, עם מיכל לאיסוף אבק",price:"48",image:"images/5 electric sander.jpg"},
+            {name:"ג'יגסו חשמלי",description:"לחיתוך עץ/מתכת/אלומיניום/פלסטיק בצורות",price:"48",image:"images/Electric jigsaw.jpg"},
             {name:"בוסטר חשמלי",description:"להתנעת כלי רכב עד נפח מנוע 4,800 סמ\"ק",price:"40",image:"images/Portable booster.jpg"},
             {name:"רתכת אלקטרודות",description:"ריתוך באמצעות אלקטרודות, 200 אמפר",price:"72",image:"images/welding electrodes.jpg"},
             {name:"קומבי נטען",description:"מסור שרשרת 8\" וגם מגזמזת מתכווננת",price:"195",image:"images/rechargeable Combo A.jpg"},
-            {name:"מד מרחק לייזר",description:"עד מרחק של 45 מטר, מעולה למדידות",price:"30",image:"images/גלאי מתכות בקיר בוש.jpg"},
-            {name:"מסור עגול חשמלי",description:"לחיתוך עץ/אלומיניום/פלסטיק בקו ישר",price:"72",image:"images/מסור סקיל מקיטה .jpg"},
-            {name:"שואב אבק תעשייתי",description:"לניקיון ושאיבה של שאריות ולכלוך בניה",price:"195",image:"images/שואב אבק תעשייתי.jpg"},
-            {name:"דיסק חשמלי 4.5 אינץ",description:"לחיתוך ברזל/עץ/אלומיניות/קרמיקה/אבן",price:"40",image:"images/דיסק 4.5 אינטץ מילווקי.jpg"},
+            {name:"מד מרחק לייזר",description:"עד מרחק של 45 מטר, מעולה למדידות",price:"30",image:"images/Laser Distance Meter.jpg"},
+            {name:"מסור עגול חשמלי",description:"לחיתוך עץ/אלומיניום/פלסטיק בקו ישר",price:"72",image:"images/Electric circular saw.jpg"},
+            {name:"שואב אבק תעשייתי",description:"לניקיון ושאיבה של שאריות ולכלוך בניה",price:"195",image:"images/Industrial vacuum cleaner.jpg"},
+            {name:"דיסק חשמלי 4.5 אינץ",description:"לחיתוך ברזל/עץ/אלומיניות/קרמיקה/אבן",price:"40",image:"images/disc grinder 4.5.jpg"},
             {name:"עגלה טלסקופית",description:"לנוחות עבודה בשינוע ציוד, מוצרים, ארגזים",price:"50",image:"images/עגלה טלסקופית.JPEG"},
             {name:"ג'ק הרמה 2 טון",description:"ג'ק הרמה הידראולי איכותי עד 2 טון",price:"48",image:"images/ג'ק הרמה 2 טון.JPG"},
             {name:"דיסק 4.5 אינץ נטען",description:"לחיתוך ברזל/עץ/אלומיניות, נטען על סוללות",price:"60",image:"images/Rechargeable disc grinder 4.5.jpeg"},
