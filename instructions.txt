@@ -1,0 +1,34 @@
+=== איך להפעיל את TaskMarket בקלות ===
+
+אפשרות 1: GitHub Pages (מומלץ)
+---------------------------------
+1. לך ל-GitHub.com ולריפוזיטורי toolslocker--
+2. לחץ על Settings
+3. גלול ל-Pages (בתפריט צד)
+4. תחת "Source" בחר: Branch: claude/task-marketplace-platform-GWH1g
+5. לחץ Save
+6. אחרי דקה תקבל קישור כמו:
+   https://toolslocker.github.io/toolslocker--/taskmarket.html
+
+אפשרות 2: הורדה ישירה מ-GitHub
+--------------------------------
+1. לך ל: https://github.com/toolslocker/toolslocker--
+2. עבור לענף: claude/task-marketplace-platform-GWH1g
+3. לחץ על הקובץ taskmarket.html
+4. לחץ על כפתור "Raw" 
+5. Ctrl+S לשמור את הדף
+6. פתח את הקובץ שהורדת
+
+אפשרות 3: ראו קוד ב-GitHub
+---------------------------
+1. לך ל: https://github.com/toolslocker/toolslocker--
+2. עבור לענף: claude/task-marketplace-platform-GWH1g
+3. לחץ על taskmarket.html
+4. העתק את כל הקוד
+5. שמור בקובץ חדש במחשב שלך
+6. פתח בדפדפן
+
+הקבצים שלך:
+- taskmarket.html (הפלטפורמה)
+- PREVIEW.html (תצוגה מקדימה בעברית)
+- README_TASKMARKET.md (תיעוד)
