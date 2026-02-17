@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskMarket - Paid Task Platform</title>
+    <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5568d3;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --danger: #f87171;
+            --dark: #1a1a2e;
+            --dark-alt: #16213e;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --text: #2d3748;
+            --text-light: #718096;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+
+            /* Light mode backgrounds */
+            --bg-gradient-start: #667eea;
+            --bg-gradient-end: #764ba2;
+            --card-bg: rgba(255, 255, 255, 0.15);
+            --card-bg-strong: rgba(255, 255, 255, 0.25);
+            --modal-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Dark Mode Colors */
+        body.dark-mode {
+            --bg-gradient-start: #1a1a2e;
+            --bg-gradient-end: #16213e;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-bg-strong: rgba(255, 255, 255, 0.1);
+            --modal-bg: rgba(26, 26, 46, 0.95);
+            --text: #e2e8f0;
+            --text-light: #cbd5e0;
+            --input-bg: rgba(255, 255, 255, 0.1);
+            --input-text: #e2e8f0;
+            --input-border: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Light Mode Input Colors */
+        :root {
+            --input-bg: rgba(102, 126, 234, 0.08);
+            --input-text: #1a1a2e;
+            --input-border: rgba(102, 126, 234, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            min-height: 100vh;
+            color: var(--text);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* RTL Support */
+        body.rtl {
+            direction: rtl;
+        }
+
+        body.rtl .logo {
+            flex-direction: row-reverse;
+        }
+
+        /* Settings Controls */
+        .settings-controls {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 2000;
+            display: flex;
+            gap: 10px;
+        }
+
+        body.rtl .settings-controls {
+            left: auto;
+            right: 20px;
+        }
+
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        /* Glassmorphism styles */
+        .glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .glass-strong {
+            background: var(--card-bg-strong);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Authentication Screen */
+        #authScreen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .auth-card {
+            border-radius: 24px;
+            padding: 40px;
+            animation: slideUp 0.5s ease;
+        }
+
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-logo h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .auth-logo p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .auth-tab.active {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: white;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-control:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(240, 147, 251, 0.6);
+        }
+
+        /* Main App */
+        #mainApp {
+            display: none;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .app-header {
+            padding: 20px 0;
+            margin-bottom: 20px;
+            margin-top: 60px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .user-wallet {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .user-wallet:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .wallet-amount {
+            font-size: 1.2rem;
+            color: var(--success);
+        }
+
+        .user-menu {
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-menu:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Bento Grid Layout */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .bento-item {
+            border-radius: 24px;
+            padding: 24px;
+            transition: transform 0.3s;
+        }
+
+        .bento-item:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            grid-column: span 12;
+            grid-row: span 1;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .action-card {
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .action-card:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        .action-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .action-card h3 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .action-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        /* Stats Cards */
+        .stats-large {
+            grid-column: span 8;
+        }
+
+        .stats-small {
+            grid-column: span 4;
+        }
+
+        .stat-card {
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 15px;
+        }
+
+        .stat-card h4 {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        /* Tasks List */
+        .tasks-section {
+            grid-column: span 12;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .section-header h2 {
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 8px 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .filter-tab.active {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .tasks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .task-card {
+            padding: 24px;
+            border-radius: 20px;
+            background: var(--card-bg-strong);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .task-card:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-3px);
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+
+        .task-title {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .task-amount {
+            background: var(--success);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .task-description {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .task-meta {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .task-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .task-distance {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .btn-small {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #22c55e;
+            transform: scale(1.05);
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--modal-bg);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-header h2 {
+            color: var(--primary);
+        }
+
+        body.dark-mode .modal-header h2 {
+            color: var(--accent);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .close-modal:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Modal Input Fields */
+        .modal-input {
+            background: var(--input-bg) !important;
+            color: var(--input-text) !important;
+            border: 2px solid var(--input-border) !important;
+        }
+
+        .modal-input::placeholder {
+            color: var(--text-light) !important;
+            opacity: 0.7;
+        }
+
+        .modal-input:focus {
+            background: var(--input-bg) !important;
+            border-color: var(--primary) !important;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* Status badges */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--warning);
+        }
+
+        .status-active {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        .status-open {
+            background: rgba(74, 222, 128, 0.2);
+            color: var(--success);
+        }
+
+        .status-completed {
+            background: rgba(74, 222, 128, 0.2);
+            color: var(--success);
+        }
+
+        .status-in-progress {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-large,
+            .stats-small,
+            .tasks-section {
+                grid-column: span 1;
+            }
+
+            .tasks-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .header-actions {
+                flex-direction: column;
+            }
+
+            .settings-controls {
+                top: 10px;
+                left: 10px;
+            }
+
+            body.rtl .settings-controls {
+                left: auto;
+                right: 10px;
+            }
+        }
+
+        /* Profile Section */
+        .profile-section {
+            grid-column: span 12;
+        }
+
+        .profile-card {
+            padding: 40px;
+            border-radius: 24px;
+            background: var(--card-bg-strong);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .profile-header {
+            display: flex;
+            gap: 30px;
+            align-items: start;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .profile-info h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .profile-info p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 5px;
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .profile-stat {
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+
+        .profile-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .profile-stat-label {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .transaction-history {
+            margin-top: 30px;
+        }
+
+        .transaction-history h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .transaction-item {
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .transaction-info h4 {
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .transaction-info p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .transaction-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .amount-positive {
+            color: var(--success);
+        }
+
+        .amount-negative {
+            color: var(--danger);
+        }
+    </style>
+</head>
+<body>
+    <!-- Settings Controls -->
+    <div class="settings-controls">
+        <button class="control-btn" id="darkModeToggle" title="Toggle Dark Mode">🌙</button>
+        <button class="control-btn" id="languageToggle" title="Toggle Language">🌐</button>
+    </div>
+
+    <!-- Authentication Screen -->
+    <div id="authScreen">
+        <div class="auth-container">
+            <div class="auth-card glass-strong">
+                <div class="auth-logo">
+                    <h1>💼 TaskMarket</h1>
+                    <p id="authSubtitle">Get things done, earn money</p>
+                </div>
+
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="switchAuthTab('login')" id="loginTab">Login</button>
+                    <button class="auth-tab" onclick="switchAuthTab('register')" id="registerTab">Register</button>
+                </div>
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label id="emailLabel">Email</label>
+                        <input type="email" class="form-control" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="passwordLabel">Password</label>
+                        <input type="password" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="loginButton">Login</button>
+                </form>
+
+                <form id="registerForm" style="display: none;" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label id="nameLabel">Full Name</label>
+                        <input type="text" class="form-control" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="emailLabel2">Email</label>
+                        <input type="email" class="form-control" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="passwordLabel2">Password</label>
+                        <input type="password" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group">
+                        <label id="phoneLabel">Phone Number</label>
+                        <input type="tel" class="form-control" placeholder="+1 234 567 8900" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="registerButton">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp">
+        <!-- Header -->
+        <div class="app-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <div class="logo-icon">💼</div>
+                        <span>TaskMarket</span>
+                    </div>
+                    <div class="header-actions">
+                        <div class="user-wallet" onclick="openWalletModal()" title="View wallet details">
+                            <span>💰</span>
+                            <span class="wallet-amount">$<span id="walletBalance">0</span></span>
+                        </div>
+                        <div class="user-menu" onclick="showView('profile')">
+                            <span id="userAvatar">👤</span>
+                            <span id="userName">User</span>
+                        </div>
+                        <button class="btn-small btn-danger" onclick="logout()" id="logoutBtn">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard View -->
+        <div id="dashboardView" class="container">
+            <div class="bento-grid">
+                <!-- Quick Actions -->
+                <div class="bento-item glass quick-actions">
+                    <h2 style="color: white; margin-bottom: 10px;" id="quickActionsTitle">Quick Actions</h2>
+                    <div class="actions-grid">
+                        <div class="action-card" onclick="openCreateTaskModal()">
+                            <div class="icon">➕</div>
+                            <h3 id="createTaskText">Create Task</h3>
+                            <p id="createTaskDesc">Post a new task</p>
+                        </div>
+                        <div class="action-card" onclick="showView('tasks')">
+                            <div class="icon">🔍</div>
+                            <h3 id="browseTasksText">Browse Tasks</h3>
+                            <p id="browseTasksDesc">Find tasks nearby</p>
+                        </div>
+                        <div class="action-card" onclick="showView('myTasks')">
+                            <div class="icon">📋</div>
+                            <h3 id="myTasksText">My Tasks</h3>
+                            <p id="myTasksDesc">View your tasks</p>
+                        </div>
+                        <div class="action-card" onclick="showView('profile')">
+                            <div class="icon">👤</div>
+                            <h3 id="profileText">Profile</h3>
+                            <p id="profileDesc">View your profile</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Large -->
+                <div class="bento-item glass stats-large">
+                    <h2 style="color: white; margin-bottom: 20px;" id="overviewTitle">Overview</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div class="stat-card">
+                            <h4 id="tasksPostedLabel">Tasks Posted</h4>
+                            <div class="stat-value" id="tasksPostedCount">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4 id="tasksCompletedLabel">Tasks Completed</h4>
+                            <div class="stat-value" id="tasksCompletedCount">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4 id="activeRequestsLabel">Active Requests</h4>
+                            <div class="stat-value" id="activeRequestsCount">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h4 id="totalEarnedLabel">Total Earned</h4>
+                            <div class="stat-value" style="color: var(--success);">$<span id="totalEarned">0</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Small -->
+                <div class="bento-item glass stats-small">
+                    <h2 style="color: white; margin-bottom: 20px;" id="ratingTitle">Rating</h2>
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 4rem; margin-bottom: 10px;">⭐</div>
+                        <div class="stat-value" id="userRating">4.8</div>
+                        <p style="color: rgba(255, 255, 255, 0.8); margin-top: 10px;"><span id="basedOnText">Based on</span> <span id="reviewCount">12</span> <span id="reviewsText">reviews</span></p>
+                    </div>
+                </div>
+
+                <!-- Recent Tasks -->
+                <div class="bento-item glass tasks-section">
+                    <div class="section-header">
+                        <h2 id="nearbyTasksTitle">Nearby Tasks</h2>
+                        <div class="filter-tabs">
+                            <button class="filter-tab active" onclick="filterTasks('all')" id="filterAll">All</button>
+                            <button class="filter-tab" onclick="filterTasks('nearby')" id="filterNearby">Nearby</button>
+                            <button class="filter-tab" onclick="filterTasks('high-pay')" id="filterHighPay">High Pay</button>
+                        </div>
+                    </div>
+                    <div class="tasks-grid" id="tasksGrid">
+                        <!-- Tasks will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile View -->
+        <div id="profileView" class="container" style="display: none;">
+            <div class="bento-grid">
+                <div class="bento-item glass profile-section">
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-avatar" id="profileAvatar">JD</div>
+                            <div class="profile-info">
+                                <h2 id="profileName">John Doe</h2>
+                                <p id="profileEmail">john@example.com</p>
+                                <p id="profilePhone">+1 234 567 8900</p>
+                                <p style="margin-top: 10px;">
+                                    <span class="status-badge status-active" id="activeMemberBadge">Active Member</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="profile-stats">
+                            <div class="profile-stat">
+                                <div class="profile-stat-value">$<span id="profileWallet">0</span></div>
+                                <div class="profile-stat-label" id="walletBalanceLabel">Wallet Balance</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="profile-stat-value" id="profileTasksPosted">0</div>
+                                <div class="profile-stat-label" id="profileTasksPostedLabel">Tasks Posted</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="profile-stat-value" id="profileTasksCompleted">0</div>
+                                <div class="profile-stat-label" id="profileTasksCompletedLabel">Tasks Completed</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="profile-stat-value" id="profileRating">4.8</div>
+                                <div class="profile-stat-label" id="avgRatingLabel">Average Rating</div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 20px;">
+                            <button class="btn btn-primary" style="max-width: 300px;" onclick="showView('dashboard')" id="backToDashboardBtn">Back to Dashboard</button>
+                        </div>
+
+                        <div class="transaction-history">
+                            <h3 id="recentTransactionsTitle">Recent Transactions</h3>
+                            <div id="transactionsList">
+                                <!-- Transactions will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Task Modal -->
+    <div id="createTaskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="createTaskModalTitle">Create New Task</h2>
+                <button class="close-modal" onclick="closeCreateTaskModal()">×</button>
+            </div>
+            <form onsubmit="handleCreateTask(event)">
+                <div class="form-group">
+                    <label id="taskTitleLabel" style="color: var(--text); font-weight: 600;">Task Title</label>
+                    <input type="text" class="form-control modal-input" id="taskTitle" placeholder="e.g., Help move furniture" required>
+                </div>
+                <div class="form-group">
+                    <label id="taskDescriptionLabel" style="color: var(--text); font-weight: 600;">Description</label>
+                    <textarea class="form-control modal-input" id="taskDescription" rows="4" placeholder="Describe what needs to be done..." required style="resize: vertical;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label id="taskLocationLabel" style="color: var(--text); font-weight: 600;">Location</label>
+                    <input type="text" class="form-control modal-input" id="taskLocation" placeholder="Street address or area" required>
+                </div>
+                <div class="form-group">
+                    <label id="taskDateTimeLabel" style="color: var(--text); font-weight: 600;">Date & Time</label>
+                    <input type="datetime-local" class="form-control modal-input" id="taskDateTime" required>
+                </div>
+                <div class="form-group">
+                    <label id="taskAmountLabel" style="color: var(--text); font-weight: 600;">Payment Amount ($)</label>
+                    <input type="number" class="form-control modal-input" id="taskAmount" min="5" step="5" placeholder="50" required>
+                </div>
+                <button type="submit" class="btn btn-primary" id="createTaskSubmitBtn">Create Task</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Task Details Modal -->
+    <div id="taskDetailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="taskDetailsModalTitle">Task Details</h2>
+                <button class="close-modal" onclick="closeTaskDetailsModal()">×</button>
+            </div>
+            <div id="taskDetailsContent">
+                <!-- Task details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Wallet/Income Modal -->
+    <div id="walletModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="walletModalTitle">💰 Wallet & Income Report</h2>
+                <button class="close-modal" onclick="closeWalletModal()">×</button>
+            </div>
+            <div id="walletContent">
+                <!-- Wallet content will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Translations
+        const translations = {
+            en: {
+                authSubtitle: "Get things done, earn money",
+                loginTab: "Login",
+                registerTab: "Register",
+                emailLabel: "Email",
+                passwordLabel: "Password",
+                loginButton: "Login",
+                nameLabel: "Full Name",
+                phoneLabel: "Phone Number",
+                registerButton: "Create Account",
+                logoutBtn: "Logout",
+                quickActionsTitle: "Quick Actions",
+                createTaskText: "Create Task",
+                createTaskDesc: "Post a new task",
+                browseTasksText: "Browse Tasks",
+                browseTasksDesc: "Find tasks nearby",
+                myTasksText: "My Tasks",
+                myTasksDesc: "View your tasks",
+                profileText: "Profile",
+                profileDesc: "View your profile",
+                overviewTitle: "Overview",
+                tasksPostedLabel: "Tasks Posted",
+                tasksCompletedLabel: "Tasks Completed",
+                activeRequestsLabel: "Active Requests",
+                totalEarnedLabel: "Total Earned",
+                ratingTitle: "Rating",
+                basedOnText: "Based on",
+                reviewsText: "reviews",
+                nearbyTasksTitle: "Nearby Tasks",
+                filterAll: "All",
+                filterNearby: "Nearby",
+                filterHighPay: "High Pay",
+                activeMemberBadge: "Active Member",
+                walletBalanceLabel: "Wallet Balance",
+                profileTasksPostedLabel: "Tasks Posted",
+                profileTasksCompletedLabel: "Tasks Completed",
+                avgRatingLabel: "Average Rating",
+                backToDashboardBtn: "Back to Dashboard",
+                recentTransactionsTitle: "Recent Transactions",
+                createTaskModalTitle: "Create New Task",
+                taskTitleLabel: "Task Title",
+                taskDescriptionLabel: "Description",
+                taskLocationLabel: "Location",
+                taskDateTimeLabel: "Date & Time",
+                taskAmountLabel: "Payment Amount ($)",
+                createTaskSubmitBtn: "Create Task",
+                taskDetailsModalTitle: "Task Details",
+                requestTaskBtn: "Request Task",
+                viewRequestsBtn: "View Requests",
+                kmAway: "km away"
+            },
+            he: {
+                authSubtitle: "בצע משימות, הרווח כסף",
+                loginTab: "התחבר",
+                registerTab: "הירשם",
+                emailLabel: "אימייל",
+                passwordLabel: "סיסמה",
+                loginButton: "התחבר",
+                nameLabel: "שם מלא",
+                phoneLabel: "מספר טלפון",
+                registerButton: "צור חשבון",
+                logoutBtn: "התנתק",
+                quickActionsTitle: "פעולות מהירות",
+                createTaskText: "צור משימה",
+                createTaskDesc: "פרסם משימה חדשה",
+                browseTasksText: "עיין במשימות",
+                browseTasksDesc: "מצא משימות קרובות",
+                myTasksText: "המשימות שלי",
+                myTasksDesc: "צפה במשימות שלך",
+                profileText: "פרופיל",
+                profileDesc: "צפה בפרופיל שלך",
+                overviewTitle: "סקירה כללית",
+                tasksPostedLabel: "משימות שפורסמו",
+                tasksCompletedLabel: "משימות שהושלמו",
+                activeRequestsLabel: "בקשות פעילות",
+                totalEarnedLabel: "סה\"כ הרווחת",
+                ratingTitle: "דירוג",
+                basedOnText: "מבוסס על",
+                reviewsText: "ביקורות",
+                nearbyTasksTitle: "משימות קרובות",
+                filterAll: "הכל",
+                filterNearby: "קרובות",
+                filterHighPay: "תשלום גבוה",
+                activeMemberBadge: "חבר פעיל",
+                walletBalanceLabel: "יתרת ארנק",
+                profileTasksPostedLabel: "משימות שפורסמו",
+                profileTasksCompletedLabel: "משימות שהושלמו",
+                avgRatingLabel: "דירוג ממוצע",
+                backToDashboardBtn: "חזור לדשבורד",
+                recentTransactionsTitle: "עסקאות אחרונות",
+                createTaskModalTitle: "צור משימה חדשה",
+                taskTitleLabel: "כותרת המשימה",
+                taskDescriptionLabel: "תיאור",
+                taskLocationLabel: "מיקום",
+                taskDateTimeLabel: "תאריך ושעה",
+                taskAmountLabel: "סכום תשלום ($)",
+                createTaskSubmitBtn: "צור משימה",
+                taskDetailsModalTitle: "פרטי המשימה",
+                requestTaskBtn: "בקש משימה",
+                viewRequestsBtn: "צפה בבקשות",
+                kmAway: "ק\"מ מרחק"
+            }
+        };
+
+        // Global state
+        let currentUser = null;
+        let currentView = 'dashboard';
+        let tasks = [];
+        let userLocation = null;
+        let currentLanguage = localStorage.getItem('language') || 'en';
+        let isDarkMode = localStorage.getItem('darkMode') === 'true';
+
+        // Initialize settings on load
+        function initSettings() {
+            // Apply dark mode
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+                document.getElementById('darkModeToggle').textContent = '☀️';
+            }
+
+            // Apply language
+            applyLanguage(currentLanguage);
+        }
+
+        // Dark mode toggle
+        document.getElementById('darkModeToggle').addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode');
+            document.getElementById('darkModeToggle').textContent = isDarkMode ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', isDarkMode);
+        });
+
+        // Language toggle
+        document.getElementById('languageToggle').addEventListener('click', () => {
+            currentLanguage = currentLanguage === 'en' ? 'he' : 'en';
+            applyLanguage(currentLanguage);
+            localStorage.setItem('language', currentLanguage);
+        });
+
+        // Apply language
+        function applyLanguage(lang) {
+            const t = translations[lang];
+
+            // Update HTML lang and direction
+            document.documentElement.lang = lang;
+            if (lang === 'he') {
+                document.body.classList.add('rtl');
+            } else {
+                document.body.classList.remove('rtl');
+            }
+
+            // Update all text elements
+            Object.keys(t).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'BUTTON') {
+                        if (element.type === 'submit' || element.tagName === 'BUTTON') {
+                            element.textContent = t[key];
+                        } else {
+                            element.placeholder = t[key];
+                        }
+                    } else {
+                        element.textContent = t[key];
+                    }
+                }
+            });
+
+            // Reload tasks to update language
+            if (currentUser) {
+                renderTasks();
+            }
+        }
+
+        // Initialize app
+        function initApp() {
+            // Request location permission
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        userLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        console.log('Location acquired:', userLocation);
+                        loadTasks();
+                    },
+                    (error) => {
+                        console.log('Location access denied, using default location');
+                        userLocation = { lat: 40.7128, lng: -74.0060 };
+                        loadTasks();
+                    }
+                );
+            } else {
+                userLocation = { lat: 40.7128, lng: -74.0060 };
+                loadTasks();
+            }
+
+            loadSampleData();
+            updateDashboard();
+        }
+
+        // Authentication
+        function switchAuthTab(tab) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const tabs = document.querySelectorAll('.auth-tab');
+
+            tabs.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (tab === 'login') {
+                loginForm.style.display = 'block';
+                registerForm.style.display = 'none';
+            } else {
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const email = event.target[0].value;
+
+            currentUser = {
+                id: 1,
+                name: 'John Doe',
+                email: email,
+                phone: '+1 234 567 8900',
+                wallet: 250,
+                rating: 4.8,
+                tasksPosted: 5,
+                tasksCompleted: 12,
+                totalEarned: 480
+            };
+
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            showMainApp();
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const name = event.target[0].value;
+            const email = event.target[1].value;
+            const phone = event.target[3].value;
+
+            currentUser = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                phone: phone,
+                wallet: 100,
+                rating: 5.0,
+                tasksPosted: 0,
+                tasksCompleted: 0,
+                totalEarned: 0
+            };
+
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            showMainApp();
+        }
+
+        function showMainApp() {
+            document.getElementById('authScreen').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('walletBalance').textContent = currentUser.wallet;
+            initApp();
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            currentUser = null;
+            document.getElementById('authScreen').style.display = 'flex';
+            document.getElementById('mainApp').style.display = 'none';
+        }
+
+        // View management
+        function showView(view) {
+            const dashboardView = document.getElementById('dashboardView');
+            const profileView = document.getElementById('profileView');
+
+            dashboardView.style.display = 'none';
+            profileView.style.display = 'none';
+
+            if (view === 'dashboard' || view === 'tasks' || view === 'myTasks') {
+                dashboardView.style.display = 'block';
+                currentView = view;
+                renderTasks();
+            } else if (view === 'profile') {
+                profileView.style.display = 'block';
+                updateProfile();
+            }
+        }
+
+        // Task Management
+        function openCreateTaskModal() {
+            document.getElementById('createTaskModal').classList.add('active');
+        }
+
+        function closeCreateTaskModal() {
+            document.getElementById('createTaskModal').classList.remove('active');
+        }
+
+        function closeTaskDetailsModal() {
+            document.getElementById('taskDetailsModal').classList.remove('active');
+        }
+
+        // Wallet Modal Functions
+        function openWalletModal() {
+            const modal = document.getElementById('walletModal');
+            const content = document.getElementById('walletContent');
+            const t = translations[currentLanguage];
+
+            // Get completed tasks for current user
+            const completedTasks = tasks.filter(t =>
+                t.assignedTo === currentUser.id && t.status === 'completed'
+            );
+
+            // Generate income summary
+            const totalIncome = completedTasks.reduce((sum, task) => sum + task.amount, 0);
+            const avgIncome = completedTasks.length > 0 ? (totalIncome / completedTasks.length).toFixed(2) : 0;
+
+            // Create wallet content
+            content.innerHTML = `
+                <div style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); padding: 30px; border-radius: 16px; margin-bottom: 30px; text-align: center;">
+                    <h3 style="color: white; font-size: 1rem; margin-bottom: 10px; opacity: 0.9;">${currentLanguage === 'en' ? 'Current Balance' : 'יתרה נוכחית'}</h3>
+                    <div style="font-size: 3rem; font-weight: 700; color: white; margin-bottom: 10px;">$${currentUser.wallet}</div>
+                    <p style="color: rgba(255,255,255,0.8);">${currentLanguage === 'en' ? 'Available for withdrawal' : 'זמין למשיכה'}</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px;">
+                    <div style="background: rgba(74, 222, 128, 0.1); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid rgba(74, 222, 128, 0.3);">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--success);">$${totalIncome}</div>
+                        <p style="color: var(--text); margin-top: 5px;">${currentLanguage === 'en' ? 'Total Earned' : 'סה"כ הרווחת'}</p>
+                    </div>
+                    <div style="background: rgba(102, 126, 234, 0.1); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid rgba(102, 126, 234, 0.3);">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">${completedTasks.length}</div>
+                        <p style="color: var(--text); margin-top: 5px;">${currentLanguage === 'en' ? 'Tasks Done' : 'משימות שבוצעו'}</p>
+                    </div>
+                    <div style="background: rgba(240, 147, 251, 0.1); padding: 20px; border-radius: 12px; text-align: center; border: 1px solid rgba(240, 147, 251, 0.3);">
+                        <div style="font-size: 2rem; font-weight: 700; color: var(--accent);">$${avgIncome}</div>
+                        <p style="color: var(--text); margin-top: 5px;">${currentLanguage === 'en' ? 'Avg per Task' : 'ממוצע למשימה'}</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--text); margin-bottom: 20px; font-size: 1.3rem;">
+                    ${currentLanguage === 'en' ? '📊 Income Report' : '📊 דוח הכנסות'}
+                </h3>
+
+                <div style="max-height: 400px; overflow-y: auto;">
+                    ${completedTasks.length > 0 ?
+                        completedTasks.map(task => `
+                            <div style="background: rgba(74, 222, 128, 0.05); border: 1px solid rgba(74, 222, 128, 0.2); padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
+                                    <div>
+                                        <h4 style="color: var(--text); font-size: 1.1rem; margin-bottom: 5px;">✅ ${task.title}</h4>
+                                        <p style="color: var(--text-light); font-size: 0.9rem;">${task.description.substring(0, 80)}${task.description.length > 80 ? '...' : ''}</p>
+                                    </div>
+                                    <div style="text-align: ${currentLanguage === 'he' ? 'left' : 'right'};">
+                                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--success);">+$${task.amount}</div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 15px; flex-wrap: wrap; color: var(--text-light); font-size: 0.85rem;">
+                                    <span>📍 ${task.location}</span>
+                                    <span>📅 ${new Date(task.datetime).toLocaleDateString()}</span>
+                                    <span>👤 ${currentLanguage === 'en' ? 'Ordered by' : 'הוזמן על ידי'} ${task.creatorName}</span>
+                                </div>
+                            </div>
+                        `).join('')
+                        :
+                        `<div style="text-align: center; padding: 40px; color: var(--text-light);">
+                            <div style="font-size: 3rem; margin-bottom: 10px;">📭</div>
+                            <p>${currentLanguage === 'en' ? 'No completed tasks yet. Start earning by completing tasks!' : 'עדיין אין משימות שהושלמו. התחל להרוויח על ידי השלמת משימות!'}</p>
+                        </div>`
+                    }
+                </div>
+
+                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.1);">
+                    <button class="btn btn-primary" onclick="closeWalletModal()" style="max-width: 300px; margin: 0 auto; display: block;">
+                        ${currentLanguage === 'en' ? 'Close' : 'סגור'}
+                    </button>
+                </div>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        function closeWalletModal() {
+            document.getElementById('walletModal').classList.remove('active');
+        }
+
+        function handleCreateTask(event) {
+            event.preventDefault();
+
+            const newTask = {
+                id: Date.now(),
+                title: document.getElementById('taskTitle').value,
+                description: document.getElementById('taskDescription').value,
+                location: document.getElementById('taskLocation').value,
+                datetime: document.getElementById('taskDateTime').value,
+                amount: parseInt(document.getElementById('taskAmount').value),
+                creatorId: currentUser.id,
+                creatorName: currentUser.name,
+                status: 'open',
+                requests: [],
+                assignedTo: null,
+                distance: (Math.random() * 5).toFixed(1)
+            };
+
+            tasks.unshift(newTask);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+
+            closeCreateTaskModal();
+            loadTasks();
+            updateDashboard();
+
+            event.target.reset();
+        }
+
+        function loadTasks() {
+            const savedTasks = localStorage.getItem('tasks');
+            if (savedTasks) {
+                tasks = JSON.parse(savedTasks);
+            }
+
+            if (userLocation) {
+                tasks.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
+            }
+
+            renderTasks();
+        }
+
+        function renderTasks() {
+            const grid = document.getElementById('tasksGrid');
+            grid.innerHTML = '';
+
+            const visibleTasks = tasks.filter(task => {
+                if (currentView === 'myTasks') {
+                    return task.creatorId === currentUser.id || task.assignedTo === currentUser.id;
+                }
+                return task.status === 'open';
+            }).slice(0, 6);
+
+            const t = translations[currentLanguage];
+
+            visibleTasks.forEach(task => {
+                const card = document.createElement('div');
+                card.className = 'task-card';
+                card.onclick = () => showTaskDetails(task);
+
+                const isMyTask = task.creatorId === currentUser.id;
+                const buttonText = isMyTask ?
+                    `${t.viewRequestsBtn} (${task.requests.length})` :
+                    t.requestTaskBtn;
+                const buttonClass = isMyTask ? 'btn-warning' : 'btn-success';
+
+                card.innerHTML = `
+                    <div class="task-header">
+                        <div>
+                            <div class="task-title">${task.title}</div>
+                            <span class="status-badge status-${task.status}">${task.status}</span>
+                        </div>
+                        <div class="task-amount">$${task.amount}</div>
+                    </div>
+                    <div class="task-description">${task.description}</div>
+                    <div class="task-meta">
+                        <div class="meta-item">
+                            <span>📍</span>
+                            <span>${task.location}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>🕐</span>
+                            <span>${new Date(task.datetime).toLocaleDateString()}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span>👤</span>
+                            <span>${task.creatorName}</span>
+                        </div>
+                    </div>
+                    <div class="task-footer">
+                        <div class="task-distance">📍 ${task.distance} ${t.kmAway}</div>
+                        ${!isMyTask ?
+                            `<button class="btn-small ${buttonClass}" onclick="event.stopPropagation(); requestTask(${task.id})">${buttonText}</button>` :
+                            `<button class="btn-small ${buttonClass}" onclick="event.stopPropagation(); viewRequests(${task.id})">${buttonText}</button>`
+                        }
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        function showTaskDetails(task) {
+            const modal = document.getElementById('taskDetailsModal');
+            const content = document.getElementById('taskDetailsContent');
+            const t = translations[currentLanguage];
+
+            content.innerHTML = `
+                <div style="margin-bottom: 20px;">
+                    <h3 style="color: var(--primary); margin-bottom: 10px;">${task.title}</h3>
+                    <span class="status-badge status-${task.status}">${task.status}</span>
+                </div>
+                <div style="background: rgba(0,0,0,0.05); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <h4 style="margin-bottom: 10px;">${t.taskDescriptionLabel}</h4>
+                    <p>${task.description}</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 20px;">
+                    <div>
+                        <strong>${t.taskLocationLabel}:</strong><br>${task.location}
+                    </div>
+                    <div>
+                        <strong>${t.taskDateTimeLabel}:</strong><br>${new Date(task.datetime).toLocaleString()}
+                    </div>
+                    <div>
+                        <strong>${t.taskAmountLabel}:</strong><br><span style="color: var(--success); font-size: 1.5rem; font-weight: 700;">$${task.amount}</span>
+                    </div>
+                    <div>
+                        <strong>Distance:</strong><br>${task.distance} ${t.kmAway}
+                    </div>
+                </div>
+                <div style="margin-top: 20px;">
+                    <strong>Posted by:</strong> ${task.creatorName}
+                </div>
+                ${task.creatorId !== currentUser.id ?
+                    `<button class="btn btn-primary" style="margin-top: 20px;" onclick="requestTask(${task.id}); closeTaskDetailsModal();">${t.requestTaskBtn}</button>` :
+                    ''
+                }
+            `;
+
+            modal.classList.add('active');
+        }
+
+        function requestTask(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (task) {
+                task.requests.push({
+                    userId: currentUser.id,
+                    userName: currentUser.name,
+                    requestedAt: new Date().toISOString()
+                });
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                alert(currentLanguage === 'en' ?
+                    'Task request sent! The task creator will review your request.' :
+                    'הבקשה נשלחה! יוצר המשימה יבדוק את הבקשה שלך.');
+                loadTasks();
+            }
+        }
+
+        function viewRequests(taskId) {
+            const task = tasks.find(t => t.id === taskId);
+            if (task && task.requests.length > 0) {
+                let requestsList = currentLanguage === 'en' ?
+                    'Requests for this task:\n\n' :
+                    'בקשות למשימה זו:\n\n';
+                task.requests.forEach((req, index) => {
+                    requestsList += `${index + 1}. ${req.userName}\n`;
+                });
+
+                const approveMsg = currentLanguage === 'en' ?
+                    '\nWould you like to approve the first request?' :
+                    '\nהאם ברצונך לאשר את הבקשה הראשונה?';
+
+                const approve = confirm(requestsList + approveMsg);
+                if (approve) {
+                    approveRequest(taskId, 0);
+                }
+            } else {
+                alert(currentLanguage === 'en' ?
+                    'No requests yet for this task.' :
+                    'עדיין אין בקשות למשימה זו.');
+            }
+        }
+
+        function approveRequest(taskId, requestIndex) {
+            const task = tasks.find(t => t.id === taskId);
+            if (task) {
+                const approvedRequest = task.requests[requestIndex];
+                task.assignedTo = approvedRequest.userId;
+                task.assignedToName = approvedRequest.userName;
+                task.status = 'in-progress';
+
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                alert(currentLanguage === 'en' ?
+                    `Task assigned to ${approvedRequest.userName}!` :
+                    `המשימה הוקצתה ל-${approvedRequest.userName}!`);
+                loadTasks();
+                updateDashboard();
+            }
+        }
+
+        function filterTasks(filter) {
+            const tabs = document.querySelectorAll('.filter-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (filter === 'nearby') {
+                tasks.sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance));
+            } else if (filter === 'high-pay') {
+                tasks.sort((a, b) => b.amount - a.amount);
+            }
+
+            renderTasks();
+        }
+
+        // Dashboard
+        function updateDashboard() {
+            const userTasks = tasks.filter(t => t.creatorId === currentUser.id);
+            const completedTasks = tasks.filter(t => t.assignedTo === currentUser.id && t.status === 'completed');
+            const activeRequests = tasks.filter(t => t.requests.some(r => r.userId === currentUser.id));
+
+            document.getElementById('tasksPostedCount').textContent = userTasks.length;
+            document.getElementById('tasksCompletedCount').textContent = completedTasks.length;
+            document.getElementById('activeRequestsCount').textContent = activeRequests.length;
+            document.getElementById('totalEarned').textContent = currentUser.totalEarned;
+            document.getElementById('userRating').textContent = currentUser.rating;
+        }
+
+        // Profile
+        function updateProfile() {
+            document.getElementById('profileName').textContent = currentUser.name;
+            document.getElementById('profileEmail').textContent = currentUser.email;
+            document.getElementById('profilePhone').textContent = currentUser.phone;
+            document.getElementById('profileAvatar').textContent = currentUser.name.split(' ').map(n => n[0]).join('');
+            document.getElementById('profileWallet').textContent = currentUser.wallet;
+            document.getElementById('profileTasksPosted').textContent = currentUser.tasksPosted;
+            document.getElementById('profileTasksCompleted').textContent = currentUser.tasksCompleted;
+            document.getElementById('profileRating').textContent = currentUser.rating;
+
+            const transactionsList = document.getElementById('transactionsList');
+            transactionsList.innerHTML = `
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <h4>Task Completed: Home Cleaning</h4>
+                        <p>Jan 28, 2026</p>
+                    </div>
+                    <div class="transaction-amount amount-positive">+$50</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <h4>Task Posted: Furniture Assembly</h4>
+                        <p>Jan 27, 2026</p>
+                    </div>
+                    <div class="transaction-amount amount-negative">-$75</div>
+                </div>
+                <div class="transaction-item">
+                    <div class="transaction-info">
+                        <h4>Task Completed: Dog Walking</h4>
+                        <p>Jan 25, 2026</p>
+                    </div>
+                    <div class="transaction-amount amount-positive">+$30</div>
+                </div>
+            `;
+        }
+
+        // Sample data
+        function loadSampleData() {
+            const sampleTasks = [
+                {
+                    id: 1,
+                    title: currentLanguage === 'en' ? 'Help with furniture assembly' : 'עזרה בהרכבת רהיטים',
+                    description: currentLanguage === 'en' ?
+                        'Need someone to help assemble IKEA furniture. Should take about 2 hours.' :
+                        'צריך מישהו שיעזור להרכיב רהיטים מאיקאה. אמור לקחת כשעתיים.',
+                    location: currentLanguage === 'en' ? 'Downtown, Manhattan' : 'מרכז העיר, תל אביב',
+                    datetime: '2026-02-05T14:00',
+                    amount: 75,
+                    creatorId: 999,
+                    creatorName: 'Sarah Johnson',
+                    status: 'open',
+                    requests: [],
+                    assignedTo: null,
+                    distance: '1.2'
+                },
+                {
+                    id: 2,
+                    title: currentLanguage === 'en' ? 'Dog walking service needed' : 'דרוש שירות הליכה עם כלב',
+                    description: currentLanguage === 'en' ?
+                        'Looking for someone to walk my golden retriever for 30 minutes.' :
+                        'מחפש מישהו שילך עם הגולדן רטריבר שלי למשך 30 דקות.',
+                    location: currentLanguage === 'en' ? 'Central Park Area' : 'אזור פארק הירקון',
+                    datetime: '2026-02-04T10:00',
+                    amount: 25,
+                    creatorId: 998,
+                    creatorName: 'Mike Chen',
+                    status: 'open',
+                    requests: [],
+                    assignedTo: null,
+                    distance: '0.8'
+                },
+                {
+                    id: 3,
+                    title: currentLanguage === 'en' ? 'Grocery shopping assistance' : 'עזרה בקניות מכולת',
+                    description: currentLanguage === 'en' ?
+                        'Need help with grocery shopping and delivery. List will be provided.' :
+                        'צריך עזרה בקניות מכולת ומשלוח. הרשימה תסופק.',
+                    location: currentLanguage === 'en' ? 'Upper West Side' : 'צפון תל אביב',
+                    datetime: '2026-02-06T16:00',
+                    amount: 40,
+                    creatorId: 997,
+                    creatorName: 'Emma Davis',
+                    status: 'open',
+                    requests: [],
+                    assignedTo: null,
+                    distance: '2.3'
+                },
+                {
+                    id: 4,
+                    title: currentLanguage === 'en' ? 'Move boxes to storage' : 'העברת קרטונים למחסן',
+                    description: currentLanguage === 'en' ?
+                        'Help needed to move 10-15 boxes from apartment to storage unit.' :
+                        'דרושה עזרה להעביר 10-15 קרטונים מהדירה ליחידת אחסון.',
+                    location: currentLanguage === 'en' ? 'Brooklyn Heights' : 'דרום תל אביב',
+                    datetime: '2026-02-07T11:00',
+                    amount: 100,
+                    creatorId: 996,
+                    creatorName: 'Tom Wilson',
+                    status: 'open',
+                    requests: [],
+                    assignedTo: null,
+                    distance: '3.5'
+                }
+            ];
+
+            if (!localStorage.getItem('tasks')) {
+                tasks = sampleTasks;
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+            }
+        }
+
+        // Initialize on page load
+        initSettings();
+
+        // Check if user is logged in
+        const savedUser = localStorage.getItem('currentUser');
+        if (savedUser) {
+            currentUser = JSON.parse(savedUser);
+            showMainApp();
+        }
+    </script>
+</body>
+</html>
