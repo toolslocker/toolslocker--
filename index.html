@@ -1127,6 +1127,7 @@
                 justify-content: center;
                 transition: right 0.3s;
                 padding: 2rem;
+                z-index: 999;
             }
 
             .nav-links.active {
@@ -1155,10 +1156,13 @@
                 background: rgba(255, 255, 255, 0.1);
                 border-radius: 50%;
                 transition: all 0.3s;
+                opacity: 0;
+                pointer-events: none;
             }
 
             .nav-links.active::before {
                 opacity: 1;
+                pointer-events: auto;
             }
 
             .menu-toggle {
@@ -1516,7 +1520,7 @@
                         </div>
                         <div>
                             <h4>אימייל</h4>
-                            <p><a href="mailto:service@toolslocker.org" style="color: var(--accent); font-weight: 600;">service@toolslocker.org</a></p>
+                            <p><a href="/cdn-cgi/l/email-protection#f5869087839c9690b5819a9a9986999a969e9087db9a8792" style="color: var(--accent); font-weight: 600;"><span class="__cf_email__" data-cfemail="1c6f796e6a757f795c687373706f70737f77796e32736e7b">[email&#160;protected]</span></a></p>
                         </div>
                     </div>
                 </div>
@@ -1604,7 +1608,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Products data with local images
         const products = [
             {name:"מברגה אימפקט",description:"לעבודות בניה, תחזוקה, עשה זאת בעצמך, מגיע עם מטען, סוללה 4 אמפר טעונה",price:"48",image:"images/Screwdriver.jpg"},
@@ -1707,9 +1711,17 @@
             navLinks.classList.toggle('active');
         });
 
-        // Close mobile menu when clicking on the menu background (X button area)
+        // Close mobile menu when clicking on the X button or background
         navLinks.addEventListener('click', (e) => {
-            if (e.target === navLinks) {
+            // Close if clicking on background OR on the X button (::before pseudo-element area)
+            const rect = navLinks.getBoundingClientRect();
+            const clickX = e.clientX;
+            const clickY = e.clientY;
+            
+            // Check if click is in the X button area (top-left corner, 2rem from edges)
+            const isXButtonArea = clickX < 100 && clickY < 100;
+            
+            if (e.target === navLinks || isXButtonArea) {
                 menuToggle.classList.remove('active');
                 navLinks.classList.remove('active');
             }
@@ -1832,10 +1844,4 @@
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="#22c55e"/>
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="#22c55e"/>
         </svg>
-        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="#22c55e" stroke="#22c55e"/>
-        </svg>
-    </button>
-
-</body>
-</html>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="c
