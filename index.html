@@ -1174,9 +1174,15 @@
                 right: -100%;
                 width: 100%;
                 height: 100vh;
-                background: var(--dark);
+                background: linear-gradient(135deg, 
+                    rgba(240, 247, 243, 0.95) 0%, 
+                    rgba(232, 244, 237, 0.97) 50%, 
+                    rgba(245, 249, 247, 0.95) 100%);
+                backdrop-filter: blur(30px) saturate(180%);
+                -webkit-backdrop-filter: blur(30px) saturate(180%);
                 flex-direction: column;
                 justify-content: center;
+                align-items: center;
                 transition: right 0.3s ease;
                 padding: 2rem;
                 z-index: 999;
@@ -1188,9 +1194,38 @@
                 display: flex;
             }
 
+            .nav-links li {
+                text-align: center;
+                width: 100%;
+                max-width: 300px;
+            }
+
             .nav-links a {
-                color: var(--white);
+                color: var(--text);
                 font-size: 1.5rem;
+                font-weight: 500;
+                display: block;
+                padding: 1rem;
+                border-radius: 15px;
+                transition: all 0.3s;
+            }
+
+            .nav-links a:hover {
+                background: rgba(23, 102, 53, 0.1);
+                color: var(--primary);
+            }
+
+            .nav-links .phone-btn {
+                background: var(--accent);
+                color: var(--dark);
+                font-size: 1.3rem;
+                margin-top: 1rem;
+                box-shadow: 0 4px 15px rgba(215, 223, 35, 0.3);
+            }
+
+            .nav-links .phone-btn:hover {
+                background: var(--accent-hover);
+                transform: scale(1.05);
             }
 
             /* Close button for mobile menu - RIGHT SIDE */
@@ -1200,20 +1235,20 @@
                 top: 2rem;
                 right: 2rem;
                 font-size: 2.5rem;
-                color: var(--white);
+                color: var(--primary);
                 cursor: pointer;
                 width: 50px;
                 height: 50px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background: rgba(255, 255, 255, 0.1);
+                background: rgba(23, 102, 53, 0.1);
                 border-radius: 50%;
                 transition: all 0.3s;
             }
 
             .nav-links::before:hover {
-                background: rgba(255, 255, 255, 0.2);
+                background: rgba(23, 102, 53, 0.2);
                 transform: scale(1.1);
             }
 
