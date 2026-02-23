@@ -1918,6 +1918,133 @@
         });
     </script>
 
+# הוראות הוספת כפתור נגישות ♿
+
+## מה לעשות:
+
+### שלב 1: הסר את כפתור Dark Mode
+מחק את כל הקוד הזה (קרוב לסוף הקובץ, לפני `</body>`):
+```html
+<!-- Floating Dark Mode Toggle -->
+<button id="darkModeToggle"...>
+...
+</button>
+```
+
+### שלב 2: הוסף את כפתור הנגישות
+**העתק את הקוד הזה לפני `</body>`:**
+
+```html
+<!-- Accessibility Widget -->
+<div id="accessibilityWidget" style="position:fixed;bottom:30px;left:30px;z-index:9999">
+    <button id="accessibilityToggle" style="width:60px;height:60px;background:rgba(240,247,243,0.95);backdrop-filter:blur(20px);border:2px solid rgba(23,102,53,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 32px rgba(23,102,53,0.2)" aria-label="תפריט נגישות">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#176635" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="8" r="2" fill="#176635"/>
+            <path d="M12 14v-2M8 14l1-2M16 14l-1-2M8 16h8"/>
+        </svg>
+    </button>
+    
+    <div id="accessibilityMenu" style="display:none;position:absolute;bottom:80px;left:0;width:320px;background:rgba(255,255,255,0.98);backdrop-filter:blur(30px);border:1px solid rgba(23,102,53,0.2);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.15)">
+        <div style="background:linear-gradient(135deg,#176635,#0f4a24);color:white;padding:1.2rem 1.5rem;display:flex;justify-content:space-between;border-radius:20px 20px 0 0">
+            <h3 style="margin:0;font-size:1.3rem">נגישות</h3>
+            <button id="closeAccessibility" style="background:rgba(255,255,255,0.2);border:none;color:white;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.5rem">✕</button>
+        </div>
+        
+        <div style="padding:1rem;max-height:400px;overflow-y:auto">
+            <button class="acc-opt" data-action="contrast">🎨 ניגודיות גבוהה</button>
+            <div style="background:rgba(240,247,243,0.5);border-radius:12px;padding:1rem;margin-bottom:0.8rem">
+                <div style="margin-bottom:0.8rem;font-weight:600;color:#176635">גודל טקסט</div>
+                <div style="display:flex;gap:0.5rem">
+                    <button class="size-btn" onclick="changeFontSize(-10)">A-</button>
+                    <button class="size-btn" onclick="changeFontSize(0)">A</button>
+                    <button class="size-btn" onclick="changeFontSize(10)">A+</button>
+                </div>
+            </div>
+            <button class="acc-opt" data-action="font">📖 גופן קריא</button>
+            <button class="acc-opt" data-action="links">🔗 הדגש קישורים</button>
+            <button class="acc-opt" data-action="spacing">↔️ ריווח טקסט</button>
+            <button class="acc-opt" data-action="animations">⏸️ עצור אנימציות</button>
+            <button class="acc-opt" data-action="cursor">🖱️ סמן גדול</button>
+            <button class="acc-opt" onclick="resetAccessibility()" style="background:rgba(231,76,60,0.1);border-color:#e74c3c">🔄 אפס הגדרות</button>
+        </div>
+    </div>
+</div>
+
+<style>
+.acc-opt{width:100%;padding:1rem;background:rgba(240,247,243,0.5);border:1px solid rgba(23,102,53,0.1);border-radius:12px;margin-bottom:0.8rem;cursor:pointer;text-align:right;font-size:1rem;transition:all 0.3s}
+.acc-opt:hover{background:rgba(23,102,53,0.1);transform:translateX(-5px)}
+.acc-opt.active{background:#176635;color:white}
+.size-btn{flex:1;padding:0.6rem;background:white;border:2px solid #176635;border-radius:8px;color:#176635;font-weight:600;cursor:pointer}
+.size-btn:hover{background:#176635;color:white}
+body.high-contrast{filter:contrast(1.5)}
+body.readable-font *{font-family:Arial,sans-serif!important}
+body.highlight-links a{background:yellow!important;color:black!important;text-decoration:underline!important}
+body.text-spacing{letter-spacing:0.12em!important;word-spacing:0.16em!important;line-height:1.8!important}
+body.stop-animations *{animation:none!important;transition:none!important}
+body.big-cursor,body.big-cursor *{cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle cx="16" cy="16" r="12" fill="black"/><circle cx="16" cy="16" r="10" fill="white"/></svg>') 16 16,auto!important}
+body.font-110{font-size:110%!important}
+body.font-120{font-size:120%!important}
+body.font-130{font-size:130%!important}
+body.font-90{font-size:90%!important}
+body.font-80{font-size:80%!important}
+</style>
+
+<script>
+let fontSize=100;
+document.getElementById('accessibilityToggle').onclick=()=>{
+    const menu=document.getElementById('accessibilityMenu');
+    menu.style.display=menu.style.display==='none'?'block':'none';
+};
+document.getElementById('closeAccessibility').onclick=()=>{
+    document.getElementById('accessibilityMenu').style.display='none';
+};
+document.querySelectorAll('.acc-opt[data-action]').forEach(btn=>{
+    btn.onclick=function(){
+        const action=this.dataset.action;
+        const map={contrast:'high-contrast',font:'readable-font',links:'highlight-links',spacing:'text-spacing',animations:'stop-animations',cursor:'big-cursor'};
+        this.classList.toggle('active');
+        document.body.classList.toggle(map[action]);
+        localStorage.setItem('accessibility',JSON.stringify({[action]:this.classList.contains('active')}));
+    };
+});
+function changeFontSize(change){
+    if(change===0)fontSize=100;
+    else fontSize=Math.min(Math.max(fontSize+change,80),130);
+    document.body.classList.remove('font-80','font-90','font-110','font-120','font-130');
+    if(fontSize!==100)document.body.classList.add(`font-${fontSize}`);
+}
+function resetAccessibility(){
+    fontSize=100;
+    document.body.className='';
+    document.querySelectorAll('.acc-opt').forEach(o=>o.classList.remove('active'));
+    localStorage.removeItem('accessibility');
+    document.getElementById('accessibilityMenu').style.display='none';
+}
+document.addEventListener('click',e=>{
+    if(!e.target.closest('#accessibilityWidget'))document.getElementById('accessibilityMenu').style.display='none';
+});
+</script>
+```
+
+## התכונות שיש בכפתור:
+
+✅ **ניגודיות גבוהה** - מגביר ניגודיות
+✅ **גודל טקסט** - A- / A / A+ (80%-130%)
+✅ **גופן קריא** - משנה לגופן Arial נקי
+✅ **הדגש קישורים** - קישורים בצהוב
+✅ **ריווח טקסט** - מגדיל מרווחים
+✅ **עצור אנימציות** - לנוחות משתמשים רגישים
+✅ **סמן גדול** - סמן עכבר גדול ובולט
+✅ **אפס הגדרות** - מחזיר הכל לברירת מחדל
+✅ **שמירה** - ההגדרות נשמרות ב-localStorage
+
+## איפה להוסיף?
+העתק את כל הקוד והדבק לפני `</body>` (בסוף הקובץ)
+
+🎉 זהו! עכשיו יש לך כפתור נגישות מלא ומקצועי!
+
+    
     <!-- Floating Dark Mode Toggle -->
     <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle Dark Mode">
         <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
