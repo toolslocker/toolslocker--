@@ -26,6 +26,56 @@
             --border: #E0E0E0;
             --shadow: rgba(35, 31, 32, 0.1);
             --shadow-strong: rgba(35, 31, 32, 0.2);
+            --bg-gradient-start: #f0f7f3;
+            --bg-gradient-mid: #e8f4ed;
+            --bg-gradient-end: #f5f9f7;
+            
+            /* Glass & Depth Effects */
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+            --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Dark Mode Variables */
+        body.dark-mode {
+            --primary: #22c55e;
+            --primary-dark: #16a34a;
+            --accent: #d7df23;
+            --accent-hover: #e8f74d;
+            --dark: #ffffff;
+            --dark-alt: #e5e7eb;
+            --light: #1f2937;
+            --white: #111827;
+            --text: #f9fafb;
+            --text-light: #9ca3af;
+            --border: #374151;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --shadow-strong: rgba(0, 0, 0, 0.5);
+            --bg-gradient-start: #0f172a;
+            --bg-gradient-mid: #1e293b;
+            --bg-gradient-end: #0f172a;
+            
+            /* Glass & Depth Effects - Dark */
+            --glass-bg: rgba(17, 24, 39, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.6);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.7);
+            --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
+        }
+            --border: #374151;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --shadow-strong: rgba(0, 0, 0, 0.5);
+            --bg-gradient-start: #0f172a;
+            --bg-gradient-mid: #1e293b;
+            --bg-gradient-end: #334155;
         }
 
         * {
@@ -148,6 +198,59 @@
             box-shadow: 0 4px 12px rgba(23, 102, 53, 0.4);
         }
 
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            background: var(--light);
+            border: 2px solid var(--border);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 4px 15px var(--shadow);
+        }
+
+        .sun-icon,
+        .moon-icon {
+            position: absolute;
+            transition: all 0.3s;
+        }
+
+        .sun-icon {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        .moon-icon {
+            opacity: 0;
+            transform: scale(0) rotate(180deg);
+        }
+
+        body.dark-mode .sun-icon {
+            opacity: 0;
+            transform: scale(0) rotate(-180deg);
+        }
+
+        body.dark-mode .moon-icon {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        body.dark-mode .dark-mode-toggle {
+            background: var(--dark-alt);
+            border-color: var(--primary);
+        }
+
         /* Mobile Menu */
         .menu-toggle {
             display: none;
@@ -171,7 +274,7 @@
             min-height: 90vh;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, #f0f7f3 0%, #e8f4ed 50%, #f5f9f7 100%);
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
             position: relative;
             overflow: hidden;
         }
@@ -264,14 +367,44 @@
         .btn-primary {
             background: var(--accent);
             color: var(--dark);
-            box-shadow: 0 4px 15px rgba(215, 223, 35, 0.3);
+            box-shadow: 
+                0 8px 20px rgba(215, 223, 35, 0.4),
+                0 4px 8px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
             font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn-primary:hover {
             background: var(--accent-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(215, 223, 35, 0.4);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 15px 35px rgba(215, 223, 35, 0.5),
+                0 8px 16px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-2px) scale(1.02);
         }
 
         .btn-secondary {
@@ -364,17 +497,79 @@
         }
 
         .feature-card {
-            background: var(--white);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px var(--shadow);
-            transition: all 0.3s;
+            border-radius: 20px;
+            box-shadow: 
+                0 8px 32px rgba(31, 38, 135, 0.15),
+                0 2px 8px rgba(0, 0, 0, 0.1),
+                inset 0 1px 1px rgba(255, 255, 255, 0.9);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-top: 4px solid var(--primary);
+            position: relative;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 50%);
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px var(--shadow-strong);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 
+                0 20px 60px rgba(31, 38, 135, 0.25),
+                0 8px 16px rgba(0, 0, 0, 0.15),
+                inset 0 1px 1px rgba(255, 255, 255, 1);
+            border-top-color: var(--accent);
+        }
+
+        /* Dark Mode Glassmorphism */
+        body.dark-mode .feature-card {
+            background: rgba(31, 41, 55, 0.7);
+            border: 1px solid rgba(75, 85, 99, 0.3);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                0 2px 8px rgba(0, 0, 0, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode .feature-card:hover {
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                0 8px 16px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(255, 255, 255, 0.15);
+        }
+
+        body.dark-mode .product-card {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(75, 85, 99, 0.3);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                0 2px 8px rgba(0, 0, 0, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+
+        body.dark-mode .product-card:hover {
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                0 8px 16px rgba(0, 0, 0, 0.4),
+                inset 0 1px 2px rgba(255, 255, 255, 0.15);
         }
 
         .feature-icon {
@@ -473,17 +668,44 @@
 
         .product-card {
             flex: 0 0 320px;
-            background: var(--white);
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 20px var(--shadow);
-            transition: all 0.3s;
+            box-shadow: 
+                0 8px 32px rgba(31, 38, 135, 0.15),
+                0 2px 8px rgba(0, 0, 0, 0.1),
+                inset 0 1px 1px rgba(255, 255, 255, 0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(23, 102, 53, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .product-card:hover::after {
+            opacity: 1;
         }
 
         .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px var(--shadow-strong);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 
+                0 20px 60px rgba(31, 38, 135, 0.3),
+                0 8px 16px rgba(0, 0, 0, 0.15),
+                inset 0 1px 2px rgba(255, 255, 255, 0.8);
         }
 
         .product-image {
@@ -791,6 +1013,68 @@
 
         .social-links a:hover .social-icon circle[fill] {
             fill: #22c55e !important;
+        }
+
+        /* Dark Mode Toggle Button */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .dark-mode-toggle:hover {
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .dark-mode-toggle svg {
+            width: 28px;
+            height: 28px;
+            transition: all 0.3s ease;
+        }
+
+        /* Glassmorphism Effects */
+        .glass-effect {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+        }
+
+        /* Enhanced Shadows & Depth */
+        .feature-card,
+        .product-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-card:hover,
+        .product-card:hover {
+            box-shadow: var(--shadow-xl);
+        }
+
+        header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .footer-bottom {
@@ -1498,6 +1782,60 @@
             card.style.transition = 'all 0.6s ease';
             observer.observe(card);
         });
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        const sunIcon = darkModeToggle.querySelector('.sun-icon');
+        const moonIcon = darkModeToggle.querySelector('.moon-icon');
+
+        // Function to update icons
+        function updateIcons() {
+            if (body.classList.contains('dark-mode')) {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        }
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            body.classList.add('dark-mode');
+        }
+        updateIcons();
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            updateIcons();
+            
+            // Save preference
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
     </script>
+
+    <!-- Floating Dark Mode Toggle -->
+    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle Dark Mode">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5" fill="#22c55e"/>
+            <line x1="12" y1="1" x2="12" y2="3" stroke="#22c55e"/>
+            <line x1="12" y1="21" x2="12" y2="23" stroke="#22c55e"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="#22c55e"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="#22c55e"/>
+            <line x1="1" y1="12" x2="3" y2="12" stroke="#22c55e"/>
+            <line x1="21" y1="12" x2="23" y2="12" stroke="#22c55e"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="#22c55e"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="#22c55e"/>
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="#22c55e" stroke="#22c55e"/>
+        </svg>
+    </button>
+
 </body>
 </html>
