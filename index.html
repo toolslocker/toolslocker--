@@ -165,13 +165,13 @@
             transition: all 0.3s;
         }
 
-        /* Hero Section */
+        /* Hero Section - LIGHTER BACKGROUND */
         .hero {
             margin-top: 80px;
             min-height: 90vh;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(135deg, #f0f7f3 0%, #e8f4ed 50%, #f5f9f7 100%);
             position: relative;
             overflow: hidden;
         }
@@ -181,11 +181,11 @@
             position: absolute;
             width: 500px;
             height: 500px;
-            background: var(--accent);
+            background: var(--primary);
             border-radius: 50%;
             top: -200px;
             left: -200px;
-            opacity: 0.15;
+            opacity: 0.08;
             animation: float 20s infinite ease-in-out;
         }
 
@@ -198,7 +198,7 @@
             border-radius: 50%;
             bottom: -150px;
             left: 50%;
-            opacity: 0.15;
+            opacity: 0.06;
             animation: float 15s infinite ease-in-out reverse;
         }
 
@@ -223,20 +223,20 @@
             font-family: 'Varela Round', sans-serif;
             font-size: 3.5rem;
             font-weight: 400;
-            color: var(--white);
+            color: var(--dark);
             margin-bottom: 1.5rem;
             line-height: 1.2;
             animation: fadeInUp 0.8s ease;
         }
 
         .hero-text h1 .highlight {
-            color: var(--accent);
+            color: var(--primary);
             display: block;
         }
 
         .hero-text p {
             font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--text);
             margin-bottom: 2rem;
             line-height: 1.8;
             animation: fadeInUp 0.8s ease 0.2s both;
@@ -275,14 +275,14 @@
         }
 
         .btn-secondary {
-            background: transparent;
-            color: var(--white);
-            border: 2px solid var(--white);
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
         }
 
         .btn-secondary:hover {
-            background: var(--white);
-            color: var(--dark);
+            background: var(--primary);
+            color: var(--white);
         }
 
         .hero-image {
@@ -998,7 +998,7 @@
                 <div class="feature-card">
                     <div class="feature-icon">🔧</div>
                     <h3>ציוד מקצועי</h3>
-                    <p>כלים ומוצרים איכוtiים ומתוחזקים היטב - תמיד במצב מושלם לשימוש.</p>
+                    <p>כלים ומוצרים איכותיים ומתוחזקים היטב - תמיד במצב מושלם לשימוש.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">📍</div>
