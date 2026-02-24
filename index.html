@@ -1931,8 +1931,146 @@
             <line x1="21" y1="12" x2="23" y2="12" stroke="#22c55e"/>
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="#22c55e"/>
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="#22c55e"/>
+
+<!-- Accessibility Widget -->
+<div id="accessibilityWidget" style="position:fixed;bottom:30px;left:30px;z-index:9999">
+    <button id="accessibilityToggle" style="width:60px;height:60px;background:rgba(240,247,243,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:2px solid rgba(23,102,53,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 32px rgba(23,102,53,0.2);transition:all 0.3s ease" aria-label="תפריט נגישות">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#176635" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="8" r="2" fill="#176635"/>
+            <path d="M12 14v-2M8 14l1-2M16 14l-1-2M8 16h8"/>
         </svg>
-        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="c
+    </button>
+    
+    <div id="accessibilityMenu" style="display:none;position:absolute;bottom:80px;left:0;width:320px;max-width:90vw;background:rgba(255,255,255,0.98);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border:1px solid rgba(23,102,53,0.2);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.15)">
+        <div style="background:linear-gradient(135deg,#176635,#0f4a24);color:white;padding:1.2rem 1.5rem;display:flex;justify-content:space-between;align-items:center;border-radius:20px 20px 0 0">
+            <h3 style="margin:0;font-size:1.3rem;font-weight:600">נגישות</h3>
+            <button id="closeAccessibility" style="background:rgba(255,255,255,0.2);border:none;color:white;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.5rem;display:flex;align-items:center;justify-content:center;transition:all 0.3s">✕</button>
+        </div>
+        
+        <div style="padding:1rem;max-height:400px;overflow-y:auto">
+            <button class="acc-opt" data-action="contrast" style="width:100%;padding:1rem;background:rgba(240,247,243,0.5);border:1px solid rgba(23,102,53,0.1);border-radius:12px;margin-bottom:0.8rem;cursor:pointer;text-align:right;font-size:1rem;transition:all 0.3s;display:flex;align-items:center;gap:1rem">
+                <span style="font-size:1.5rem">🎨</span>
+                <span>ניגודיות גבוהה</span>
+            </button>
+            
+            <div style="background:rgba(240,247,243,0.5);border:1px solid rgba(23,102,53,0.1);border-radius:12px;padding:1rem;margin-bottom:0.8rem">
+                <div style="margin-bottom:0.8rem;font-weight:600;color:#176635">גודל טקסט</div>
+                <div style="display:flex;gap:0.5rem;justify-content:space-around">
+                    <button class="size-btn" onclick="changeFontSize(-10)" style="flex:1;padding:0.6rem;background:white;border:2px solid #176635;border-radius:8px;color:#176635;font-weight:600;cursor:pointer;transition:all 0.3s">A-</button>
+                    <button class="size-btn" onclick="changeFontSize(0)" style="flex:1;padding:0.6rem;background:white;border:2px solid #176635;border-radius:8px;color:#176635;font-weight:600;cursor:pointer;transition:all 0.3s">A</button>
+                    <button class="size-btn" onclick="changeFontSize(10)" style="flex:1;padding:0.6rem;background:white;border:2px solid #176635;border-radius:8px;color:#176635;font-weight:600;cursor:pointer;transition:all 0.3s">A+</button>
+                </div>
+            </div>
+            
+            <button class="acc-opt" data-action="font" style="width:100%;padding:1rem;background:rgba(240,247,243,0.5);border:1px solid rgba(23,102,53,0.1);border-radius:12px;margin-bottom:0.8rem;cursor:pointer;text-align:right;font-size:1rem;transition:all 0.3s;display:flex;align-items:center;gap:1rem">
+                <span style="font-size:1.5rem">📖</span>
+                <span>גופן קריא</span>
+            </button>
+            
+            <button class="acc-opt" data-action="links" style="width:100%;padding:1rem;background:rgba(240,247,243,0.5);border:1px solid rgba(23,102,53,0.1);border-radius:12px;margin-bottom:0.8rem;cursor:pointer;text-align:right;font-size:1rem;transition:all 0.3s;display:flex;align-items:center;gap:1rem">
+                <span style="font-size:1.5rem">🔗</span>
+                <span>הדגש קישורים</span>
+            </button>
+            
+            <button class="acc-opt" data-action="spacing" style="width:100%;padding:1rem;background:rgba(240,247,243,0.5);border:1px solid rgba(23,102,53,0.1);border-radius:12px;margin-bottom:0.8rem;cursor:pointer;text-align:right;font-size:1rem;transition:all 0.3s;display:flex;align-items:center;gap:1rem">
+                <span style="font-size:1.5rem">↔️</span>
+                <span>ריווח טקסט</span>
+            </button>
+            
+            <button class="acc-opt" data-action="animations" style="width:100%;padding:1rem;background:rgba(240,247,243,0.5);border:1px solid rgba(23,102,53,0.1);border-radius:12px;margin-bottom:0.8rem;cursor:pointer;text-align:right;font-size:1rem;transition:all 0.3s;display:flex;align-items:center;gap:1rem">
+                <span style="font-size:1.5rem">⏸️</span>
+                <span>עצור אנימציות</span>
+            </button>
+            
+            <button class="acc-opt" data-action="cursor" style="width:100%;padding:1rem;background:rgba(240,247,243,0.5);border:1px solid rgba(23,102,53,0.1);border-radius:12px;margin-bottom:0.8rem;cursor:pointer;text-align:right;font-size:1rem;transition:all 0.3s;display:flex;align-items:center;gap:1rem">
+                <span style="font-size:1.5rem">🖱️</span>
+                <span>סמן גדול</span>
+            </button>
+            
+            <button onclick="resetAccessibility()" style="width:100%;padding:1rem;background:rgba(231,76,60,0.1);border:1px solid #e74c3c;border-radius:12px;cursor:pointer;text-align:right;font-size:1rem;transition:all 0.3s;display:flex;align-items:center;gap:1rem">
+                <span style="font-size:1.5rem">🔄</span>
+                <span>אפס הגדרות</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+.acc-opt:hover{background:rgba(23,102,53,0.1)!important;border-color:#176635!important;transform:translateX(-5px)}
+.acc-opt.active{background:#176635!important;color:white!important;border-color:#176635!important}
+.size-btn:hover{background:#176635!important;color:white!important}
+body.high-contrast{filter:contrast(1.5)}
+body.readable-font,body.readable-font *{font-family:Arial,sans-serif!important}
+body.highlight-links a{background:yellow!important;color:black!important;text-decoration:underline!important;padding:2px 4px!important}
+body.text-spacing,body.text-spacing *{letter-spacing:0.12em!important;word-spacing:0.16em!important;line-height:1.8!important}
+body.stop-animations,body.stop-animations *{animation:none!important;transition:none!important}
+body.big-cursor,body.big-cursor *{cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle cx="16" cy="16" r="12" fill="black"/><circle cx="16" cy="16" r="10" fill="white"/></svg>') 16 16,auto!important}
+body.font-110{font-size:110%!important}
+body.font-120{font-size:120%!important}
+body.font-130{font-size:130%!important}
+body.font-90{font-size:90%!important}
+body.font-80{font-size:80%!important}
+</style>
+
+<script>
+let fontSize=100;
+document.getElementById('accessibilityToggle').onclick=function(){
+    const menu=document.getElementById('accessibilityMenu');
+    menu.style.display=menu.style.display==='none'?'block':'none';
+};
+document.getElementById('closeAccessibility').onclick=function(){
+    document.getElementById('accessibilityMenu').style.display='none';
+};
+document.querySelectorAll('.acc-opt[data-action]').forEach(function(btn){
+    btn.onclick=function(){
+        const action=this.dataset.action;
+        const map={contrast:'high-contrast',font:'readable-font',links:'highlight-links',spacing:'text-spacing',animations:'stop-animations',cursor:'big-cursor'};
+        this.classList.toggle('active');
+        document.body.classList.toggle(map[action]);
+        const settings=JSON.parse(localStorage.getItem('accessibility')||'{}');
+        settings[action]=this.classList.contains('active');
+        localStorage.setItem('accessibility',JSON.stringify(settings));
+    };
+});
+function changeFontSize(change){
+    if(change===0)fontSize=100;
+    else fontSize=Math.min(Math.max(fontSize+change,80),130);
+    document.body.classList.remove('font-80','font-90','font-110','font-120','font-130');
+    if(fontSize!==100)document.body.classList.add('font-'+fontSize);
+    localStorage.setItem('fontSize',fontSize);
+}
+function resetAccessibility(){
+    fontSize=100;
+    document.body.className='';
+    document.querySelectorAll('.acc-opt').forEach(function(o){o.classList.remove('active')});
+    localStorage.removeItem('accessibility');
+    localStorage.removeItem('fontSize');
+    document.getElementById('accessibilityMenu').style.display='none';
+}
+window.addEventListener('load',function(){
+    const saved=JSON.parse(localStorage.getItem('accessibility')||'{}');
+    const map={contrast:'high-contrast',font:'readable-font',links:'highlight-links',spacing:'text-spacing',animations:'stop-animations',cursor:'big-cursor'};
+    Object.keys(saved).forEach(function(key){
+        if(saved[key]){
+            document.body.classList.add(map[key]);
+            const btn=document.querySelector('.acc-opt[data-action="'+key+'"]');
+            if(btn)btn.classList.add('active');
+        }
+    });
+    const savedSize=localStorage.getItem('fontSize');
+    if(savedSize){
+        fontSize=parseInt(savedSize);
+        if(fontSize!==100)document.body.classList.add('font-'+fontSize);
+    }
+});
+document.addEventListener('click',function(e){
+    if(!e.target.closest('#accessibilityWidget')){
+        document.getElementById('accessibilityMenu').style.display='none';
+    }
+});
+</script>
+
 <!-- Terms & Privacy Popup - Shows every 24 hours -->
 <div id="termsPopup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:99999;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)">
     <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;max-width:600px;background:white;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.3);overflow:hidden">
