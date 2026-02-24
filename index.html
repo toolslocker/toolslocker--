@@ -1670,15 +1670,16 @@
                     <h3>קישורים מהירים</h3>
                     <a href="#home">דף הבית</a>
                     <a href="#about">קצת עלינו</a>
-                    <a href="#categories">כלים להשכרה</a>
+                    <a href="#products">כלים להשכרה</a>
                     <a href="#location">מיקום ויצירת קשר</a>
+                    <a href="#" onclick="document.getElementById('termsModal').style.display='block';return false">תנאי שימוש</a>
+                    <a href="#" onclick="document.getElementById('privacyModal').style.display='block';return false">מדיניות פרטיות</a>
                 </div>
                 <div class="footer-section">
                     <h3>יצירת קשר</h3>
                     <p>📍 דיזנגוף סנטר, קומה 4</p>
                     <p>☎ 052-344-2641</p>
-                    <a href="#">תנאי שימוש והשכרה</a>
-                    <a href="#">מדיניות פרטיות</a>
+                    <p>✉ service@toolslocker.org</p>
                 </div>
                 <div class="footer-section">
                     <h3>הירשמו לעדכונים</h3>
@@ -1932,3 +1933,211 @@
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="#22c55e"/>
         </svg>
         <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="c
+<!-- Terms & Privacy Popup - Shows every 24 hours -->
+<div id="termsPopup" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:99999;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)">
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;max-width:600px;background:white;border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,0.3);overflow:hidden">
+        <div style="background:linear-gradient(135deg,#176635,#0f4a24);color:white;padding:1.5rem;text-align:center">
+            <h2 style="margin:0;font-size:1.5rem;font-weight:600">ברוכים הבאים ל-ToolsLocker</h2>
+            <p style="margin:0.5rem 0 0;font-size:0.9rem;opacity:0.9">אנא קרא ואשר את התנאים</p>
+        </div>
+        <div style="padding:1.5rem;max-height:400px;overflow-y:auto">
+            <p style="text-align:center;margin-bottom:1.5rem;line-height:1.6">
+                על ידי שימוש באתר, אתה מסכים 
+                <a href="#" id="showTerms" style="color:#176635;font-weight:600;text-decoration:underline">לתנאי השימוש</a>
+                ו<a href="#" id="showPrivacy" style="color:#176635;font-weight:600;text-decoration:underline">למדיניות הפרטיות</a>
+                שלנו.
+            </p>
+            <div style="background:rgba(240,247,243,0.5);padding:1rem;border-radius:12px;margin-bottom:1rem">
+                <p style="margin:0;font-size:0.9rem;line-height:1.6;color:#555">
+                    ✅ אנו מחויבים לפרטיותך<br>
+                    ✅ המידע שלך מאובטח<br>
+                    ✅ ניתן לעדכן פרטים בכל עת
+                </p>
+            </div>
+        </div>
+        <div style="padding:1rem 1.5rem;background:#f8f8f8;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+            <button id="acceptTerms" style="flex:1;min-width:150px;padding:1rem;background:#176635;color:white;border:none;border-radius:50px;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.3s">
+                מסכים ומאשר ✓
+            </button>
+            <button id="declineTerms" style="flex:1;min-width:150px;padding:1rem;background:white;color:#176635;border:2px solid #176635;border-radius:50px;font-size:1rem;font-weight:600;cursor:pointer;transition:all 0.3s">
+                לא מסכים
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Full Terms Modal -->
+<div id="termsModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:999999;overflow-y:auto;padding:1rem">
+    <div style="max-width:800px;margin:2rem auto;background:white;border-radius:20px;overflow:hidden">
+        <div style="background:linear-gradient(135deg,#176635,#0f4a24);color:white;padding:1.5rem;display:flex;justify-content:space-between;align-items:center">
+            <h2 style="margin:0;font-size:1.5rem">תנאי שימוש והשכרה</h2>
+            <button id="closeTerms" style="background:rgba(255,255,255,0.2);border:none;color:white;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.5rem;transition:all 0.3s">✕</button>
+        </div>
+        <div style="padding:2rem;max-height:70vh;overflow-y:auto;line-height:1.8">
+            <h3 style="color:#176635">1. קבלת תנאים</h3>
+            <p>תנאי שימוש אלה מהווים הסכם מחייב בין טולסלוקר למשתמש. בקבלת השירותים אתה מאשר שקראת והבנת תנאים אלה ושאתה מסכים להיות כפוף להם.</p>
+            
+            <h3 style="color:#176635">2. השכרת ציוד</h3>
+            <p>טולסלוקר מספקת מערכת אוטומטית להשכרת ציוד וכלים. תשלום עבור השכרת ציוד יופיע בעת השלמת ההזמנה.</p>
+            
+            <h3 style="color:#176635">3. פרטי חשבון</h3>
+            <p>עליך להירשם ולספק פרטים מזהים ופרטי אשראי. אתה אחראי לשמירה על פרטי ההתחברות שלך בסודיות.</p>
+            
+            <h3 style="color:#176635">4. דמי שכירות</h3>
+            <p>דמי השכירות ישולמו במלואם בהתאם למחירון. השוכר מתחייב לשלם גם אם לא ישתמש בציוד.</p>
+            
+            <h3 style="color:#176635">5. פיגורים בהחזרה</h3>
+            <p><strong>איחור של עד שעה:</strong> חיוב של 50% מגובה ההזמנה<br>
+            <strong>איחור של מעל שעה:</strong> חיוב יום השכרה מלא<br>
+            אלא אם קיבלת אישור מראש מתמיכה טכנית.</p>
+            
+            <h3 style="color:#176635">6. התחייבויות השוכר</h3>
+            <p>• לשמור על הציוד במצב תקין<br>
+            • להחזיר נקי כמו שקיבל<br>
+            • לדווח על תקלות מיידית<br>
+            • לא לשנות או להחליף חלקים</p>
+            
+            <h3 style="color:#176635">7. נזקים ואובדן</h3>
+            <p><strong>נזק עקב שימוש חריג:</strong> תיקון על חשבון השוכר<br>
+            <strong>אובדן/גניבה:</strong> תשלום לפי מחיר יבואן רשמי<br>
+            <strong>ציוד לא נקי:</strong> חיוב יומי עד להחזרה למלאי</p>
+            
+            <h3 style="color:#176635">8. שיפוט</h3>
+            <p>סמכות שיפוט ייחודית לבית המשפט בבאר שבע.</p>
+            
+            <h3 style="color:#176635">9. יצירת קשר</h3>
+            <p>📧 <strong>דוא"ל:</strong> service@toolslocker.org<br>
+            ☎ <strong>טלפון:</strong> 052-344-2641<br>
+            🆘 <strong>חירום/תקלות:</strong> 052-344-2641</p>
+            
+            <div style="margin-top:2rem;padding:1.5rem;background:#f0f7f3;border-right:4px solid #176635;border-radius:10px">
+                <p style="margin:0;font-weight:600;color:#176635">💡 שים לב</p>
+                <p style="margin:0.5rem 0 0">קראת את מלוא התנאים? לחץ "חזור" למטה כדי לאשר.</p>
+            </div>
+        </div>
+        <div style="padding:1rem 2rem;background:#f8f8f8;text-align:center">
+            <button onclick="document.getElementById('termsModal').style.display='none'" style="padding:1rem 3rem;background:#176635;color:white;border:none;border-radius:50px;font-weight:600;cursor:pointer;transition:all 0.3s">חזור לאישור</button>
+        </div>
+    </div>
+</div>
+
+<!-- Privacy Policy Modal -->
+<div id="privacyModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:999999;overflow-y:auto;padding:1rem">
+    <div style="max-width:800px;margin:2rem auto;background:white;border-radius:20px;overflow:hidden">
+        <div style="background:linear-gradient(135deg,#176635,#0f4a24);color:white;padding:1.5rem;display:flex;justify-content:space-between;align-items:center">
+            <h2 style="margin:0;font-size:1.5rem">מדיניות פרטיות</h2>
+            <button id="closePrivacy" style="background:rgba(255,255,255,0.2);border:none;color:white;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.5rem;transition:all 0.3s">✕</button>
+        </div>
+        <div style="padding:2rem;max-height:70vh;overflow-y:auto;line-height:1.8">
+            <p style="background:rgba(240,247,243,0.7);padding:1rem;border-radius:10px;margin-bottom:1.5rem">אנו ב-ToolsLocker מחויבים לשמור על פרטיות המשתמשים ולהגן על המידע האישי שלך.</p>
+            
+            <h3 style="color:#176635">1. איסוף מידע</h3>
+            <p>בעת שימוש באתר, אנו אוספים:<br>
+            • שם מלא, טלפון, דוא"ל<br>
+            • פרטי תשלום (מאובטח ע"י ספק צד ג')<br>
+            • נתוני שימוש: IP, cookies, העדפות שפה</p>
+            
+            <h3 style="color:#176635">2. שימוש במידע</h3>
+            <p>המידע משמש ל:<br>
+            • ניהול הזמנות והשכרות<br>
+            • מתן שירות ותמיכה<br>
+            • שיווק ועדכונים (בכפוף להסכמה)</p>
+            
+            <h3 style="color:#176635">3. אבטחת מידע</h3>
+            <p>הנתונים נשמרים במערכות מאובטחות. אנו נוקטים באמצעי אבטחה מתקדמים למניעת גישה לא מורשית.</p>
+            
+            <h3 style="color:#176635">4. Cookies</h3>
+            <p>האתר משתמש ב-Cookies לשיפור חוויית המשתמש. ניתן לחסום או למחוק Cookies דרך הגדרות הדפדפן.</p>
+            
+            <h3 style="color:#176635">5. העברת מידע לצד ג'</h3>
+            <p>לא נעביר מידע אישי לצד שלישי, אלא:<br>
+            • לצורך עיבוד תשלומים מאובטח<br>
+            • לפי דרישת חוק או רשות מוסמכת</p>
+            
+            <h3 style="color:#176635">6. זכויות המשתמש</h3>
+            <p>אתה רשאי:<br>
+            ✓ לעיין בפרטים שלך<br>
+            ✓ לעדכן פרטים<br>
+            ✓ לבקש מחיקת פרטים</p>
+            
+            <h3 style="color:#176635">7. יצירת קשר</h3>
+            <p>לשאלות או בקשות בנושא פרטיות:<br>
+            📧 hanania@toolslocker.org</p>
+            
+            <div style="margin-top:2rem;padding:1.5rem;background:#e8f4ed;border-right:4px solid #176635;border-radius:10px">
+                <p style="margin:0;font-weight:600;color:#176635">🔒 התחייבותנו</p>
+                <p style="margin:0.5rem 0 0">אנו מתחייבים להגן על הפרטיות שלך ולשמור על המידע במחסניות מאובטחות.</p>
+            </div>
+        </div>
+        <div style="padding:1rem 2rem;background:#f8f8f8;text-align:center">
+            <button onclick="document.getElementById('privacyModal').style.display='none'" style="padding:1rem 3rem;background:#176635;color:white;border:none;border-radius:50px;font-weight:600;cursor:pointer;transition:all 0.3s">חזור לאישור</button>
+        </div>
+    </div>
+</div>
+
+<style>
+#acceptTerms:hover{background:#0f4a24;transform:scale(1.05)}
+#declineTerms:hover{background:#176635;color:white}
+#closeTerms:hover,#closePrivacy:hover{background:rgba(255,255,255,0.3);transform:rotate(90deg)}
+</style>
+
+<script>
+(function(){
+    var ONE_DAY=24*60*60*1000;
+    
+    function shouldShowPopup(){
+        var lastAccepted=localStorage.getItem('termsAcceptedTime');
+        if(!lastAccepted)return true;
+        var timeSince=Date.now()-parseInt(lastAccepted);
+        return timeSince>=ONE_DAY;
+    }
+    
+    if(!shouldShowPopup()){
+        return;
+    }
+    
+    window.addEventListener('load',function(){
+        setTimeout(function(){
+            document.getElementById('termsPopup').style.display='block';
+        },500);
+    });
+    
+    document.getElementById('showTerms').onclick=function(e){
+        e.preventDefault();
+        document.getElementById('termsModal').style.display='block';
+    };
+    
+    document.getElementById('showPrivacy').onclick=function(e){
+        e.preventDefault();
+        document.getElementById('privacyModal').style.display='block';
+    };
+    
+    document.getElementById('closeTerms').onclick=function(){
+        document.getElementById('termsModal').style.display='none';
+    };
+    
+    document.getElementById('closePrivacy').onclick=function(){
+        document.getElementById('privacyModal').style.display='none';
+    };
+    
+    document.getElementById('acceptTerms').onclick=function(){
+        localStorage.setItem('termsAcceptedTime',Date.now().toString());
+        document.getElementById('termsPopup').style.display='none';
+    };
+    
+    document.getElementById('declineTerms').onclick=function(){
+        if(confirm('אם לא תסכים לתנאים, לא תוכל להשתמש באתר. האם אתה בטוח?')){
+            window.location.href='https://www.google.com';
+        }
+    };
+    
+    document.getElementById('termsPopup').onclick=function(e){
+        if(e.target===this){
+            alert('אנא אשר את התנאים כדי להמשיך');
+        }
+    };
+})();
+</script>
+
+</body>
+</html>
