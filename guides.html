@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToolsLocker | הדרכות שימוש בציוד</title>
+    <meta name="description" content="הדרכות שימוש ותפעול כלי עבודה וציוד להשכרה - ToolsLocker דיזנגוף סנטר תל אביב">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Varela+Round&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #176635;
+            --primary-dark: #0f4a24;
+            --accent: #d7df23;
+            --accent-hover: #c1c91f;
+            --dark: #231f20;
+            --dark-alt: #3a3637;
+            --light: #f8f8f8;
+            --white: #FFFFFF;
+            --text: #231f20;
+            --text-light: #666666;
+            --border: #E0E0E0;
+            --shadow: rgba(35, 31, 32, 0.1);
+            --shadow-strong: rgba(35, 31, 32, 0.2);
+            --bg-gradient-start: #f0f7f3;
+            --bg-gradient-mid: #e8f4ed;
+            --bg-gradient-end: #f5f9f7;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+            --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Varela Round', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            background: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 2px 10px var(--shadow);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Architects Daughter', cursive;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover .logo-img {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .phone-btn {
+            background: var(--accent);
+            color: var(--dark);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(215, 223, 35, 0.3);
+        }
+
+        .phone-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(23, 102, 53, 0.4);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        /* Page Hero */
+        .page-hero {
+            margin-top: 80px;
+            padding: 4rem 2rem 3rem;
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-mid) 50%, var(--bg-gradient-end) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: -200px;
+            left: -100px;
+            opacity: 0.06;
+        }
+
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            border-radius: 50%;
+            bottom: -150px;
+            right: -50px;
+            opacity: 0.05;
+        }
+
+        .page-hero h1 {
+            font-family: 'Varela Round', sans-serif;
+            font-size: 2.8rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-hero h1 .highlight {
+            color: var(--primary);
+        }
+
+        .page-hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3.5rem;
+            border: 2px solid rgba(23, 102, 53, 0.2);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-family: 'Varela Round', sans-serif;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            color: var(--text);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-light);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 4px 20px rgba(23, 102, 53, 0.15);
+            background: white;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            pointer-events: none;
+        }
+
+        .search-count {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Category Filter */
+        .category-filters {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cat-btn {
+            padding: 0.6rem 1.4rem;
+            border: 2px solid rgba(23, 102, 53, 0.2);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.8);
+            color: var(--text);
+            font-family: 'Varela Round', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cat-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .cat-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 4px 15px rgba(23, 102, 53, 0.3);
+        }
+
+        /* Guides Container */
+        .guides-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem 2rem 4rem;
+        }
+
+        .category-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .category-title {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(23, 102, 53, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .category-title .cat-icon {
+            font-size: 1.6rem;
+        }
+
+        .category-count {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-weight: 400;
+            margin-right: auto;
+        }
+
+        /* Accordion Card */
+        .guide-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(23, 102, 53, 0.1);
+            border-radius: 16px;
+            margin-bottom: 0.8rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .guide-card:hover {
+            box-shadow: 0 4px 16px rgba(23, 102, 53, 0.12);
+            border-color: rgba(23, 102, 53, 0.2);
+        }
+
+        .guide-card.open {
+            box-shadow: 0 8px 32px rgba(23, 102, 53, 0.15);
+            border-color: rgba(23, 102, 53, 0.3);
+        }
+
+        .guide-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            user-select: none;
+        }
+
+        .guide-header:hover {
+            background: rgba(240, 247, 243, 0.5);
+        }
+
+        .guide-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1px solid rgba(23, 102, 53, 0.1);
+        }
+
+        .guide-header-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .guide-header-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.2rem;
+        }
+
+        .guide-header-info p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .guide-price {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .guide-arrow {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(23, 102, 53, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .guide-arrow svg {
+            transition: transform 0.3s;
+            width: 18px;
+            height: 18px;
+        }
+
+        .guide-card.open .guide-arrow {
+            background: var(--primary);
+        }
+
+        .guide-card.open .guide-arrow svg {
+            transform: rotate(180deg);
+        }
+
+        .guide-card.open .guide-arrow svg path {
+            stroke: white;
+        }
+
+        /* Guide Content (Accordion Body) */
+        .guide-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .guide-card.open .guide-body {
+            max-height: 2000px;
+        }
+
+        .guide-content {
+            padding: 0 1.5rem 1.5rem;
+            border-top: 1px solid rgba(23, 102, 53, 0.1);
+        }
+
+        .guide-content img.guide-full-img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin: 1.2rem 0;
+        }
+
+        .guide-section {
+            margin-bottom: 1.2rem;
+        }
+
+        .guide-section h4 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .guide-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .guide-section ul li {
+            padding: 0.4rem 0;
+            padding-right: 1.5rem;
+            position: relative;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .guide-section ul li::before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .guide-section p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        .safety-note {
+            background: rgba(231, 76, 60, 0.06);
+            border: 1px solid rgba(231, 76, 60, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .safety-note ul li::before {
+            content: '⚠';
+            color: #e74c3c;
+        }
+
+        .video-placeholder {
+            background: rgba(240, 247, 243, 0.5);
+            border: 2px dashed rgba(23, 102, 53, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .video-placeholder svg {
+            margin-bottom: 0.5rem;
+        }
+
+        .guide-cta {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.7rem 2rem;
+            background: var(--accent);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(215, 223, 35, 0.3);
+        }
+
+        .guide-cta:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(215, 223, 35, 0.4);
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-light);
+            display: none;
+        }
+
+        .no-results svg {
+            margin-bottom: 1rem;
+            opacity: 0.4;
+        }
+
+        .no-results h3 {
+            font-size: 1.3rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(23, 102, 53, 0.3);
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(23, 102, 53, 0.4);
+        }
+
+        .back-to-top.show {
+            display: flex;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg,
+                rgba(240, 247, 243, 0.85) 0%,
+                rgba(232, 244, 237, 0.90) 50%,
+                rgba(245, 249, 247, 0.85) 100%);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-top: 1px solid rgba(23, 102, 53, 0.15);
+            color: var(--text);
+            padding: 3rem 2rem 1rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 -10px 40px rgba(23, 102, 53, 0.08);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(23, 102, 53, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(215, 223, 35, 0.04) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-section h3 {
+            font-family: 'Varela Round', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(35, 31, 32, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary);
+            transform: translateX(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(23, 102, 53, 0.15);
+            color: rgba(35, 31, 32, 0.6);
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(23, 102, 53, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon { transition: all 0.3s ease; }
+
+        .social-links a:hover {
+            background: rgba(23, 102, 53, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(23, 102, 53, 0.15);
+        }
+
+        .social-links a:hover .social-icon path,
+        .social-links a:hover .social-icon circle,
+        .social-links a:hover .social-icon rect,
+        .social-links a:hover .social-icon polygon {
+            stroke: #22c55e !important;
+        }
+
+        .social-links a:hover .social-icon circle[fill] {
+            fill: #22c55e !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: linear-gradient(135deg,
+                    rgba(240, 247, 243, 0.98) 0%,
+                    rgba(232, 244, 237, 0.98) 50%,
+                    rgba(245, 249, 247, 0.98) 100%);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: right 0.4s ease;
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links.active::before {
+                content: '✕';
+                position: absolute;
+                top: 2rem;
+                right: 2rem;
+                font-size: 2rem;
+                color: var(--dark);
+                cursor: pointer;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+
+            .page-hero p {
+                font-size: 1rem;
+            }
+
+            .category-filters {
+                padding: 1rem;
+            }
+
+            .cat-btn {
+                font-size: 0.85rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .guides-container {
+                padding: 1rem 1rem 3rem;
+            }
+
+            .guide-thumb {
+                width: 48px;
+                height: 48px;
+            }
+
+            .guide-header-info h3 {
+                font-size: 1rem;
+            }
+
+            .guide-price {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-hero {
+                padding: 3rem 1rem 2rem;
+            }
+
+            .page-hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .search-input {
+                font-size: 1rem;
+                padding: 0.85rem 1.2rem 0.85rem 3rem;
+            }
+
+            .guide-header {
+                padding: 0.8rem 1rem;
+            }
+
+            .guide-content {
+                padding: 0 1rem 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .guide-card {
+            animation: fadeInUp 0.4s ease both;
+        }
+
+        /* Hidden util class */
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="ToolsLocker Logo" class="logo-img" onerror="this.style.display='none'">
+                ToolsLocker
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">דף הבית</a></li>
+                <li><a href="index.html#about">קצת עלינו</a></li>
+                <li><a href="index.html#products">כלים להשכרה</a></li>
+                <li><a href="guides.html" class="active">הדרכות שימוש</a></li>
+                <li><a href="index.html#location">מיקום</a></li>
+                <li><a href="tel:0523442641" class="phone-btn">052-344-2641</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <h1>הדרכות <span class="highlight">שימוש ותפעול</span></h1>
+        <p>מצאו הוראות שימוש, טיפים לבטיחות והדרכות וידאו לכל הכלים והציוד שלנו</p>
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="חפשו כלי או ציוד...">
+            <div class="search-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.3-4.3"/>
+                </svg>
+            </div>
+        </div>
+        <div class="search-count" id="searchCount"></div>
+    </section>
+
+    <!-- Category Filters -->
+    <div class="category-filters" id="categoryFilters">
+        <button class="cat-btn active" data-cat="all">הכל</button>
+        <button class="cat-btn" data-cat="power-tools">כלי עבודה חשמליים</button>
+        <button class="cat-btn" data-cat="cleaning">ציוד ניקיון</button>
+        <button class="cat-btn" data-cat="kitchen">ציוד מטבח</button>
+        <button class="cat-btn" data-cat="audio">בידור ואודיו</button>
+        <button class="cat-btn" data-cat="camping">קמפינג ונסיעות</button>
+        <button class="cat-btn" data-cat="general">ציוד כללי</button>
+    </div>
+
+    <!-- Guides -->
+    <div class="guides-container" id="guidesContainer"></div>
+
+    <!-- No Results -->
+    <div class="no-results" id="noResults">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.3-4.3"/>
+            <path d="M8 11h6"/>
+        </svg>
+        <h3>לא נמצאו תוצאות</h3>
+        <p>נסו חיפוש אחר או קטגוריה אחרת</p>
+    </div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" title="חזרה למעלה">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ToolsLocker</h3>
+                    <p>חנות אוטומטית חכמה להשכרת ציוד וכלי עבודה.</p>
+                    <p>צרכנות חכמה וירוקה יותר.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/people/ToolsLocker-%D7%98%D7%95%D7%9C%D7%A1-%D7%9C%D7%95%D7%A7%D7%A8/61578144201748/" target="_blank" title="Facebook">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
+                                <circle cx="12" cy="12" r="10" stroke="#374151"/>
+                                <path d="M17 9h-2.5A2.5 2.5 0 0 0 12 11.5V14h-2v3h2v7h3v-7h3l1-3h-4v-2.5a.5.5 0 0 1 .5-.5h3V9z" stroke="#22c55e" fill="none" transform="translate(-1 -2) scale(0.9)"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/tools_locker/" target="_blank" title="Instagram">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="#374151"/>
+                                <circle cx="12" cy="12" r="4" stroke="#22c55e"/>
+                                <circle cx="17.5" cy="6.5" r="1.5" fill="#22c55e" stroke="none"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.tiktok.com/@toolslocker.org" target="_blank" title="TikTok">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
+                                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" stroke="#374151"/>
+                                <path d="M12 5.5a5 5 0 0 1 5 5" stroke="#22c55e" opacity="0.8"/>
+                                <path d="M9 13a3.5 3.5 0 0 0 4 3.5V16" stroke="#22c55e" opacity="0.8"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.youtube.com/@ToolsLocker" target="_blank" title="YouTube">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon">
+                                <rect x="2" y="4" width="20" height="16" rx="3.5" stroke="#374151"/>
+                                <polygon points="10 8 16 12 10 16 10 8" stroke="#22c55e"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>קישורים מהירים</h3>
+                    <a href="index.html">דף הבית</a>
+                    <a href="index.html#about">קצת עלינו</a>
+                    <a href="index.html#products">כלים להשכרה</a>
+                    <a href="guides.html">הדרכות שימוש</a>
+                    <a href="index.html#location">מיקום ויצירת קשר</a>
+                </div>
+                <div class="footer-section">
+                    <h3>יצירת קשר</h3>
+                    <p>דיזנגוף סנטר, קומה 4</p>
+                    <p>052-344-2641</p>
+                    <p>service@toolslocker.org</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ToolsLocker. כל הזכויות שמורות.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // ==============================
+    // GUIDES DATA
+    // ==============================
+    const guidesData = [
+        // ===== כלי עבודה חשמליים =====
+        {
+            name: "מברגה אימפקט",
+            description: "לעבודות בניה, תחזוקה, עשה זאת בעצמך",
+            price: "48",
+            image: "images/Screwdriver.jpg",
+            category: "power-tools",
+            includes: ["מברגה אימפקט", "מטען", "סוללה 4 אמפר טעונה"],
+            usage: ["בדקו שהסוללה טעונה לפני השימוש", "בחרו ראש מתאים (פיליפס / שטוח / טורקס)", "הכניסו את הראש לתוך המחזיק עד לנעילה", "לחצו על ההדק בעדינות לשליטה במהירות", "השתמשו במצב הפוך להוצאת ברגים"],
+            safety: ["הרחיקו ילדים מהכלי בזמן עבודה", "אל תלחצו חזק מדי - תנו לכלי לעבוד", "ודאו שהראש מותאם לבורג למניעת החלקה"],
+            video: ""
+        },
+        {
+            name: "מקדחה נטענת",
+            description: "לעבודות קידוח בעץ, מתכת, בלוק, גבס",
+            price: "60",
+            image: "images/Drill.jpg",
+            category: "power-tools",
+            includes: ["מקדחה נטענת", "מטען", "סוללה טעונה"],
+            usage: ["בחרו מקדח מתאים לחומר (עץ/מתכת/בטון)", "כוונו את מגביל המומנט לפי הצורך", "סמנו את נקודת הקידוח מראש", "התחילו בלחיצה עדינה על ההדק", "בקידוח עמוק - הוציאו מדי פעם לסילוק שבבים"],
+            safety: ["הרכיבו משקפי מגן בזמן קידוח", "ודאו שאין צנרת או חשמל בקיר", "אחזו את המקדחה בשתי ידיים"],
+            video: ""
+        },
+        {
+            name: "פטישון נטען",
+            description: "פטישון עוצמתי לקידוח בכל סוגי חומרי הגלם כולל בטון",
+            price: "84",
+            image: "images/Rechargeable hammer.jpg",
+            category: "power-tools",
+            includes: ["פטישון נטען", "מטען", "סוללה טעונה", "ידית צד"],
+            usage: ["בחרו מקדח SDS מתאים", "הכניסו את המקדח עד שנכנס למקומו בנקישה", "בחרו מצב: קידוח / קידוח+פטיש / פטיש בלבד", "לחצו על ההדק והפעילו לחץ קל קדימה", "בקידוח בטון - השתמשו במצב פטיש+קידוח"],
+            safety: ["חובה משקפי מגן ואטמי אוזניים", "אחזו בשתי ידיים תמיד", "בדקו מיקום צנרת וחשמל לפני קידוח"],
+            video: ""
+        },
+        {
+            name: "פטישון חשמלי",
+            description: "לקידוח במגוון רחב של חומרי גלם",
+            price: "48",
+            image: "images/Electric hammer.jpg",
+            category: "power-tools",
+            includes: ["פטישון חשמלי", "ידית צד"],
+            usage: ["חברו לחשמל 220V", "הכניסו מקדח SDS מתאים", "בחרו מצב עבודה", "לחצו על ההדק בעדינות"],
+            safety: ["חובה משקפי מגן", "אל תעבדו ליד מים", "השתמשו בידית צד ליציבות"],
+            video: ""
+        },
+        {
+            name: "פטיש חציבה 5 ק\"ג",
+            description: "לעבודות חציבה קטנות בקירות ורצפה",
+            price: "150",
+            image: "images/Quarry hammer 6 kg.jpg",
+            category: "power-tools",
+            includes: ["פטיש חציבה", "אזמל שטוח", "אזמל חד"],
+            usage: ["בחרו אזמל מתאים לעבודה", "הכניסו את האזמל למחזיק עד לנעילה", "אחזו בשתי ידיים", "הפעילו לחץ כלפי מטה בזמן החציבה", "עשו הפסקות כל 15 דקות למנוע התחממות"],
+            safety: ["חובה משקפי מגן, כפפות ואטמי אוזניים", "הרחיקו אנשים מאזור העבודה", "בדקו צנרת וחשמל לפני חציבה"],
+            video: ""
+        },
+        {
+            name: "דיסק 9\" חשמלי",
+            description: "דיסק גדול לעבודות מקצועיות לחיתוך ברזל/אלומיניום",
+            price: "84",
+            image: "images/9 disc grinder.jpg",
+            category: "power-tools",
+            includes: ["דיסק 9 אינץ", "מפתח להחלפת דיסקים", "ידית צד"],
+            usage: ["התקינו דיסק חיתוך/השחזה מתאים", "ודאו שהמגן במקום", "הפעילו את הכלי לפני מגע עם החומר", "חתכו בקו ישר ללא לחץ מוגזם"],
+            safety: ["חובה משקפי מגן ואטמי אוזניים", "לבשו כפפות עבודה", "אל תסירו את המגן לעולם", "אל תעבדו ליד חומרים דליקים"],
+            video: ""
+        },
+        {
+            name: "דיסק חשמלי 4.5 אינץ",
+            description: "לחיתוך ברזל/עץ/אלומיניום/קרמיקה/אבן",
+            price: "40",
+            image: "images/disc grinder 4.5.jpg",
+            category: "power-tools",
+            includes: ["דיסק 4.5 אינץ", "מפתח", "ידית צד"],
+            usage: ["בחרו דיסק מתאים לחומר", "ודאו שהמגן מכוון נכון", "אחזו בשתי ידיים", "חתכו בזוית של 90 מעלות לחומר"],
+            safety: ["חובה משקפי מגן", "הרחיקו חומרים דליקים מניצוצות", "בדקו שהדיסק לא סדוק לפני השימוש"],
+            video: ""
+        },
+        {
+            name: "דיסק 4.5 אינץ נטען",
+            description: "לחיתוך ברזל/עץ/אלומיניום, נטען על סוללות",
+            price: "60",
+            image: "images/Rechargeable disc grinder 4.5.jpeg",
+            category: "power-tools",
+            includes: ["דיסק נטען", "סוללה", "מטען", "מפתח"],
+            usage: ["טענו את הסוללה מראש", "בחרו דיסק מתאים", "הפעילו והמתינו שיגיע למהירות מלאה", "חתכו לאט ובזהירות"],
+            safety: ["חובה ציוד מגן אישי", "אל תעבדו בגשם", "בדקו שהדיסק תקין"],
+            video: ""
+        },
+        {
+            name: "מסור שרשרת 12\"",
+            description: "לעבודות גינון ביתיות, לגיזום ענפים או גזעים קטנים",
+            price: "195",
+            image: "images/10 electric chain saw.jpg",
+            category: "power-tools",
+            includes: ["מסור שרשרת 12 אינץ", "סוללה", "מטען", "שמן שרשרת"],
+            usage: ["מלאו שמן שרשרת לפני השימוש", "בדקו מתיחות השרשרת", "אחזו בשתי ידיים תמיד", "התחילו חיתוך מהחלק העליון של הלהב", "אל תחתכו בקצה הלהב"],
+            safety: ["חובה כפפות, משקפיים ואטמי אוזניים", "אל תעבדו על סולם", "שמרו מרחק מאנשים סביבכם", "היזהרו מריבאונד (קפיצת הלהב)"],
+            video: ""
+        },
+        {
+            name: "מסור חרב נטען",
+            description: "לחיתוך כל חומרי הגלם, מתכת/פלסטיק/עץ/נירוסטה",
+            price: "96",
+            image: "images/rechargeable-saw.JPEG",
+            category: "power-tools",
+            includes: ["מסור חרב", "סוללה", "מטען", "להבים"],
+            usage: ["בחרו להב מתאים לחומר", "הכניסו את הלהב עד לנעילה", "הצמידו את בסיס המסור לחומר", "תנו ללהב לעבוד - אל תלחצו"],
+            safety: ["חובה משקפי מגן", "ודאו שהחומר מקובע היטב", "היזהרו מלהב חם לאחר חיתוך"],
+            video: ""
+        },
+        {
+            name: "מסור עגול חשמלי",
+            description: "לחיתוך עץ/אלומיניום/פלסטיק בקו ישר",
+            price: "72",
+            image: "images/Electric circular saw.jpg",
+            category: "power-tools",
+            includes: ["מסור עגול", "להב", "מדריך חיתוך"],
+            usage: ["בדקו שהלהב חד ותקין", "כוונו עומק חיתוך מתאים", "סמנו קו חיתוך על החומר", "הפעילו לפני מגע עם החומר", "קדמו באיטיות לאורך הקו"],
+            safety: ["חובה משקפי מגן", "ודאו שהחומר מקובע", "אל תכריחו את המסור"],
+            video: ""
+        },
+        {
+            name: "ג'יגסו חשמלי",
+            description: "לחיתוך עץ/מתכת/אלומיניום/פלסטיק בצורות",
+            price: "48",
+            image: "images/Electric jigsaw.jpg",
+            category: "power-tools",
+            includes: ["ג'יגסו חשמלי", "להבים לעץ ומתכת"],
+            usage: ["בחרו להב מתאים לחומר", "סמנו את קו החיתוך", "התחילו מקצה החומר או מחור קידוח", "קדמו לאט לאורך הקו", "לעיגולים - סובבו לאט ובעדינות"],
+            safety: ["חובה משקפי מגן", "קבעו את החומר היטב", "שמרו על ידיים הרחק מהלהב"],
+            video: ""
+        },
+        {
+            name: "מקצוע חשמלי",
+            description: "להקצעת עץ ולוחות/קרשים, עד 3 מ\"מ בפעם אחת",
+            price: "72",
+            image: "images/electric-planer.JPG",
+            category: "power-tools",
+            includes: ["מקצוע חשמלי", "סכינים חלופיים"],
+            usage: ["כוונו את עומק ההקצעה הרצוי", "הניחו את הבסיס שטוח על העץ", "הפעילו והתקדמו באיטיות", "עבדו תמיד בכיוון סיבי העץ", "אל תעצרו באמצע המעבר"],
+            safety: ["חובה משקפי מגן", "אחזו בשתי ידיים", "אל תגעו בסכינים מסתובבים"],
+            video: ""
+        },
+        {
+            name: "רוטר חשמלי",
+            description: "לעבודות עיצוב ועבודות מיוחדות, חריטה ועוד",
+            price: "72",
+            image: "images/Electric rotor.jpg",
+            category: "power-tools",
+            includes: ["רוטר חשמלי", "ציפורניים/ראשים"],
+            usage: ["בחרו ראש מתאים לעבודה", "כוונו את עומק החריטה", "אחזו בשתי ידיים", "עבדו בתנועה יציבה ואחידה"],
+            safety: ["חובה משקפי מגן", "בדקו שהראש מהודק היטב", "אל תכריחו את הכלי"],
+            video: ""
+        },
+        {
+            name: "מערבל חשמלי",
+            description: "לערבב צבעים/חומרים/צמנטים/חימר ועוד",
+            price: "72",
+            image: "images/electric-mixer.JPEG",
+            category: "power-tools",
+            includes: ["מערבל חשמלי", "ראש ערבול"],
+            usage: ["חברו את ראש הערבול", "הכניסו לתוך החומר לפני ההפעלה", "התחילו במהירות נמוכה", "הגבירו בהדרגה", "הוציאו מהחומר רק לאחר כיבוי"],
+            safety: ["עבדו באזור מאוורר", "הרחיקו מעיניים ופנים", "נקו את הראש מיד לאחר שימוש"],
+            video: ""
+        },
+        {
+            name: "סט דרמל חשמלי",
+            description: "סט מלא עם אביזרים נלווים לדרמל 3000",
+            price: "60",
+            image: "images/Electric Dremel.jpg",
+            category: "power-tools",
+            includes: ["דרמל 3000", "סט אביזרים מלא", "מזוודה"],
+            usage: ["בחרו ראש מתאים לעבודה", "הכניסו את הראש ונעלו עם המפתח", "כוונו מהירות מתאימה", "עבדו בתנועות קלות ומדויקות"],
+            safety: ["חובה משקפי מגן", "אל תלחצו חזק על הכלי", "החליפו ראשים שחוקים"],
+            video: ""
+        },
+        {
+            name: "אקדח מסמרים נטען",
+            description: "אקדח מסמרים וסיכות משולב עד אורך 5 ס\"מ",
+            price: "84",
+            image: "images/Rechargeable nail gun.jpg",
+            category: "power-tools",
+            includes: ["אקדח מסמרים", "סוללה", "מטען"],
+            usage: ["טענו מסמרים/סיכות במחסנית", "ודאו שמנגנון הבטיחות עובד", "הצמידו את הקצה לחומר", "לחצו והדק ירה", "בדקו שהמסמר נכנס בזוית נכונה"],
+            safety: ["לעולם אל תכוונו לאדם", "שמרו אצבעות הרחק מהקצה", "אחסנו ללא מסמרים כשלא בשימוש"],
+            video: ""
+        },
+        {
+            name: "אקדח סיכות נטען",
+            description: "אקדח סיכות עוצמתי לנגרות ובניה",
+            price: "96",
+            image: "images/Rechargeable nail gun.jpg",
+            category: "power-tools",
+            includes: ["אקדח סיכות", "סוללה", "מטען"],
+            usage: ["טענו סיכות מתאימות", "הצמידו למשטח", "לחצו על ההדק"],
+            safety: ["אל תכוונו לאדם", "ודאו שמנגנון הבטיחות פועל"],
+            video: ""
+        },
+        {
+            name: "אקדח אוויר חם",
+            description: "חשמלי, מגיע עם סט ראשים להחלפה",
+            price: "40.8",
+            image: "images/Electric heat gun.jpeg",
+            category: "power-tools",
+            includes: ["אקדח אוויר חם", "סט ראשים להחלפה"],
+            usage: ["חברו לחשמל", "בחרו ראש מתאים", "חממו בהדרגה", "שמרו מרחק מהמשטח", "תנו להתקרר לפני אחסון"],
+            safety: ["הרחיקו מחומרים דליקים", "אל תגעו בראש - חם מאוד", "עבדו באזור מאוורר"],
+            video: ""
+        },
+        {
+            name: "פלס לייזר",
+            description: "לעבודות פילוס ואיזון מקצועיות, 15 מטר מרחק",
+            price: "96",
+            image: "images/Laser leveler.jpeg",
+            category: "power-tools",
+            includes: ["פלס לייזר", "מעמד/חצובה", "סוללות"],
+            usage: ["הניחו על משטח ישר או על חצובה", "הפעילו והמתינו שהלייזר יתייצב", "כוונו לכיוון הרצוי", "סמנו את הקו על הקיר"],
+            safety: ["אל תכוונו את הלייזר לעיניים", "אחסנו במקום יבש"],
+            video: ""
+        },
+        {
+            name: "מד מרחק לייזר",
+            description: "עד מרחק של 45 מטר, מעולה למדידות",
+            price: "30",
+            image: "images/Laser Distance Meter.jpg",
+            category: "power-tools",
+            includes: ["מד מרחק לייזר", "סוללות"],
+            usage: ["הפעילו את המכשיר", "כוונו את הלייזר לנקודת המטרה", "לחצו על כפתור המדידה", "קראו את התוצאה על המסך"],
+            safety: ["אל תכוונו לעיניים", "שמרו על נקיון העדשה"],
+            video: ""
+        },
+        {
+            name: "פולישר חשמלי",
+            description: "לעבודות פוליש מקצועיות, משטחי אפוקסי/שיש/פלסטיק",
+            price: "120",
+            image: "images/5 electric sander.jpg",
+            category: "power-tools",
+            includes: ["פולישר חשמלי", "דיסקיות פוליש"],
+            usage: ["הרכיבו דיסקית מתאימה", "מרחו משחת פוליש על המשטח", "התחילו במהירות נמוכה", "עבדו בתנועות סיבוביות", "נקו את המשטח בסיום"],
+            safety: ["לבשו משקפי מגן", "עבדו באזור מאוורר", "אל תישארו נקודה אחת זמן רב"],
+            video: ""
+        },
+        {
+            name: "מלטשת טלסקופית 9\"",
+            description: "לליטוש קירות/תקרה לאחר שפכטל",
+            price: "84",
+            image: "images/9 telescopic sander.jpg",
+            category: "power-tools",
+            includes: ["מלטשת טלסקופית", "דיסקיות ליטוש", "שואב אבק מובנה"],
+            usage: ["חברו את הצינור הטלסקופי", "הרכיבו דיסקית ליטוש", "חברו שואב אבק (מומלץ)", "עבדו בתנועות מעגליות", "עברו הדרגתית מגס לעדין"],
+            safety: ["חובה מסכת אבק ומשקפיים", "עבדו באזור מאוורר", "אל תלחצו חזק מדי"],
+            video: ""
+        },
+        {
+            name: "מלטשת אקצנטרית 5\"",
+            description: "לליטוש עץ וקירות, עם מיכל לאיסוף אבק",
+            price: "48",
+            image: "images/5 electric sander.jpg",
+            category: "power-tools",
+            includes: ["מלטשת אקצנטרית", "דיסקיות ליטוש", "מיכל אבק"],
+            usage: ["הרכיבו דיסקית מתאימה", "הפעילו לפני מגע עם המשטח", "עבדו בתנועות ישרות", "אל תישארו במקום אחד"],
+            safety: ["חובה מסכת אבק", "נקו את מיכל האבק באופן קבוע"],
+            video: ""
+        },
+        {
+            name: "רתכת אלקטרודות",
+            description: "ריתוך באמצעות אלקטרודות, 200 אמפר",
+            price: "72",
+            image: "images/welding electrodes.jpg",
+            category: "power-tools",
+            includes: ["רתכת", "כבלים", "מלחציים"],
+            usage: ["חברו את הכבלים (+ ו-)", "בחרו אמפר מתאים לאלקטרודה", "הצמידו את הקליפ לחומר", "הצמיגו את האלקטרודה והתחילו לרתך"],
+            safety: ["חובה מסכת ריתוך!", "לבשו כפפות עור", "עבדו באזור מאוורר", "הרחיקו חומרים דליקים"],
+            video: ""
+        },
+        {
+            name: "מפוח נטען",
+            description: "לעבודות גינון וניקיון קטנות, עם 3 מצבי מהירות",
+            price: "90",
+            image: "images/Photoroom_20250518_081443.JPEG",
+            category: "power-tools",
+            includes: ["מפוח נטען", "סוללה", "מטען", "צינור"],
+            usage: ["הרכיבו את הצינור", "הכניסו סוללה טעונה", "בחרו מצב מהירות", "כוונו לכיוון הרצוי"],
+            safety: ["הרחיקו מאנשים ובעלי חיים", "אל תכוונו לפנים", "לבשו משקפי מגן"],
+            video: ""
+        },
+        {
+            name: "מרסס צבע נטען",
+            description: "לצביעת רהיטים, נגרות, מסגרות, קירות",
+            price: "120",
+            image: "images/spray-paint-rechargeable.JPEG",
+            category: "power-tools",
+            includes: ["מרסס צבע", "סוללה", "מטען", "מיכל צבע"],
+            usage: ["דללו את הצבע לפי ההוראות", "מלאו את המיכל", "רססו ממרחק 20-30 ס\"מ", "עבדו בשכבות דקות", "נקו מיד לאחר השימוש"],
+            safety: ["עבדו באזור מאוורר היטב", "לבשו מסכת ריסוס", "הרחיקו מלהבות וחום"],
+            video: ""
+        },
+        {
+            name: "פותח סתימות נטען",
+            description: "לפתיחת סתימות ביתיות בכיורים וצנרת",
+            price: "120",
+            image: "images/spray-painter.jpeg",
+            category: "power-tools",
+            includes: ["פותח סתימות", "סוללה", "מטען", "ראשים"],
+            usage: ["בחרו ראש מתאים לצנרת", "הכניסו לאט לתוך הצנרת", "הפעילו סיבוב קדימה", "כשמרגישים התנגדות - סובבו קדימה ואחורה"],
+            safety: ["לבשו כפפות", "עבדו לאט ובזהירות", "אל תכריחו אם יש התנגדות חזקה"],
+            video: ""
+        },
+        {
+            name: "קומבי נטען",
+            description: "מסור שרשרת 8\" וגם מגזמת מתכווננת",
+            price: "195",
+            image: "images/rechargeable Combo A.jpg",
+            category: "power-tools",
+            includes: ["מסור שרשרת 8 אינץ", "מגזמת", "סוללה", "מטען", "שמן"],
+            usage: ["בחרו ראש מתאים (מסור/מגזמת)", "מלאו שמן שרשרת", "בדקו מתיחות שרשרת", "עבדו בזהירות"],
+            safety: ["חובה ציוד מגן מלא", "אל תעבדו על סולם", "היזהרו מריבאונד"],
+            video: ""
+        },
+        {
+            name: "משאבת מים",
+            description: "לשאיבה עד גובה 8 מטר, חשמלי",
+            price: "120",
+            image: "images/water pump.jpeg",
+            category: "power-tools",
+            includes: ["משאבת מים", "צינור"],
+            usage: ["חברו את הצינורות", "הטבילו את המשאבה במים", "חברו לחשמל", "ודאו שאין אוויר בצינור"],
+            safety: ["אל תפעילו ללא מים", "הרחיקו חשמל ממים", "כבו לפני ניתוק צינורות"],
+            video: ""
+        },
+
+        // ===== ציוד ניקיון =====
+        {
+            name: "מכונה לניקוי ספות ושטיחים",
+            description: "לעבודות ניקיון ותחזוקה ביתית של ספות, שטיחים, כסאות, מזרונים",
+            price: "120",
+            image: "images/cleaning sofas and carpets.jpg",
+            category: "cleaning",
+            includes: ["מכונת ניקוי", "צינור שאיבה", "ראש ריפוד", "ראש רצפה", "חומר ניקוי (דוגמא)"],
+            usage: ["מלאו את מיכל המים הנקיים עם מים חמים וחומר ניקוי", "חברו את הראש המתאים (ריפוד/רצפה)", "לחצו על הדק הריסוס והעבירו על המשטח", "עברו שוב ללא ריסוס לשאיבת הלכלוך", "רוקנו את מיכל המים המלוכלכים ונקו"],
+            safety: ["אל תרססו על עור או חומרים רגישים", "בדקו פינה קטנה לפני ניקוי ריפוד", "רוקנו מיכלים לאחר כל שימוש"],
+            video: ""
+        },
+        {
+            name: "קיטורית",
+            description: "לניקוי וחיטוי באמצעות אדי קיטור, כל סוגי המשטחים",
+            price: "72",
+            image: "images/Electric steamer.jpg",
+            category: "cleaning",
+            includes: ["קיטורית", "ראשים שונים", "מברשות", "בד מיקרופייבר"],
+            usage: ["מלאו מים מזוקקים במיכל", "חכו 3-5 דקות להתחממות", "בחרו ראש מתאים למשטח", "לחצו על הכפתור ורססו קיטור", "נגבו עם בד מיקרופייבר"],
+            safety: ["היזהרו מקיטור חם - כוויות!", "אל תכוונו לאנשים", "רוקנו מים לפני אחסון"],
+            video: ""
+        },
+        {
+            name: "גרניק 120 באר",
+            description: "לשטיפה בלחץ, לעבודות קטנות ניקיון הבית/מחסן/רכב",
+            price: "72",
+            image: "images/granik-120-bar-set.JPEG",
+            category: "cleaning",
+            includes: ["גרניק 120 באר", "צינור לחץ", "אקדח ריסוס", "ראשים"],
+            usage: ["חברו לברז מים", "חברו את צינור הלחץ", "הפעילו את הגרניק", "בחרו ראש מתאים (מרוכז/מפוזר)", "שטפו ממרחק 30 ס\"מ לפחות"],
+            safety: ["אל תכוונו לאנשים או חיות", "הרחיקו מחלונות זכוכית", "אל תרססו על חשמל"],
+            video: ""
+        },
+        {
+            name: "גרניק נטען",
+            description: "גרניק נטען עוצמתי עם 4 מצבי עבודה",
+            price: "120",
+            image: "images/rechargeable-granik.jpeg",
+            category: "cleaning",
+            includes: ["גרניק נטען", "סוללה", "מטען", "צינור שאיבה", "ראשים"],
+            usage: ["טענו את הסוללה", "חברו צינור שאיבה למקור מים", "בחרו מצב עבודה מתאים", "שטפו ממרחק סביר"],
+            safety: ["אל תכוונו לאנשים", "אל תשתמשו ללא מים"],
+            video: ""
+        },
+        {
+            name: "שואב אבק תעשייתי",
+            description: "לניקיון ושאיבה של שאריות ולכלוך בניה",
+            price: "195",
+            image: "images/Industrial vacuum cleaner.jpg",
+            category: "cleaning",
+            includes: ["שואב אבק תעשייתי", "צינורות", "ראשי שאיבה"],
+            usage: ["חברו את הצינור והראש", "ודאו שהמיכל ריק", "הפעילו ושאבו", "רוקנו את המיכל כשמתמלא"],
+            safety: ["אל תשאבו נוזלים דליקים", "נקו את הפילטר באופן קבוע", "כבו לפני פתיחת המיכל"],
+            video: ""
+        },
+        {
+            name: "מנקה חלונות רובוטי",
+            description: "רובוט חשמלי לניקוי חלונות וויטרינות",
+            price: "120",
+            image: "images/robot-window-cleaner.JPEG",
+            category: "cleaning",
+            includes: ["רובוט ניקוי חלונות", "שלט", "כבל בטיחות", "מטליות"],
+            usage: ["חברו לחשמל", "רססו חומר ניקוי על החלון", "הניחו את הרובוט על החלון", "הפעילו - הוא ייצמד ויתחיל לנקות", "בסיום - הסירו בזהירות"],
+            safety: ["תמיד חברו את כבל הבטיחות", "אל תשתמשו בחלונות סדוקים", "פקחו עין במהלך העבודה"],
+            video: ""
+        },
+        {
+            name: "מכונה לניקוי בעלי חיים",
+            description: "מכונה מושלמת לשטיפה וייבוש בעלי חיים",
+            price: "150",
+            image: "images/pet-cleaning-machine.JPEG",
+            category: "cleaning",
+            includes: ["מכונת ניקוי", "ראשי ניקוי שונים", "מיכל"],
+            usage: ["מלאו מים פושרים ושמפו לחיות", "בחרו ראש מתאים", "עבדו בעדינות על פרוות החיה", "שטפו היטב"],
+            safety: ["השתמשו רק בשמפו לחיות", "בדקו טמפרטורת מים", "אל תכוונו לאוזניים ועיניים"],
+            video: ""
+        },
+        {
+            name: "מגהץ קיטור אנכי",
+            description: "מגהצים ישירות על הבגד שתלוי על כולב",
+            price: "35",
+            image: "images/Steam iron.jpg",
+            category: "cleaning",
+            includes: ["מגהץ קיטור אנכי", "מיכל מים"],
+            usage: ["מלאו את מיכל המים", "המתינו להתחממות", "תלו את הבגד", "העבירו את המגהץ מלמעלה למטה", "שמרו מרחק קל מהבד"],
+            safety: ["היזהרו מקיטור חם", "אל תגהצו בגד על הגוף", "רוקנו מים לאחר שימוש"],
+            video: ""
+        },
+
+        // ===== ציוד מטבח =====
+        {
+            name: "מיקסר למטבח",
+            description: "לעבודות מטבח מקצועיות וביתיות, להכנת בצקים, עוגות, רטבים",
+            price: "72",
+            image: "images/Electric hand mixer.jpg",
+            category: "kitchen",
+            includes: ["מיקסר עומד", "ראש לישה", "ראש הקצפה", "קערה"],
+            usage: ["הרכיבו את הראש המתאים", "הכניסו מצרכים לקערה", "התחילו במהירות נמוכה", "העלו מהירות בהדרגה", "נקו מיד לאחר השימוש"],
+            safety: ["אל תכניסו ידיים בזמן הפעלה", "כבו לפני החלפת ראשים", "אל תמלאו יותר מדי"],
+            video: ""
+        },
+        {
+            name: "כירה חשמלית למטבח",
+            description: "לעבודות מטבח מקצועיות וביתיות, לבישול והכנת רטבים",
+            price: "30",
+            image: "images/Electric stove.jpg",
+            category: "kitchen",
+            includes: ["כירה חשמלית"],
+            usage: ["הניחו על משטח ישר ויציב", "חברו לחשמל", "הניחו סיר/מחבת", "כוונו את החום", "המתינו להתחממות"],
+            safety: ["הרחיקו מחומרים דליקים", "אל תגעו במשטח חם", "כבו ונתקו מהחשמל לאחר שימוש"],
+            video: ""
+        },
+
+        // ===== בידור ואודיו =====
+        {
+            name: "מיקרופונים אלחוטיים",
+            description: "זוג מיקרופונים אלחוטיים JBL כולל מתאם חיבור ומטען",
+            price: "72",
+            image: "images/wireless-microphones.JPG",
+            category: "audio",
+            includes: ["2 מיקרופונים אלחוטיים", "מתאם חיבור אלחוטי", "מטען", "כבל USB"],
+            usage: ["טענו את המיקרופונים מראש", "חברו את המתאם האלחוטי לרמקול/מערכת", "הפעילו את המיקרופונים", "ודאו שהחיבור יציב", "כוונו עוצמה לפי הצורך"],
+            safety: ["הרחיקו מרמקולים למניעת פידבק", "אחסנו במקום יבש"],
+            video: ""
+        },
+        {
+            name: "בידורית JBL",
+            description: "PARTY BOX120 למסיבות, פנאי ובילוי בכל מקום",
+            price: "164",
+            image: "images/JBL-Party-Box-120.JPG",
+            category: "audio",
+            includes: ["בידורית JBL PARTY BOX 120", "כבל טעינה", "כבל AUX"],
+            usage: ["טענו את הבידורית מראש (מומלץ 100%)", "הפעילו בלחיצה ארוכה", "חברו בלוטות' או כבל AUX", "כוונו עוצמה ואפקטים", "אפשר לחבר מיקרופון בכניסת ה-AUX"],
+            safety: ["אל תחשפו למים או גשם", "שמרו על עוצמה סבירה", "אחסנו במקום מאוורר"],
+            video: ""
+        },
+
+        // ===== קמפינג ונסיעות =====
+        {
+            name: "אוהל ים",
+            description: "אוהל חוף ים מבית סולי, במידות 2.8X2",
+            price: "48",
+            image: "images/beach-tent.JPG",
+            category: "camping",
+            includes: ["אוהל ים", "מוטות", "יתדות", "תיק נשיאה"],
+            usage: ["פרשו את האוהל על הקרקע", "חברו את המוטות", "הרימו והצמידו", "קבעו עם יתדות", "לפירוק - עשו בסדר הפוך"],
+            safety: ["קבעו היטב ברוח", "אל תשתמשו כמחסה מסערות", "אחסנו יבש"],
+            video: ""
+        },
+        {
+            name: "פרוז'קטור נטען",
+            description: "מושלם לטיולים, קמפינג, עבודות לילה",
+            price: "72",
+            image: "images/Rechargeable Flashlight.jpg",
+            category: "camping",
+            includes: ["פרוז'קטור נטען", "מטען"],
+            usage: ["טענו מראש למשך מלא", "הפעילו בלחיצה", "בחרו עוצמת אור", "ניתן להטות לכיוונים שונים"],
+            safety: ["אל תכוונו לעיניים", "אחסנו יבש"],
+            video: ""
+        },
+        {
+            name: "תיק צ'ימיגג",
+            description: "תיק אחסון לנסיעות, בנפח של 500 ליטר",
+            price: "30",
+            image: "images/Chimigag bag.jpg",
+            category: "camping",
+            includes: ["תיק צ'ימיגג 500 ליטר"],
+            usage: ["פתחו את הרוכסן", "ארזו ציוד בפנים", "סגרו ומשכו את הרצועות", "ניתן לקשור לגג רכב"],
+            safety: ["אל תעמיסו מעל המשקל המותר", "ודאו סגירה הרמטית בגשם"],
+            video: ""
+        },
+        {
+            name: "סט מזוודות בלתי שבירות",
+            description: "סט של 2 מזוודות בלתי שבירות ומתקפלות",
+            price: "30",
+            image: "images/suitcase-set.jpeg",
+            category: "camping",
+            includes: ["2 מזוודות בגדלים שונים"],
+            usage: ["פתחו את המזוודה", "השתמשו ברצועות הפנימיות לסידור", "סגרו ונעלו", "לאחסון - ניתן לקפל"],
+            safety: ["אל תחרגו ממשקל מותר לטיסה"],
+            video: ""
+        },
+        {
+            name: "מנשא לתינוק",
+            description: "מנשא אומני בריז - בטיחות נוחות וחופש",
+            price: "48",
+            image: "images/baby-carrier.JPG",
+            category: "camping",
+            includes: ["מנשא לתינוק", "הוראות התקנה"],
+            usage: ["התאימו את הרצועות לגוף", "הכניסו את התינוק בעדינות", "ודאו שהתינוק מחובר בטוח", "כוונו גובה ותמיכה לראש"],
+            safety: ["ודאו שהתינוק נושם חופשי", "בדקו אבזמים לפני כל שימוש", "אל תרוצו או תקפצו"],
+            video: ""
+        },
+        {
+            name: "חצובה 2 מטר",
+            description: "למצלמות או פלסי לייזר ולסמארטפון",
+            price: "42",
+            image: "images/tripod-2m.jpeg",
+            category: "camping",
+            includes: ["חצובה 2 מטר", "מתאם לסמארטפון", "תיק נשיאה"],
+            usage: ["פתחו את רגלי החצובה", "כוונו גובה לפי הצורך", "חברו מצלמה/טלפון למעלה", "נעלו את הבורג", "כוונו זוית"],
+            safety: ["ודאו יציבות על הקרקע", "אל תשאירו ללא השגחה ברוח"],
+            video: ""
+        },
+
+        // ===== ציוד כללי =====
+        {
+            name: "בוסטר חשמלי",
+            description: "להתנעת כלי רכב עד נפח מנוע 4,800 סמ\"ק",
+            price: "40",
+            image: "images/Portable booster.jpg",
+            category: "general",
+            includes: ["בוסטר חשמלי", "כבלים", "מטען"],
+            usage: ["ודאו שהבוסטר טעון", "חברו אדום ל+ ושחור ל-", "הפעילו את הבוסטר", "התניעו את הרכב", "נתקו בסדר הפוך: שחור ואז אדום"],
+            safety: ["אל תהפכו את הקוטביות!", "הרחיקו מניצוצות וגז", "אל תגעו בשני הקטבים בו-זמנית"],
+            video: ""
+        },
+        {
+            name: "עגלה טלסקופית",
+            description: "לנוחות עבודה בשינוע ציוד, מוצרים, ארגזים",
+            price: "50",
+            image: "images/telescopic-cart.JPEG",
+            category: "general",
+            includes: ["עגלה טלסקופית מתקפלת"],
+            usage: ["פתחו את העגלה", "הרימו את הידית לגובה נוח", "הניחו ציוד על הפלטפורמה", "קבעו עם רצועה במידת הצורך"],
+            safety: ["אל תעמיסו מעל המותר", "היזהרו במדרגות ומדרונות"],
+            video: ""
+        },
+        {
+            name: "ג'ק הרמה 2 טון",
+            description: "ג'ק הרמה הידראולי איכותי עד 2 טון",
+            price: "48",
+            image: "images/jack-2-ton.JPG",
+            category: "general",
+            includes: ["ג'ק הרמה הידראולי 2 טון"],
+            usage: ["הניחו על משטח ישר ויציב", "מקמו מתחת לנקודת ההרמה", "שאבו את הידית להרמה", "הניחו חסם בטיחות מתחת לרכב", "לירידה - פתחו את שסתום השחרור לאט"],
+            safety: ["לעולם אל תעבדו מתחת לרכב ללא חסם!", "השתמשו על משטח ישר בלבד", "אל תחרגו מ-2 טון"],
+            video: ""
+        },
+        {
+            name: "רתמת בטיחות",
+            description: "לעבודות בגובה על סולמות, פיגומים, מנופים",
+            price: "48",
+            image: "images/Safety harness.jpg",
+            category: "general",
+            includes: ["רתמת בטיחות", "רצועות"],
+            usage: ["לבשו את הרתמה", "הדקו את כל הרצועות", "חברו את הקרבינר לנקודת עיגון", "ודאו שאין רפיון ברצועות"],
+            safety: ["חובה לחבר לנקודת עיגון מאושרת!", "בדקו את הרתמה לפני כל שימוש", "אל תשתמשו ברתמה פגומה"],
+            video: ""
+        }
+    ];
+
+    // ==============================
+    // CATEGORY DEFINITIONS
+    // ==============================
+    const categories = {
+        "power-tools": { name: "כלי עבודה חשמליים", icon: "🔧" },
+        "cleaning": { name: "ציוד ניקיון", icon: "🧹" },
+        "kitchen": { name: "ציוד מטבח", icon: "🍳" },
+        "audio": { name: "בידור ואודיו", icon: "🎵" },
+        "camping": { name: "קמפינג ונסיעות", icon: "⛺" },
+        "general": { name: "ציוד כללי", icon: "📦" }
+    };
+
+    // ==============================
+    // RENDER GUIDES
+    // ==============================
+    const container = document.getElementById('guidesContainer');
+    const noResults = document.getElementById('noResults');
+    const searchInput = document.getElementById('searchInput');
+    const searchCount = document.getElementById('searchCount');
+    let activeFilter = 'all';
+
+    function renderGuides(filter, searchTerm) {
+        container.innerHTML = '';
+        let totalShown = 0;
+
+        const catOrder = ["power-tools", "cleaning", "kitchen", "audio", "camping", "general"];
+
+        catOrder.forEach(catKey => {
+            const cat = categories[catKey];
+            let items = guidesData.filter(g => g.category === catKey);
+
+            // Apply category filter
+            if (filter !== 'all' && filter !== catKey) return;
+
+            // Apply search
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                items = items.filter(g =>
+                    g.name.includes(term) ||
+                    g.description.includes(term) ||
+                    (g.includes && g.includes.some(i => i.includes(term))) ||
+                    (g.usage && g.usage.some(u => u.includes(term)))
+                );
+            }
+
+            if (items.length === 0) return;
+
+            totalShown += items.length;
+
+            const section = document.createElement('div');
+            section.className = 'category-section';
+            section.innerHTML = `
+                <h2 class="category-title">
+                    <span class="cat-icon">${cat.icon}</span>
+                    ${cat.name}
+                    <span class="category-count">${items.length} פריטים</span>
+                </h2>
+            `;
+
+            items.forEach((guide, idx) => {
+                const card = document.createElement('div');
+                card.className = 'guide-card';
+                card.style.animationDelay = (idx * 0.05) + 's';
+                card.innerHTML = `
+                    <div class="guide-header" onclick="toggleGuide(this)">
+                        <img src="${guide.image}" alt="${guide.name}" class="guide-thumb" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 fill=%22%23e8f4ed%22><rect width=%2260%22 height=%2260%22/><text x=%2230%22 y=%2235%22 text-anchor=%22middle%22 fill=%22%23176635%22 font-size=%2222%22>🔧</text></svg>'">
+                        <div class="guide-header-info">
+                            <h3>${guide.name}</h3>
+                            <p>${guide.description}</p>
+                        </div>
+                        <span class="guide-price">₪${guide.price} / 24 שעות</span>
+                        <div class="guide-arrow">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#176635" stroke-width="2.5">
+                                <path d="M6 9l6 6 6-6"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="guide-body">
+                        <div class="guide-content">
+                            <img src="${guide.image}" alt="${guide.name}" class="guide-full-img" loading="lazy" onerror="this.style.display='none'">
+
+                            ${guide.includes && guide.includes.length ? `
+                            <div class="guide-section">
+                                <h4>📦 מה כלול באריזה</h4>
+                                <ul>${guide.includes.map(i => `<li>${i}</li>`).join('')}</ul>
+                            </div>` : ''}
+
+                            ${guide.usage && guide.usage.length ? `
+                            <div class="guide-section">
+                                <h4>📋 הוראות שימוש</h4>
+                                <ul>${guide.usage.map((u, i) => `<li><strong>שלב ${i+1}:</strong> ${u}</li>`).join('')}</ul>
+                            </div>` : ''}
+
+                            ${guide.safety && guide.safety.length ? `
+                            <div class="guide-section safety-note">
+                                <h4>⚠️ טיפים לבטיחות</h4>
+                                <ul>${guide.safety.map(s => `<li>${s}</li>`).join('')}</ul>
+                            </div>` : ''}
+
+                            ${guide.video ? `
+                            <div class="guide-section">
+                                <h4>🎬 סרטון הדרכה</h4>
+                                <div class="video-placeholder">
+                                    <p>סרטון הדרכה יתווסף בקרוב</p>
+                                </div>
+                            </div>` : `
+                            <div class="guide-section">
+                                <h4>🎬 סרטון הדרכה</h4>
+                                <div class="video-placeholder">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                        <rect x="2" y="4" width="20" height="16" rx="3.5"/>
+                                        <polygon points="10 8 16 12 10 16 10 8"/>
+                                    </svg>
+                                    <p>סרטון הדרכה יתווסף בקרוב</p>
+                                </div>
+                            </div>`}
+
+                            <a href="https://online.keynius.app/home/a4a89521-1efb-45cb-a931-80cc5d3bd236" target="_blank" class="guide-cta">השכר עכשיו - ₪${guide.price}</a>
+                        </div>
+                    </div>
+                `;
+                section.appendChild(card);
+            });
+
+            container.appendChild(section);
+        });
+
+        // Show/hide no results
+        noResults.style.display = totalShown === 0 ? 'block' : 'none';
+
+        // Update count
+        if (searchTerm) {
+            searchCount.textContent = `נמצאו ${totalShown} תוצאות`;
+        } else {
+            searchCount.textContent = '';
+        }
+    }
+
+    // Toggle accordion
+    function toggleGuide(header) {
+        const card = header.parentElement;
+        card.classList.toggle('open');
+    }
+
+    // Category filter
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeFilter = btn.dataset.cat;
+            renderGuides(activeFilter, searchInput.value.trim());
+        });
+    });
+
+    // Search
+    let searchTimeout;
+    searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            renderGuides(activeFilter, searchInput.value.trim());
+        }, 200);
+    });
+
+    // Initial render
+    renderGuides('all', '');
+
+    // ==============================
+    // MOBILE MENU
+    // ==============================
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    navLinks.addEventListener('click', (e) => {
+        const rect = navLinks.getBoundingClientRect();
+        const isXButtonArea = e.clientX > (rect.width - 100) && e.clientY < 100;
+        if (e.target === navLinks || isXButtonArea) {
+            menuToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+        }
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+
+    // ==============================
+    // BACK TO TOP
+    // ==============================
+    const backToTop = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 400) {
+            backToTop.classList.add('show');
+        } else {
+            backToTop.classList.remove('show');
+        }
+    });
+
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ==============================
+    // HEADER HIDE/SHOW ON SCROLL
+    // ==============================
+    let lastScroll = 0;
+    const header = document.querySelector('header');
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll <= 0) {
+            header.style.transform = 'translateY(0)';
+            return;
+        }
+        if (currentScroll > lastScroll && currentScroll > 100) {
+            header.style.transform = 'translateY(-100%)';
+        } else {
+            header.style.transform = 'translateY(0)';
+        }
+        lastScroll = currentScroll;
+    });
+    </script>
+</body>
+</html>
