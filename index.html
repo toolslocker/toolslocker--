@@ -1530,10 +1530,11 @@
                 <div class="footer-section">
                     <h3>הירשמו לעדכונים</h3>
                     <p>קבלו חדשות והטבות ישירות למייל</p>
-                    <form class="newsletter-form" onsubmit="return false;">
-                        <input type="email" placeholder="המייל שלך" required>
-                        <button type="submit">הרשמה</button>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" id="newsletterEmail" placeholder="המייל שלך" required>
+                        <button type="submit" id="newsletterBtn">הרשמה</button>
                     </form>
+                    <p id="newsletterMsg" style="display:none; margin-top:8px; font-size:0.9rem;"></p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -1729,6 +1730,37 @@
             card.style.transition = 'all 0.6s ease';
             observer.observe(card);
         });
+
+        // Newsletter form
+        const newsletterForm = document.getElementById('newsletterForm');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('newsletterEmail').value;
+                const btn = document.getElementById('newsletterBtn');
+                const msg = document.getElementById('newsletterMsg');
+                btn.disabled = true;
+                btn.textContent = '...שולח';
+                fetch('https://script.google.com/a/macros/toolslocker.org/s/AKfycbyiIWFBKKBUZDZaeKZtgBVui7XHKQIgOKtRi3E-i5hF4PdGw_b2Cl-xQTv2Ha2kmVU41g/exec', {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({email: email})
+                }).then(function() {
+                    msg.style.display = 'block';
+                    msg.style.color = '#22c55e';
+                    msg.textContent = '✅ נרשמת בהצלחה!';
+                    btn.textContent = 'נרשמת ✓';
+                    document.getElementById('newsletterEmail').value = '';
+                }).catch(function() {
+                    msg.style.display = 'block';
+                    msg.style.color = '#ef4444';
+                    msg.textContent = '❌ שגיאה, נסה שוב';
+                    btn.disabled = false;
+                    btn.textContent = 'הרשמה';
+                });
+            });
+        }
     </script>
 
 <!-- Accessibility Widget -->
