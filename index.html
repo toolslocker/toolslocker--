@@ -2489,58 +2489,181 @@ document.addEventListener('click',function(e){
     const chatbotInput = document.getElementById('chatbotInput');
     const chatbotSend = document.getElementById('chatbotSend');
 
-    // MOCK RESPONSES - Smart bot that doesn't need API! 🎯
-    const mockResponses = {
-        'מקדחה': 'מעולה! 🔨 יש לנו מבחר מקדחות מקצועיות:<br><br>🔵 <strong>מקדחה רוטטת</strong> (₪80/יום) - מושלמת לקידוח בבטון וקירות<br>🔵 <strong>מקדחה אלחוטית</strong> (₪60/יום) - נוחה לעבודות קלות<br>🔵 <strong>מקדחה פטישית</strong> (₪120/יום) - לעבודות כבדות<br><br>כל המקדחות כוללות מקדחים בגדלים שונים.<br>איזו רמת עבודה אתה מתכנן? 🛠️',
+    // ENHANCED MOCK RESPONSES - Much smarter! 🧠
+    let conversationContext = { lastTopic: null, askedAbout: [] };
 
-        'בטון': 'לקידוח בבטון אני ממליץ על: 🎯<br><br><strong>מקדחה פטישית רוטטת</strong> (₪120/יום)<br><br>✅ מתאימה מאוד לקידוח בבטון<br>✅ כוללת 3 מצבי עבודה<br>✅ עוצמת קידוח גבוהה<br>✅ מקדחים בגדלים 6-18 מ"מ כלולים<br><br>המקדחה נמצאת במלאי! 📦<br><a href="https://online.keynius.app/home/a4a89521-1efb-45cb-a931-80cc5d3bd236" target="_blank" style="color:#d7df23">🔗 להשכרה לחץ כאן</a>',
+    // Response variations for natural conversation
+    const responses = {
+        greeting: [
+            'שלום! 👋 נעים מאוד! אני העוזר הדיגיטלי של ToolsLocker.<br>איך אוכל לעזור לך היום? מה הפרויקט שאתה מתכנן? 🛠️',
+            'היי! 😊 ברוך הבא ל-ToolsLocker!<br>ספר לי - מה אתה צריך? אני כאן לעזור! 🔧',
+            'שלום וברוכים הבאים! 🎉<br>יש לך פרויקט? רעיון? אני כאן לעזור למצוא את הכלי המושלם! 💪'
+        ],
 
-        'מסור': 'יש לנו מספר סוגי מסורים! 🪚<br><br>🟢 <strong>מסור עגול</strong> (₪70/יום) - לחיתוך עץ ישר<br>🟢 <strong>מסור שרשרת</strong> (₪150/יום) - לחיתוך עצים ענפים<br>🟢 <strong>מסור אנכי (ג\'יגסו)</strong> (₪50/יום) - לחיתוכים מעוקלים<br>🟢 <strong>מסור שולחני</strong> (₪200/יום) - לחיתוכים מדויקים<br><br>מה בדיוק את/ה צריך/ה לחתוך? 🤔',
+        thanks: [
+            'בשמחה! 😊 אם יש עוד שאלות - אני פה! 🙌',
+            'תמיד לשירותך! 💚 מקווה שעזרתי! יום מעולה! ☀️',
+            'בכיף! 🎯 נשמח לראות אותך בחנות! 🚀'
+        ],
 
-        'עץ': 'לעבודות בעץ אני ממליץ על: 🌲<br><br><strong>מסור עגול מקצועי</strong> (₪70/יום)<br>✅ מושלם לחיתוכים ישרים<br>✅ עומק חיתוך עד 65 מ"מ<br>✅ מנוע חזק 1400W<br><br><strong>או מסור שולחני</strong> (₪200/יום)<br>✅ דיוק מירבי<br>✅ חיתוכים ארוכים<br>✅ כולל מדריך זווית<br><br>במה תעבוד? רצפות, ריהוט, עץ גרדן? 🪵',
+        drill: {
+            general: [
+                'מקדחות! 🔨 זה התחום שלי!<br><br>ספר לי קצת יותר - מה תכנן לקדוח?<br>• בטון/קירות?<br>• עץ/ריהוט?<br>• מתכת?<br><br>כדי שאוכל להמליץ על הכלי המדויק! 🎯',
+                'יש לנו מקדחות מעולות! 💪<br><br>כמה שאלות מהירות:<br>1️⃣ איזה חומר תקדח? (בטון/עץ/מתכת)<br>2️⃣ איזה גודל קידוחים?<br>3️⃣ כמה קידוחים בערך?<br><br>אמליץ לך על הכלי המושלם! 🔧'
+            ],
+            concrete: [
+                'לבטון אני ממליץ בחום! 💥<br><br><strong>מקדחה פטישית MAKITA</strong> (₪120/יום)<br><br>למה היא מושלמת:<br>✅ 850W כוח אש!<br>✅ 3 מצבי עבודה<br>✅ קידוחים עד 20 מ"מ<br>✅ כוללת סט מקדחים SDS<br>✅ ידית רטט-מופחת<br><br>📦 יש במלאי!<br><a href="https://online.keynius.app/home/a4a89521-1efb-45cb-a931-80cc5d3bd236" target="_blank" style="color:#d7df23">🔗 להזמנה</a>',
+                'בטון זה עבודה! אבל עם הכלי הנכון - קל! 💪<br><br><strong>מקדחה רוטטת מקצועית</strong> (₪120/יום)<br><br>מה מיוחד בה:<br>🔥 מנוע 850W חזק במיוחד<br>🔥 מצב פטיש + סיבוב<br>🔥 קידוח מהיר בבטון מזוין<br>🔥 מקדחי SDS+ איכותיים כלולים<br><br>בונה משהו גדול? 🏗️'
+            ],
+            wood: [
+                'לעבודות עץ יש לנו כלי מנצח! 🌲<br><br><strong>מקדחה אלחוטית 18V BOSCH</strong> (₪60/יום)<br><br>מושלמת ל:<br>✅ ריהוט וארונות<br>✅ קידוחי פינים<br>✅ הרכבות<br>✅ עבודה בכל זווית<br><br>כוללת:<br>• 2 סוללות<br>• מטען מהיר<br>• סט מקדחים לעץ<br><br>על מה אתה עובד? ריהוט? רצפה? 🪵'
+            ]
+        },
 
-        'קמפינג': 'וואו, קמפינג! ⛺ יש לנו ערכה מושלמת:<br><br>🏕️ <strong>ערכת קמפינג משפחתית</strong> (₪180/יום):<br>✅ אוהל ל-4 אנשים עמיד במים<br>✅ 4 שקי שינה איכותיים<br>✅ מנגל פורטבלי + כלים<br>✅ מזרונים מתנפחים<br>✅ תאורת LED נטענת<br>✅ ערכת עזרה ראשונה<br><br>🏕️ <strong>ערכה זוגית</strong> (₪120/יום) - גרסה קטנה יותר<br><br>לכמה אנשים אתם מתכננים? 👨‍👩‍👧‍👦',
+        saw: {
+            general: [
+                'מסורים! 🪚 יש לנו אוסף שלם!<br><br>נעזור לי לבחור - מה תרצה לחתוך?<br>• עץ (לוחות/קורות)?<br>• ענפים/עצים?<br>• חומרים דקים?<br>• חיתוכים מדויקים?<br><br>כל חומר צריך מסור אחר! 🎯',
+                'חיתוך! אני אוהב! 💪<br><br>בוא נמצא את המסור המושלם:<br>מה סוג העבודה?<br>🟢 חיתוך ישר/מהיר?<br>🟢 חיתוכים מעוקלים?<br>🟢 גיזום עצים?<br>🟢 דיוק מקסימלי?<br><br>יש לי המלצה מנצחת לכל סוג! ⚡'
+            ],
+            circular: [
+                'מסור עגול - המלך של חיתוכים ישרים! 👑<br><br><strong>מסור עגול MAKITA 1400W</strong> (₪75/יום)<br><br>מפלצת של כלי:<br>🔵 חיתוך עד 65 מ"מ עומק<br>🔵 דיסק 190 מ"מ<br>🔵 מדריך זווית מדויק<br>🔵 ידית ארגונומית<br><br>מושלם ל:<br>• לוחות עץ<br>• פרקט<br>• עבודות נגרות<br><br>על מה תעבוד? 🪵'
+            ],
+            chainsaw: [
+                'מסור שרשרת! זה כבר רציני! 💥<br><br><strong>מסור שרשרת STIHL 16"</strong> (₪165/יום)<br><br>חיה אמיתית:<br>⚡ מנוע 2.3 כ"ס<br>⚡ להב 40 ס"מ<br>⚡ גיזום + חיתוך עצים<br>⚡ מערכת בטיחות מתקדמת<br><br>כולל:<br>✅ שרשרת מושחזת<br>✅ שמן שרשרת<br>✅ ציוד מגן<br><br>איזה עצים יש לך? 🌳'
+            ]
+        },
 
-        'מחיר': 'המחירים שלנו מאוד תחרותיים! 💰<br><br>📊 <strong>טווח מחירים:</strong><br>• כלים קטנים: ₪40-80/יום<br>• כלים בינוניים: ₪80-150/יום<br>• ציוד מקצועי: ₪150-300/יום<br>• ערכות משולבות: ₪120-250/יום<br><br>🎁 <strong>הנחות:</strong><br>✅ השכרה ל-3+ ימים: 15% הנחה<br>✅ השכרה שבועית: 25% הנחה<br>✅ לקוחות חוזרים: 10% הנחה<br><br>על איזה כלי חשבת? אגיד לך את המחיר המדויק! 🎯',
+        camping: {
+            general: [
+                'קמפינג! איזה כיף! ⛺🔥<br><br>לאן אתם מתכננים? צפון? דרום? פארק לאומי?<br><br>ספר לי:<br>1️⃣ כמה אנשים?<br>2️⃣ כמה לילות?<br>3️⃣ באיזה עונה?<br><br>אכין לך חבילה מושלמת! 🎒',
+                'וואו קמפינג! 🏕️ זה הולך להיות מדהים!<br><br>יש לנו ערכות מלאות שחוסכות לך כאב ראש.<br><br>משפחה? זוג? חברים?<br>חורף או קיץ?<br><br>בוא נבנה את הערכה המושלמת! 🌟'
+            ],
+            family: [
+                'ערכה משפחתית פרימיום! 👨‍👩‍👧‍👦<br><br><strong>חבילת קמפינג VIP</strong> (₪220/יום)<br><br>מה כלול:<br>🏕️ אוהל 6 אנשים Coleman עמיד במים<br>🏕️ 6 שקי שינה קיץ/חורף<br>🏕️ מזרונים מתנפחים עם משאבה<br>🏕️ מנגל + גז + כלים<br>🏕️ שולחן + כיסאות מתקפלים<br>🏕️ תאורת LED + פנס ראש<br>🏕️ צידנית ענקית<br>🏕️ ערכת עזרה ראשונה<br><br>כל מה שצריך למשפחה! 💚'
+            ]
+        },
 
-        'מיקום': 'הנה המיקום שלנו! 📍<br><br><strong>דיזנגוף סנטר, תל אביב</strong><br>🏢 קומה 2, ליד האסקלטור המרכזי<br>⏰ פתוח 24/7 (חנות אוטומטית)<br>🚗 חניה זמינה בקומות מינוס<br>🚌 תחבורה ציבורית: קווים 5, 18, 39, 72<br><br>קל מאוד להגיע! צריך הסבר איך להגיע? 🗺️',
+        paint: [
+            'צביעה! יאללה לשדרוג! 🎨<br><br>איזה שטח תצבע?<br>• חדר אחד?<br>• דירה שלמה?<br>• גדר/חוץ?<br><br>יש לנו:<br>🎨 <strong>מרסס צבע חשמלי</strong> (₪85/יום)<br>• פי 10 יותר מהיר ממברשת!<br>• צביעה אחידה ומקצועית<br>• קל לשימוש<br><br>כולל הדרכה! 🖌️',
+            'צביעה זה אומנות! 🎨<br><br><strong>ערכת צביעה מקצועית</strong> (₪110/יום)<br><br>מה כלול:<br>✅ מרסס צבע WAGNER<br>✅ סטנדים לעבודה בגובה<br>✅ ניילונים וסרטי הגנה<br>✅ מסכה + כפפות<br>✅ מגשים ומברשות<br><br>צובעים חדר? דירה? בניין? 😄'
+        ],
 
-        'שעות': 'החנות שלנו מיוחדת! ⏰<br><br>🎉 <strong>פתוח 24/7!</strong><br><br>כן, קראת נכון - זמינים סביב השעון! 🌙☀️<br><br>החנות עובדת באופן אוטומטי:<br>✅ לקיחת ציוד בכל שעה<br>✅ החזרה בכל שעה<br>✅ תשלום אוטומטי בכרטיס<br>✅ ללא תורים, ללא המתנה<br><br>זה ממש נוח! מתי אתה רוצה להגיע? 🚀',
+        garden: [
+            'גינון! אני אוהב! 🌿✂️<br><br>מה יש לטפל?<br>• דשא לכסח?<br>• גדר חיה לגזום?<br>• עצים לשפר?<br><br>יש לנו:<br>🟢 מכסחות דשא<br>🟢 גוזם חיה חשמלי<br>🟢 מסור שרשרת<br>🟢 מגרפות ואביזרים<br><br>איזה גינה יש לך? 🏡',
+            'הגינה תהיה מושלמת! 🌳<br><br><strong>חבילת גינון קיץ</strong> (₪140/יום)<br><br>כולל:<br>✅ מכסחת דשא חשמלית<br>✅ גוזם חיה 450W<br>✅ מפוח עלים<br>✅ כפפות + משקפי מגן<br><br>גינה קטנה? גדולה? ג\'ונגל? 😅🌴'
+        ],
 
-        'default': 'שאלה מעניינת! 🤔<br><br>אני יכול לעזור לך עם:<br><br>🔨 <strong>כלי עבודה</strong>: מקדחות, מסורים, משחזות<br>⛺ <strong>ציוד קמפינג</strong>: אוהלים, ערכות בישול<br>🏡 <strong>כלי גינה</strong>: מכסחות, משפצי דשא<br>👨‍🍳 <strong>ציוד מטבח</strong>: בלנדרים, מיקסרים<br>📍 <strong>מידע כללי</strong>: מיקום, מחירים, זמינות<br><br>מה בדיוק מעניין אותך? נשמח לעזור! 😊<br><br><a href="https://online.keynius.app/home/a4a89521-1efb-45cb-a931-80cc5d3bd236" target="_blank" style="color:#d7df23">🔗 לצפייה בכל המוצרים</a>'
+        price: [
+            'מחירים! בוא נדבר על זה 💰<br><br>המחירים שלנו סופר הוגנים:<br><br>📊 <strong>טווח מחירים:</strong><br>• כלים קטנים: ₪40-80/יום<br>• כלים בינוניים: ₪80-150/יום<br>• ציוד מקצועי: ₪150-300/יום<br><br>🎁 <strong>הנחות מטורפות:</strong><br>✅ 3+ ימים: 15% הנחה<br>✅ שבוע: 25% הנחה<br>✅ לקוח חוזר: 10% נוספים<br><br>על איזה כלי חשבת? 🤔',
+            'בוא נדבר כסף! 💵<br><br>כל הכלים שלנו במחירים נוחים מאוד.<br><br>למשל:<br>• מקדחה: ₪60-120/יום<br>• מסור: ₪70-165/יום<br>• קמפינג: ₪120-220/יום<br><br>ויש לנו הנחות על השכרות ארוכות!<br><br>מה מעניין אותך בדיוק? אגיד לך המחיר המדויק! 🎯'
+        ],
+
+        location: [
+            'מיקום! קל להגיע! 📍<br><br><strong>ToolsLocker - החנות האוטומטית</strong><br>🏢 דיזנגוף סנטר, תל אביב<br>קומה 2, ליד האסקלטור המרכזי<br><br>⏰ <strong>פתוח 24/7!</strong> (כן, גם בלילה! 🌙)<br><br>🚗 חניה: קומות -2, -3<br>🚌 תחבורה: 5, 18, 39, 72<br>🚲 עמדת אופניים חשמליים בכניסה<br><br>מגיע ברגל? רכב? אופניים? 🚴‍♂️',
+            'החנות שלנו במיקום מעולה! 🎯<br><br>📍 <strong>דיזנגוף סנטר</strong> (המרכז הכי מרכזי בת"א!)<br><br>איך מגיעים:<br>🚗 <strong>ברכב:</strong> חניה בשפע בקומות מינוס<br>🚌 <strong>באוטובוס:</strong> כל הקווים המרכזיים<br>🚶 <strong>ברגל:</strong> ממרכז העיר 10 דק\'<br><br>והכי טוב - <strong>פתוח 24/7</strong>!<br>בא לקחת ציוד ב-3 בלילה? בכיף! 😎'
+        ],
+
+        hours: [
+            'שעות פעילות? יש לנו חדשות טובות! ⏰<br><br>🎉 <strong>אנחנו פתוחים 24/7!</strong> 🎉<br><br>כן כן, קראת נכון:<br>✅ שני בבוקר? פתוח!<br>✅ שישי בלילה? פתוח!<br>✅ שבת? פתוח!<br>✅ חג? פתוח!<br><br>החנות אוטומטית לחלוטין!<br>מתי נוח לך להגיע? 🚀',
+            'החנות שלנו לעולם לא ישנה! 😴❌<br><br>⏰ <strong>24 שעות ביממה, 7 ימים בשבוע!</strong><br><br>למה? כי אנחנו חנות אוטומטית!<br>• לקיחת ציוד - בכל שעה<br>• החזרה - בכל שעה<br>• תשלום - אוטומטי בכרטיס<br><br>נוח להגיע אחרי עבודה? בלילה? שבת?<br><strong>אין בעיה!</strong> 💪'
+        ],
+
+        help: [
+            'אני פה בשבילך! 💚<br><br>אני יכול לעזור עם:<br><br>🔨 <strong>כלי עבודה:</strong> מקדחות, מסורים, משחזות, צביעה<br>⛺ <strong>קמפינג:</strong> אוהלים, ערכות שטח, ציוד טיולים<br>🏡 <strong>גינון:</strong> מכסחות, גוזמים, כלי גינה<br>👨‍🍳 <strong>מטבח:</strong> בלנדרים, מיקסרים, כלים מקצועיים<br>📍 <strong>מידע:</strong> מיקום, מחירים, שעות<br><br>מה תרצה לדעת? שאל בחופשיות! 😊',
+            'בוא נמצא לך את מה שאתה צריך! 🎯<br><br>יש לנו:<br>• <strong>כלי עבודה</strong> לכל פרויקט 🔧<br>• <strong>ציוד קמפינג</strong> לכל טיול ⛺<br>• <strong>כלי גינה</strong> לכל עונה 🌿<br>• <strong>ציוד מקצועי</strong> למומחים 💼<br><br>ואני פה לעזור לך לבחור!<br>אז... מה הפרויקט? 🚀'
+        ]
     };
 
-    // Find matching response
+    // Smart response selector with variety
+    function getRandomResponse(category) {
+        if (Array.isArray(category)) {
+            return category[Math.floor(Math.random() * category.length)];
+        }
+        return category;
+    }
+
+    // Enhanced intent detection
     function findMockResponse(userMessage) {
         const msg = userMessage.toLowerCase();
 
-        if (msg.includes('מקדח') || msg.includes('קידוח') || msg.includes('לקדוח')) {
-            if (msg.includes('בטון') || msg.includes('קיר')) return mockResponses['בטון'];
-            return mockResponses['מקדחה'];
+        // Greeting detection
+        if (msg.match(/^(שלום|היי|הי|מה קורה|בוקר טוב|ערב טוב|לילה טוב|מה נשמע|הלו)/)) {
+            conversationContext.lastTopic = 'greeting';
+            return getRandomResponse(responses.greeting);
         }
 
-        if (msg.includes('מסור') || msg.includes('חיתוך') || msg.includes('לחתוך')) {
-            if (msg.includes('עץ') || msg.includes('עצים')) return mockResponses['עץ'];
-            return mockResponses['מסור'];
+        // Thanks detection
+        if (msg.match(/(תודה|תודות|רבה|אפק|יפה|מעולה|אחלה|סופר|מדהים|מגניב)/)) {
+            return getRandomResponse(responses.thanks);
         }
 
-        if (msg.includes('קמפינג') || msg.includes('אוהל') || msg.includes('טיול')) {
-            return mockResponses['קמפינג'];
+        // Drill detection with context
+        if (msg.match(/(מקדח|קידוח|לקדוח|חור|חורים|לנקב)/)) {
+            conversationContext.lastTopic = 'drill';
+            if (msg.match(/(בטון|קיר|קירות|מזוין|אבן|לבנ)/)) {
+                conversationContext.askedAbout.push('concrete');
+                return getRandomResponse(responses.drill.concrete);
+            }
+            if (msg.match(/(עץ|עצים|ריהוט|ארון|לוח|דיקט|פורמייקה)/)) {
+                conversationContext.askedAbout.push('wood');
+                return responses.drill.wood[0];
+            }
+            return getRandomResponse(responses.drill.general);
         }
 
-        if (msg.includes('מחיר') || msg.includes('עול') || msg.includes('כסף') || msg.includes('לשכור')) {
-            return mockResponses['מחיר'];
+        // Saw detection with context
+        if (msg.match(/(מסור|לחתוך|חיתוך|לגזור|לנסר)/)) {
+            conversationContext.lastTopic = 'saw';
+            if (msg.match(/(עגול|ישר|לוח|קרש)/)) {
+                return responses.saw.circular[0];
+            }
+            if (msg.match(/(שרשרת|עץ גדול|עצים|גזע|ענף|ענפים|גיזום)/)) {
+                return responses.saw.chainsaw[0];
+            }
+            if (msg.match(/(עץ|עצים|לוח|קרש)/)) {
+                return responses.saw.circular[0];
+            }
+            return getRandomResponse(responses.saw.general);
         }
 
-        if (msg.includes('איפה') || msg.includes('מיקום') || msg.includes('כתובת') || msg.includes('להגיע')) {
-            return mockResponses['מיקום'];
+        // Camping detection
+        if (msg.match(/(קמפינג|אוהל|טיול|שטח|לינה|שק שינה|מנגל)/)) {
+            conversationContext.lastTopic = 'camping';
+            if (msg.match(/(משפח|ילד|אנשים|4|5|6)/)) {
+                return responses.camping.family[0];
+            }
+            return getRandomResponse(responses.camping.general);
         }
 
-        if (msg.includes('שעות') || msg.includes('פתוח') || msg.includes('סגור') || msg.includes('מתי')) {
-            return mockResponses['שעות'];
+        // Paint detection
+        if (msg.match(/(צבע|צביעה|לצבוע|מרסס|מברשת)/)) {
+            conversationContext.lastTopic = 'paint';
+            return getRandomResponse(responses.paint);
         }
 
-        return mockResponses['default'];
+        // Garden detection
+        if (msg.match(/(גינ|דשא|כסח|מכסח|גוזם|גיזום|חצר|עצים)/)) {
+            conversationContext.lastTopic = 'garden';
+            return getRandomResponse(responses.garden);
+        }
+
+        // Price detection
+        if (msg.match(/(מחיר|עול|כסף|לשכור|השכר|תעריף|כמה)/)) {
+            return getRandomResponse(responses.price);
+        }
+
+        // Location detection
+        if (msg.match(/(איפה|מיקום|כתובת|להגיע|נמצא|ממוקם|מגיע)/)) {
+            return getRandomResponse(responses.location);
+        }
+
+        // Hours detection
+        if (msg.match(/(שעות|פתוח|סגור|מתי|זמינ|לעבוד)/)) {
+            return getRandomResponse(responses.hours);
+        }
+
+        // Help/General
+        return getRandomResponse(responses.help);
     }
 
     // Toggle chatbot - NO API KEY NEEDED! 🎉
