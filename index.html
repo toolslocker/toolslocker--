@@ -2112,5 +2112,636 @@ document.addEventListener('click',function(e){
 })();
 </script>
 
+<!-- ======================== -->
+<!-- CLAUDE AI CHATBOT START -->
+<!-- ======================== -->
+
+<!-- Chatbot Toggle Button -->
+<div id="chatbotToggle" class="chatbot-toggle">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+    <span class="chatbot-badge">💬</span>
+</div>
+
+<!-- Chatbot Window -->
+<div id="chatbotWindow" class="chatbot-window">
+    <div class="chatbot-header">
+        <div class="chatbot-header-content">
+            <div class="chatbot-avatar">🤖</div>
+            <div>
+                <h3>עוזר ToolsLocker</h3>
+                <p class="chatbot-status">מוכן לעזור!</p>
+            </div>
+        </div>
+        <button class="chatbot-close" id="chatbotClose">✕</button>
+    </div>
+
+    <div class="chatbot-messages" id="chatbotMessages">
+        <div class="chatbot-message bot-message">
+            <div class="message-content">
+                שלום! 👋 אני העוזר החכם של ToolsLocker.<br>
+                איך אוכל לעזור לך היום?<br><br>
+                <strong>דוגמאות לשאלות:</strong><br>
+                • "אני צריך משהו לחתוך עץ"<br>
+                • "איזה מקדחה יותר טובה?"<br>
+                • "כמה עולה לשכור מסור שרשרת?"
+            </div>
+        </div>
+    </div>
+
+    <div class="chatbot-input-area">
+        <input
+            type="text"
+            id="chatbotInput"
+            class="chatbot-input"
+            placeholder="שאל אותי משהו..."
+            autocomplete="off"
+        />
+        <button class="chatbot-send" id="chatbotSend">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+        </button>
+    </div>
+
+    <div class="chatbot-powered">
+        Powered by <strong>Claude AI</strong> ⚡
+    </div>
+</div>
+
+<!-- API Key Setup Modal -->
+<div id="apiKeyModal" class="api-key-modal" style="display:none">
+    <div class="api-key-content">
+        <h2 style="color:#176635;margin-bottom:1rem">🔑 הגדרת Claude API</h2>
+        <p style="margin-bottom:1.5rem;line-height:1.6">
+            כדי להשתמש בבוט, תצטרך API Key מ-Anthropic.<br>
+            <strong>זה חינם</strong> עד $5 של שימוש!
+        </p>
+
+        <div style="background:#f0f7f3;padding:1rem;border-radius:8px;margin-bottom:1.5rem">
+            <strong>איך להשיג API Key:</strong><br>
+            1. גש ל-<a href="https://console.anthropic.com" target="_blank" style="color:#176635">console.anthropic.com</a><br>
+            2. הירשם / התחבר<br>
+            3. לחץ על "Get API Keys"<br>
+            4. צור API Key חדש<br>
+            5. העתק והדבק כאן למטה
+        </div>
+
+        <input
+            type="password"
+            id="apiKeyInput"
+            placeholder="sk-ant-api03-..."
+            style="width:100%;padding:0.8rem;border:2px solid #E0E0E0;border-radius:8px;font-size:0.95rem;margin-bottom:1rem"
+        />
+
+        <div style="display:flex;gap:1rem">
+            <button id="saveApiKey" style="flex:1;padding:0.8rem;background:#176635;color:white;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:1rem">שמור והמשך</button>
+            <button id="cancelApiKey" style="padding:0.8rem 1.5rem;background:#e0e0e0;border:none;border-radius:8px;cursor:pointer;font-size:1rem">ביטול</button>
+        </div>
+
+        <p style="margin-top:1rem;font-size:0.85rem;color:#666">
+            ⚠️ <strong>אזהרה:</strong> ה-API key נשמר במחשב שלך בלבד (localStorage).
+            לייצור אמיתי, צריך שרת backend!
+        </p>
+    </div>
+</div>
+
+<style>
+/* ===================== */
+/* CHATBOT STYLES START */
+/* ===================== */
+
+.chatbot-toggle {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #176635, #0f4a24);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(23, 102, 53, 0.4);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 9998;
+    color: white;
+}
+
+.chatbot-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 32px rgba(23, 102, 53, 0.5);
+}
+
+.chatbot-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #d7df23;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.chatbot-window {
+    position: fixed;
+    bottom: 100px;
+    left: 24px;
+    width: 400px;
+    max-width: calc(100vw - 48px);
+    height: 600px;
+    max-height: calc(100vh - 150px);
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    display: none;
+    flex-direction: column;
+    z-index: 9999;
+    overflow: hidden;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chatbot-window.active {
+    display: flex;
+}
+
+.chatbot-header {
+    background: linear-gradient(135deg, #176635, #0f4a24);
+    color: white;
+    padding: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-header-content {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.chatbot-avatar {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.chatbot-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.chatbot-status {
+    margin: 0;
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.chatbot-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.3rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chatbot-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.chatbot-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    background: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.chatbot-message {
+    display: flex;
+    animation: messageSlide 0.3s ease-out;
+}
+
+@keyframes messageSlide {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message-content {
+    max-width: 80%;
+    padding: 0.9rem 1.1rem;
+    border-radius: 12px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.bot-message .message-content {
+    background: white;
+    color: #231f20;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-message {
+    justify-content: flex-end;
+}
+
+.user-message .message-content {
+    background: linear-gradient(135deg, #176635, #0f4a24);
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.chatbot-input-area {
+    padding: 1rem;
+    background: white;
+    border-top: 1px solid #E0E0E0;
+    display: flex;
+    gap: 0.8rem;
+}
+
+.chatbot-input {
+    flex: 1;
+    border: 2px solid #E0E0E0;
+    border-radius: 24px;
+    padding: 0.8rem 1.2rem;
+    font-size: 0.95rem;
+    font-family: 'Varela Round', sans-serif;
+    transition: all 0.3s;
+    outline: none;
+}
+
+.chatbot-input:focus {
+    border-color: #176635;
+    box-shadow: 0 0 0 3px rgba(23, 102, 53, 0.1);
+}
+
+.chatbot-send {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #176635, #0f4a24);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    flex-shrink: 0;
+}
+
+.chatbot-send:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(23, 102, 53, 0.3);
+}
+
+.chatbot-send:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.chatbot-powered {
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #666;
+    background: white;
+    border-top: 1px solid #E0E0E0;
+}
+
+.typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 0.9rem 1.1rem;
+    background: white;
+    border-radius: 12px;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 60px;
+}
+
+.typing-dot {
+    width: 8px;
+    height: 8px;
+    background: #176635;
+    border-radius: 50%;
+    animation: typingBounce 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) { animation-delay: 0s; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-10px); }
+}
+
+/* API Key Modal */
+.api-key-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    backdrop-filter: blur(4px);
+}
+
+.api-key-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .chatbot-window {
+        width: calc(100vw - 48px);
+        height: calc(100vh - 150px);
+    }
+
+    .chatbot-toggle {
+        width: 56px;
+        height: 56px;
+        bottom: 20px;
+        left: 20px;
+    }
+}
+
+/* =================== */
+/* CHATBOT STYLES END */
+/* =================== */
+</style>
+
+<script>
+// ========================
+// CHATBOT JAVASCRIPT START
+// ========================
+
+(function() {
+    'use strict';
+
+    // Configuration
+    const STORAGE_KEY = 'toolslocker_claude_api_key';
+    const API_ENDPOINT = 'https://api.anthropic.com/v1/messages';
+
+    // Elements
+    const chatbotToggle = document.getElementById('chatbotToggle');
+    const chatbotWindow = document.getElementById('chatbotWindow');
+    const chatbotClose = document.getElementById('chatbotClose');
+    const chatbotMessages = document.getElementById('chatbotMessages');
+    const chatbotInput = document.getElementById('chatbotInput');
+    const chatbotSend = document.getElementById('chatbotSend');
+    const apiKeyModal = document.getElementById('apiKeyModal');
+    const apiKeyInput = document.getElementById('apiKeyInput');
+    const saveApiKey = document.getElementById('saveApiKey');
+    const cancelApiKey = document.getElementById('cancelApiKey');
+
+    // Get products from existing array
+    const productsData = products.map(p => ({
+        name: p.name,
+        description: p.description,
+        price: p.price
+    }));
+
+    // Check if API key exists
+    function checkApiKey() {
+        const apiKey = localStorage.getItem(STORAGE_KEY);
+        if (!apiKey) {
+            apiKeyModal.style.display = 'flex';
+            return null;
+        }
+        return apiKey;
+    }
+
+    // Save API Key
+    saveApiKey.addEventListener('click', function() {
+        const apiKey = apiKeyInput.value.trim();
+        if (!apiKey) {
+            alert('אנא הזן API Key תקין');
+            return;
+        }
+        if (!apiKey.startsWith('sk-ant-')) {
+            alert('API Key צריך להתחיל ב-sk-ant-');
+            return;
+        }
+        localStorage.setItem(STORAGE_KEY, apiKey);
+        apiKeyModal.style.display = 'none';
+        apiKeyInput.value = '';
+        addMessage('bot', 'מעולה! עכשיו אני מוכן לעזור לך. מה תרצה לדעת?');
+    });
+
+    cancelApiKey.addEventListener('click', function() {
+        apiKeyModal.style.display = 'none';
+        chatbotWindow.classList.remove('active');
+    });
+
+    // Toggle chatbot
+    chatbotToggle.addEventListener('click', function() {
+        if (!checkApiKey()) return;
+        chatbotWindow.classList.add('active');
+        chatbotInput.focus();
+    });
+
+    chatbotClose.addEventListener('click', function() {
+        chatbotWindow.classList.remove('active');
+    });
+
+    // Add message to chat
+    function addMessage(type, content) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `chatbot-message ${type}-message`;
+
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'message-content';
+        contentDiv.innerHTML = content;
+
+        messageDiv.appendChild(contentDiv);
+        chatbotMessages.appendChild(messageDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    // Show typing indicator
+    function showTyping() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'chatbot-message bot-message';
+        typingDiv.id = 'typingIndicator';
+
+        const indicator = document.createElement('div');
+        indicator.className = 'typing-indicator';
+        indicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+
+        typingDiv.appendChild(indicator);
+        chatbotMessages.appendChild(typingDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
+
+    // Hide typing indicator
+    function hideTyping() {
+        const typing = document.getElementById('typingIndicator');
+        if (typing) typing.remove();
+    }
+
+    // Send message to Claude API
+    async function sendToClaude(userMessage) {
+        const apiKey = localStorage.getItem(STORAGE_KEY);
+        if (!apiKey) {
+            addMessage('bot', 'שגיאה: לא נמצא API Key. אנא הגדר מחדש.');
+            return;
+        }
+
+        showTyping();
+        chatbotSend.disabled = true;
+
+        const systemPrompt = `אתה עוזר חכם של ToolsLocker - חנות להשכרת כלים וציוד.
+
+המוצרים שלנו:
+${JSON.stringify(productsData, null, 2)}
+
+הנחיות:
+1. ענה תמיד בעברית בצורה ידידותית ומקצועית
+2. כשמשתמש שואל על כלי - המלץ על המוצר הכי מתאים מהרשימה
+3. תן מידע על המחיר (לכל 24 שעות)
+4. הוסף קישור להשכרה: https://online.keynius.app/home/a4a89521-1efb-45cb-a931-80cc5d3bd236
+5. אם לא בטוח - הציע כמה אופציות
+6. תשובות קצרות וממוקדות (עד 3-4 שורות)
+7. השתמש באימוג'י מדי פעם 🛠️
+
+דוגמה:
+שאלה: "אני צריך משהו לחתוך עץ"
+תשובה: "מצאתי עבורך **מסור שרשרת 12 אינץ'** 🪚! מושלם לגיזום ענפים וחיתוך עצים קטנים. עולה ₪195 ל-24 שעות. [להשכרה לחץ כאן](https://online.keynius.app/home/a4a89521-1efb-45cb-a931-80cc5d3bd236)"`;
+
+        try {
+            const response = await fetch(API_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'x-api-key': apiKey,
+                    'anthropic-version': '2023-06-01',
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: 'claude-3-5-haiku-20241022',
+                    max_tokens: 1024,
+                    system: systemPrompt,
+                    messages: [{
+                        role: 'user',
+                        content: userMessage
+                    }]
+                })
+            });
+
+            hideTyping();
+            chatbotSend.disabled = false;
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('API Error:', errorData);
+
+                if (response.status === 401) {
+                    addMessage('bot', '⚠️ API Key לא תקין. אנא בדוק את ה-API Key שלך.<br><small>לחץ על הכפתור כדי להגדיר מחדש.</small>');
+                    localStorage.removeItem(STORAGE_KEY);
+                } else if (response.status === 429) {
+                    addMessage('bot', '⚠️ חרגת ממכסת ה-API. נסה שוב מאוחר יותר.');
+                } else {
+                    addMessage('bot', `⚠️ שגיאה: ${errorData.error?.message || 'משהו השתבש'}`);
+                }
+                return;
+            }
+
+            const data = await response.json();
+            const botResponse = data.content[0].text;
+            addMessage('bot', botResponse);
+
+        } catch (error) {
+            hideTyping();
+            chatbotSend.disabled = false;
+            console.error('Error:', error);
+            addMessage('bot', '⚠️ שגיאת רשת. בדוק את החיבור לאינטרנט ונסה שוב.');
+        }
+    }
+
+    // Handle send button click
+    chatbotSend.addEventListener('click', function() {
+        sendMessage();
+    });
+
+    // Handle Enter key
+    chatbotInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+    // Send message function
+    function sendMessage() {
+        const message = chatbotInput.value.trim();
+        if (!message) return;
+
+        addMessage('user', message);
+        chatbotInput.value = '';
+
+        sendToClaude(message);
+    }
+})();
+
+// ======================
+// CHATBOT JAVASCRIPT END
+// ======================
+</script>
+
 </body>
 </html>
