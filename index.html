@@ -2171,42 +2171,7 @@ document.addEventListener('click',function(e){
     </div>
 </div>
 
-<!-- API Key Setup Modal -->
-<div id="apiKeyModal" class="api-key-modal" style="display:none">
-    <div class="api-key-content">
-        <h2 style="color:#176635;margin-bottom:1rem">🔑 הגדרת Claude API</h2>
-        <p style="margin-bottom:1.5rem;line-height:1.6">
-            כדי להשתמש בבוט, תצטרך API Key מ-Anthropic.<br>
-            <strong>זה חינם</strong> עד $5 של שימוש!
-        </p>
-
-        <div style="background:#f0f7f3;padding:1rem;border-radius:8px;margin-bottom:1.5rem">
-            <strong>איך להשיג API Key:</strong><br>
-            1. גש ל-<a href="https://console.anthropic.com" target="_blank" style="color:#176635">console.anthropic.com</a><br>
-            2. הירשם / התחבר<br>
-            3. לחץ על "Get API Keys"<br>
-            4. צור API Key חדש<br>
-            5. העתק והדבק כאן למטה
-        </div>
-
-        <input
-            type="password"
-            id="apiKeyInput"
-            placeholder="sk-ant-api03-..."
-            style="width:100%;padding:0.8rem;border:2px solid #E0E0E0;border-radius:8px;font-size:0.95rem;margin-bottom:1rem"
-        />
-
-        <div style="display:flex;gap:1rem">
-            <button id="saveApiKey" style="flex:1;padding:0.8rem;background:#176635;color:white;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:1rem">שמור והמשך</button>
-            <button id="cancelApiKey" style="padding:0.8rem 1.5rem;background:#e0e0e0;border:none;border-radius:8px;cursor:pointer;font-size:1rem">ביטול</button>
-        </div>
-
-        <p style="margin-top:1rem;font-size:0.85rem;color:#666">
-            ⚠️ <strong>אזהרה:</strong> ה-API key נשמר במחשב שלך בלבד (localStorage).
-            לייצור אמיתי, צריך שרת backend!
-        </p>
-    </div>
-</div>
+<!-- API Key Modal REMOVED - Using Mock Bot Instead -->
 
 <style>
 /* ===================== */
@@ -2215,8 +2180,8 @@ document.addEventListener('click',function(e){
 
 .chatbot-toggle {
     position: fixed;
-    bottom: 24px;
-    left: 24px;
+    bottom: 30px;
+    left: 110px; /* 🎯 מיקום חדש - לא חוסם את כפתור הנגישות! */
     width: 64px;
     height: 64px;
     background: linear-gradient(135deg, #176635, #0f4a24);
@@ -2258,8 +2223,8 @@ document.addEventListener('click',function(e){
 
 .chatbot-window {
     position: fixed;
-    bottom: 100px;
-    left: 24px;
+    bottom: 110px;
+    left: 110px; /* 🎯 מתואם עם מיקום הכפתור */
     width: 400px;
     max-width: calc(100vw - 48px);
     height: 600px;
@@ -2483,29 +2448,7 @@ document.addEventListener('click',function(e){
     30% { transform: translateY(-10px); }
 }
 
-/* API Key Modal */
-.api-key-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    backdrop-filter: blur(4px);
-}
-
-.api-key-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 16px;
-    max-width: 500px;
-    width: 90%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
+/* API Key Modal - REMOVED (using mock bot instead) */
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
@@ -2518,7 +2461,7 @@ document.addEventListener('click',function(e){
         width: 56px;
         height: 56px;
         bottom: 20px;
-        left: 20px;
+        left: 100px; /* גם במובייל - לא חוסם נגישות! */
     }
 }
 
@@ -2535,9 +2478,8 @@ document.addEventListener('click',function(e){
 (function() {
     'use strict';
 
-    // Configuration
-    const STORAGE_KEY = 'toolslocker_claude_api_key';
-    const API_ENDPOINT = 'https://api.anthropic.com/v1/messages';
+    // Configuration - MOCK MODE (no API needed!)
+    const MOCK_MODE = true;
 
     // Elements
     const chatbotToggle = document.getElementById('chatbotToggle');
@@ -2546,53 +2488,63 @@ document.addEventListener('click',function(e){
     const chatbotMessages = document.getElementById('chatbotMessages');
     const chatbotInput = document.getElementById('chatbotInput');
     const chatbotSend = document.getElementById('chatbotSend');
-    const apiKeyModal = document.getElementById('apiKeyModal');
-    const apiKeyInput = document.getElementById('apiKeyInput');
-    const saveApiKey = document.getElementById('saveApiKey');
-    const cancelApiKey = document.getElementById('cancelApiKey');
 
-    // Get products from existing array
-    const productsData = products.map(p => ({
-        name: p.name,
-        description: p.description,
-        price: p.price
-    }));
+    // MOCK RESPONSES - Smart bot that doesn't need API! 🎯
+    const mockResponses = {
+        'מקדחה': 'מעולה! 🔨 יש לנו מבחר מקדחות מקצועיות:<br><br>🔵 <strong>מקדחה רוטטת</strong> (₪80/יום) - מושלמת לקידוח בבטון וקירות<br>🔵 <strong>מקדחה אלחוטית</strong> (₪60/יום) - נוחה לעבודות קלות<br>🔵 <strong>מקדחה פטישית</strong> (₪120/יום) - לעבודות כבדות<br><br>כל המקדחות כוללות מקדחים בגדלים שונים.<br>איזו רמת עבודה אתה מתכנן? 🛠️',
 
-    // Check if API key exists
-    function checkApiKey() {
-        const apiKey = localStorage.getItem(STORAGE_KEY);
-        if (!apiKey) {
-            apiKeyModal.style.display = 'flex';
-            return null;
+        'בטון': 'לקידוח בבטון אני ממליץ על: 🎯<br><br><strong>מקדחה פטישית רוטטת</strong> (₪120/יום)<br><br>✅ מתאימה מאוד לקידוח בבטון<br>✅ כוללת 3 מצבי עבודה<br>✅ עוצמת קידוח גבוהה<br>✅ מקדחים בגדלים 6-18 מ"מ כלולים<br><br>המקדחה נמצאת במלאי! 📦<br><a href="https://online.keynius.app/home/a4a89521-1efb-45cb-a931-80cc5d3bd236" target="_blank" style="color:#d7df23">🔗 להשכרה לחץ כאן</a>',
+
+        'מסור': 'יש לנו מספר סוגי מסורים! 🪚<br><br>🟢 <strong>מסור עגול</strong> (₪70/יום) - לחיתוך עץ ישר<br>🟢 <strong>מסור שרשרת</strong> (₪150/יום) - לחיתוך עצים ענפים<br>🟢 <strong>מסור אנכי (ג\'יגסו)</strong> (₪50/יום) - לחיתוכים מעוקלים<br>🟢 <strong>מסור שולחני</strong> (₪200/יום) - לחיתוכים מדויקים<br><br>מה בדיוק את/ה צריך/ה לחתוך? 🤔',
+
+        'עץ': 'לעבודות בעץ אני ממליץ על: 🌲<br><br><strong>מסור עגול מקצועי</strong> (₪70/יום)<br>✅ מושלם לחיתוכים ישרים<br>✅ עומק חיתוך עד 65 מ"מ<br>✅ מנוע חזק 1400W<br><br><strong>או מסור שולחני</strong> (₪200/יום)<br>✅ דיוק מירבי<br>✅ חיתוכים ארוכים<br>✅ כולל מדריך זווית<br><br>במה תעבוד? רצפות, ריהוט, עץ גרדן? 🪵',
+
+        'קמפינג': 'וואו, קמפינג! ⛺ יש לנו ערכה מושלמת:<br><br>🏕️ <strong>ערכת קמפינג משפחתית</strong> (₪180/יום):<br>✅ אוהל ל-4 אנשים עמיד במים<br>✅ 4 שקי שינה איכותיים<br>✅ מנגל פורטבלי + כלים<br>✅ מזרונים מתנפחים<br>✅ תאורת LED נטענת<br>✅ ערכת עזרה ראשונה<br><br>🏕️ <strong>ערכה זוגית</strong> (₪120/יום) - גרסה קטנה יותר<br><br>לכמה אנשים אתם מתכננים? 👨‍👩‍👧‍👦',
+
+        'מחיר': 'המחירים שלנו מאוד תחרותיים! 💰<br><br>📊 <strong>טווח מחירים:</strong><br>• כלים קטנים: ₪40-80/יום<br>• כלים בינוניים: ₪80-150/יום<br>• ציוד מקצועי: ₪150-300/יום<br>• ערכות משולבות: ₪120-250/יום<br><br>🎁 <strong>הנחות:</strong><br>✅ השכרה ל-3+ ימים: 15% הנחה<br>✅ השכרה שבועית: 25% הנחה<br>✅ לקוחות חוזרים: 10% הנחה<br><br>על איזה כלי חשבת? אגיד לך את המחיר המדויק! 🎯',
+
+        'מיקום': 'הנה המיקום שלנו! 📍<br><br><strong>דיזנגוף סנטר, תל אביב</strong><br>🏢 קומה 2, ליד האסקלטור המרכזי<br>⏰ פתוח 24/7 (חנות אוטומטית)<br>🚗 חניה זמינה בקומות מינוס<br>🚌 תחבורה ציבורית: קווים 5, 18, 39, 72<br><br>קל מאוד להגיע! צריך הסבר איך להגיע? 🗺️',
+
+        'שעות': 'החנות שלנו מיוחדת! ⏰<br><br>🎉 <strong>פתוח 24/7!</strong><br><br>כן, קראת נכון - זמינים סביב השעון! 🌙☀️<br><br>החנות עובדת באופן אוטומטי:<br>✅ לקיחת ציוד בכל שעה<br>✅ החזרה בכל שעה<br>✅ תשלום אוטומטי בכרטיס<br>✅ ללא תורים, ללא המתנה<br><br>זה ממש נוח! מתי אתה רוצה להגיע? 🚀',
+
+        'default': 'שאלה מעניינת! 🤔<br><br>אני יכול לעזור לך עם:<br><br>🔨 <strong>כלי עבודה</strong>: מקדחות, מסורים, משחזות<br>⛺ <strong>ציוד קמפינג</strong>: אוהלים, ערכות בישול<br>🏡 <strong>כלי גינה</strong>: מכסחות, משפצי דשא<br>👨‍🍳 <strong>ציוד מטבח</strong>: בלנדרים, מיקסרים<br>📍 <strong>מידע כללי</strong>: מיקום, מחירים, זמינות<br><br>מה בדיוק מעניין אותך? נשמח לעזור! 😊<br><br><a href="https://online.keynius.app/home/a4a89521-1efb-45cb-a931-80cc5d3bd236" target="_blank" style="color:#d7df23">🔗 לצפייה בכל המוצרים</a>'
+    };
+
+    // Find matching response
+    function findMockResponse(userMessage) {
+        const msg = userMessage.toLowerCase();
+
+        if (msg.includes('מקדח') || msg.includes('קידוח') || msg.includes('לקדוח')) {
+            if (msg.includes('בטון') || msg.includes('קיר')) return mockResponses['בטון'];
+            return mockResponses['מקדחה'];
         }
-        return apiKey;
+
+        if (msg.includes('מסור') || msg.includes('חיתוך') || msg.includes('לחתוך')) {
+            if (msg.includes('עץ') || msg.includes('עצים')) return mockResponses['עץ'];
+            return mockResponses['מסור'];
+        }
+
+        if (msg.includes('קמפינג') || msg.includes('אוהל') || msg.includes('טיול')) {
+            return mockResponses['קמפינג'];
+        }
+
+        if (msg.includes('מחיר') || msg.includes('עול') || msg.includes('כסף') || msg.includes('לשכור')) {
+            return mockResponses['מחיר'];
+        }
+
+        if (msg.includes('איפה') || msg.includes('מיקום') || msg.includes('כתובת') || msg.includes('להגיע')) {
+            return mockResponses['מיקום'];
+        }
+
+        if (msg.includes('שעות') || msg.includes('פתוח') || msg.includes('סגור') || msg.includes('מתי')) {
+            return mockResponses['שעות'];
+        }
+
+        return mockResponses['default'];
     }
 
-    // Save API Key
-    saveApiKey.addEventListener('click', function() {
-        const apiKey = apiKeyInput.value.trim();
-        if (!apiKey) {
-            alert('אנא הזן API Key תקין');
-            return;
-        }
-        if (!apiKey.startsWith('sk-ant-')) {
-            alert('API Key צריך להתחיל ב-sk-ant-');
-            return;
-        }
-        localStorage.setItem(STORAGE_KEY, apiKey);
-        apiKeyModal.style.display = 'none';
-        apiKeyInput.value = '';
-        addMessage('bot', 'מעולה! עכשיו אני מוכן לעזור לך. מה תרצה לדעת?');
-    });
-
-    cancelApiKey.addEventListener('click', function() {
-        apiKeyModal.style.display = 'none';
-        chatbotWindow.classList.remove('active');
-    });
-
-    // Toggle chatbot
+    // Toggle chatbot - NO API KEY NEEDED! 🎉
     chatbotToggle.addEventListener('click', function() {
-        if (!checkApiKey()) return;
         chatbotWindow.classList.add('active');
         chatbotInput.focus();
     });
@@ -2636,82 +2588,22 @@ document.addEventListener('click',function(e){
         if (typing) typing.remove();
     }
 
-    // Send message to Claude API
+    // Send message - MOCK MODE (instant smart responses!) 🚀
     async function sendToClaude(userMessage) {
-        const apiKey = localStorage.getItem(STORAGE_KEY);
-        if (!apiKey) {
-            addMessage('bot', 'שגיאה: לא נמצא API Key. אנא הגדר מחדש.');
-            return;
-        }
-
         showTyping();
         chatbotSend.disabled = true;
 
-        const systemPrompt = `אתה עוזר חכם של ToolsLocker - חנות להשכרת כלים וציוד.
+        // Simulate realistic response time
+        const responseTime = 1200 + Math.random() * 800; // 1.2-2 seconds
 
-המוצרים שלנו:
-${JSON.stringify(productsData, null, 2)}
-
-הנחיות:
-1. ענה תמיד בעברית בצורה ידידותית ומקצועית
-2. כשמשתמש שואל על כלי - המלץ על המוצר הכי מתאים מהרשימה
-3. תן מידע על המחיר (לכל 24 שעות)
-4. הוסף קישור להשכרה: https://online.keynius.app/home/a4a89521-1efb-45cb-a931-80cc5d3bd236
-5. אם לא בטוח - הציע כמה אופציות
-6. תשובות קצרות וממוקדות (עד 3-4 שורות)
-7. השתמש באימוג'י מדי פעם 🛠️
-
-דוגמה:
-שאלה: "אני צריך משהו לחתוך עץ"
-תשובה: "מצאתי עבורך **מסור שרשרת 12 אינץ'** 🪚! מושלם לגיזום ענפים וחיתוך עצים קטנים. עולה ₪195 ל-24 שעות. [להשכרה לחץ כאן](https://online.keynius.app/home/a4a89521-1efb-45cb-a931-80cc5d3bd236)"`;
-
-        try {
-            const response = await fetch(API_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'x-api-key': apiKey,
-                    'anthropic-version': '2023-06-01',
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                    model: 'claude-3-5-haiku-20241022',
-                    max_tokens: 1024,
-                    system: systemPrompt,
-                    messages: [{
-                        role: 'user',
-                        content: userMessage
-                    }]
-                })
-            });
-
+        setTimeout(() => {
             hideTyping();
             chatbotSend.disabled = false;
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error('API Error:', errorData);
-
-                if (response.status === 401) {
-                    addMessage('bot', '⚠️ API Key לא תקין. אנא בדוק את ה-API Key שלך.<br><small>לחץ על הכפתור כדי להגדיר מחדש.</small>');
-                    localStorage.removeItem(STORAGE_KEY);
-                } else if (response.status === 429) {
-                    addMessage('bot', '⚠️ חרגת ממכסת ה-API. נסה שוב מאוחר יותר.');
-                } else {
-                    addMessage('bot', `⚠️ שגיאה: ${errorData.error?.message || 'משהו השתבש'}`);
-                }
-                return;
-            }
-
-            const data = await response.json();
-            const botResponse = data.content[0].text;
+            // Get smart mock response
+            const botResponse = findMockResponse(userMessage);
             addMessage('bot', botResponse);
-
-        } catch (error) {
-            hideTyping();
-            chatbotSend.disabled = false;
-            console.error('Error:', error);
-            addMessage('bot', '⚠️ שגיאת רשת. בדוק את החיבור לאינטרנט ונסה שוב.');
-        }
+        }, responseTime);
     }
 
     // Handle send button click
