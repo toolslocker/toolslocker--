@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>דמו - בוט ToolsLocker</title>
+    <title>דמו - בוט ToolsLocker AI</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #176635 0%, #0f4a24 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -25,7 +25,7 @@
             background: white;
             border-radius: 20px;
             padding: 40px;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
@@ -37,32 +37,32 @@
 
         .demo-header h1 {
             font-size: 32px;
-            color: #2d3748;
+            color: #176635;
             margin-bottom: 10px;
         }
 
         .demo-header p {
-            color: #718096;
+            color: #666;
             font-size: 18px;
         }
 
         .demo-instructions {
-            background: #f7fafc;
-            border-right: 4px solid #4299e1;
+            background: #f0f7f3;
+            border-right: 4px solid #176635;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 30px;
         }
 
         .demo-instructions h2 {
-            color: #2d3748;
+            color: #176635;
             font-size: 20px;
             margin-bottom: 15px;
         }
 
         .demo-instructions ol {
             margin-right: 20px;
-            color: #4a5568;
+            color: #333;
         }
 
         .demo-instructions li {
@@ -71,44 +71,105 @@
         }
 
         .demo-note {
-            background: #fff5f5;
-            border: 1px solid #fc8181;
+            background: #fff9e6;
+            border: 2px solid #d7df23;
             border-radius: 8px;
             padding: 15px;
             margin-top: 20px;
-            color: #c53030;
+            color: #333;
         }
 
         .demo-note strong {
             display: block;
             margin-bottom: 5px;
+            color: #176635;
+        }
+
+        .demo-example {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .demo-example h3 {
+            color: #176635;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .demo-example ul {
+            list-style: none;
+            margin-right: 10px;
+        }
+
+        .demo-example li {
+            padding: 8px 12px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .demo-example li:hover {
+            background: #f0f7f3;
+            transform: translateX(-5px);
         }
 
         /* ======================================== */
-        /* כאן מתחיל קוד הבוט - בדיוק כמו באתר האמיתי */
+        /* כאן מתחיל קוד הבוט */
         /* ======================================== */
 
-        .chatbot-toggle {
+        /* כפתור נגישות - MOCK */
+        .accessibility-btn {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
+            bottom: 30px;
+            left: 30px;
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: rgba(240,247,243,0.95);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(23,102,53,0.3);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 32px rgba(23,102,53,0.2);
             transition: all 0.3s ease;
+            z-index: 9997;
+        }
+
+        .accessibility-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(23,102,53,0.3);
+        }
+
+        /* כפתור צ'אט - מיקום חדש שלא חוסם */
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 30px;
+            left: 110px; /* 🎯 מיקום חדש - לא חוסם את הנגישות! */
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #176635, #0f4a24);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(23, 102, 53, 0.4);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 9999;
             border: none;
+            color: white;
         }
 
         .chatbot-toggle:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 12px 32px rgba(23, 102, 53, 0.5);
         }
 
         .chatbot-toggle svg {
@@ -117,29 +178,30 @@
 
         .chatbot-badge {
             position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #ef4444;
-            color: white;
+            top: -4px;
+            right: -4px;
+            background: #d7df23;
+            color: #176635;
             width: 24px;
             height: 24px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
         .chatbot-window {
             position: fixed;
-            bottom: 90px;
-            left: 20px;
-            width: 380px;
-            height: 550px;
+            bottom: 110px;
+            left: 110px;
+            width: 400px;
+            height: 600px;
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             display: none;
             flex-direction: column;
             overflow: hidden;
@@ -163,7 +225,7 @@
         }
 
         .chatbot-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #176635, #0f4a24);
             color: white;
             padding: 20px;
             display: flex;
@@ -266,7 +328,7 @@
         }
 
         .bot-message .message-content {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #176635, #0f4a24);
             color: white;
             border-bottom-right-radius: 4px;
         }
@@ -297,11 +359,11 @@
         }
 
         .chatbot-input-area input:focus {
-            border-color: #667eea;
+            border-color: #176635;
         }
 
         .chatbot-send-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #176635, #0f4a24);
             color: white;
             border: none;
             border-radius: 50%;
@@ -328,9 +390,10 @@
             align-items: center;
             gap: 4px;
             padding: 12px 16px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #176635, #0f4a24);
             border-radius: 12px;
             border-bottom-right-radius: 4px;
+            max-width: 80px;
         }
 
         .typing-indicator.active {
@@ -365,13 +428,21 @@
         @media (max-width: 768px) {
             .chatbot-window {
                 width: calc(100vw - 40px);
-                height: calc(100vh - 120px);
+                height: calc(100vh - 140px);
                 left: 20px;
-                right: 20px;
+                bottom: 100px;
+            }
+
+            .chatbot-toggle {
+                left: 100px;
             }
 
             .demo-container {
                 padding: 20px;
+            }
+
+            .demo-header h1 {
+                font-size: 24px;
             }
         }
     </style>
@@ -381,30 +452,57 @@
     <div class="demo-container">
         <div class="demo-header">
             <h1>🤖 דמו - בוט ToolsLocker AI</h1>
-            <p>זה איך הבוט ייראה באתר שלך</p>
+            <p>בוט חכם שעוזר ללקוחות למצוא את הכלים המושלמים</p>
         </div>
 
         <div class="demo-instructions">
-            <h2>📋 הוראות שימוש:</h2>
+            <h2>📋 איך להשתמש בדמו:</h2>
             <ol>
                 <li><strong>לחץ על הכפתור הירוק</strong> בפינה השמאלית התחתונה 👇</li>
-                <li><strong>הבוט ייפתח</strong> ותראה את הממשק</li>
-                <li><strong>נסה לכתוב הודעה</strong> (לא תקבל תשובה - זה רק דמו)</li>
-                <li><strong>בדוק את העיצוב</strong> - האם נראה טוב?</li>
-                <li><strong>בדוק שזה לא מפריע</strong> לשאר האתר</li>
+                <li><strong>הבוט ייפתח</strong> ותראה הודעת ברוכים הבאים</li>
+                <li><strong>כתוב שאלה</strong> על כלי עבודה (לדוגמה: "אני צריך מקדחה")</li>
+                <li><strong>הבוט יענה</strong> בצורה חכמה ומקצועית!</li>
+                <li><strong>שים לב</strong> שהכפתור לא חוסם את כפתור הנגישות ⭐</li>
             </ol>
 
+            <div class="demo-example">
+                <h3>💡 שאלות לדוגמה (לחץ כדי לנסות):</h3>
+                <ul>
+                    <li id="q1">🔨 "אני צריך מקדחה לקידוח בבטון"</li>
+                    <li id="q2">🪚 "איזה מסור מתאים לחיתוך עץ?"</li>
+                    <li id="q3">⛺ "אני רוצה לקמפינג בצפון"</li>
+                    <li id="q4">💰 "כמה עולה לשכור מסור שרשרת?"</li>
+                    <li id="q5">📍 "איפה אתם נמצאים?"</li>
+                </ul>
+            </div>
+
             <div class="demo-note">
-                <strong>⚠️ שים לב:</strong>
-                זה רק דמו! הבוט לא באמת עונה כי אין API Key.
-                אבל אתה יכול לראות בדיוק איך הוא ייראה ויעבוד באתר האמיתי.
+                <strong>⚡ זה בוט DEMO חכם!</strong>
+                הבוט עונה עם תשובות אמיתיות ומקצועיות בעברית.
+                זה לא API אמיתי אבל הוא מדמה בדיוק איך הבוט יעבוד באתר האמיתי! 🎯
             </div>
         </div>
 
-        <div style="text-align: center; padding: 30px; color: #718096;">
-            <p style="font-size: 18px; margin-bottom: 10px;">👇 <strong>חפש את הכפתור הירוק בפינה השמאלית התחתונה</strong> 👇</p>
-            <p style="font-size: 14px;">לחץ עליו כדי לפתוח את הבוט</p>
+        <div style="text-align: center; padding: 30px; color: #666;">
+            <p style="font-size: 20px; margin-bottom: 10px;">
+                👈 <strong>שני הכפתורים בפינה השמאלית:</strong>
+            </p>
+            <p style="font-size: 16px; margin-bottom: 5px;">
+                🟢 <strong>ירוק</strong> = בוט צ'אט (קרוב יותר ימינה)
+            </p>
+            <p style="font-size: 16px;">
+                ⚪ <strong>לבן</strong> = נגישות (קרוב יותר שמאלה)
+            </p>
         </div>
+    </div>
+
+    <!-- כפתור נגישות MOCK - רק להצגה -->
+    <div class="accessibility-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#176635" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="8" r="2" fill="#176635"/>
+            <path d="M12 14v-2M8 14l1-2M16 14l-1-2M8 16h8"/>
+        </svg>
     </div>
 
     <!-- ======================== -->
@@ -412,12 +510,12 @@
     <!-- ======================== -->
 
     <!-- Chatbot Toggle Button -->
-    <div id="chatbotToggle" class="chatbot-toggle">
+    <button id="chatbotToggle" class="chatbot-toggle">
         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
         </svg>
         <span class="chatbot-badge">💬</span>
-    </div>
+    </button>
 
     <!-- Chatbot Window -->
     <div id="chatbotWindow" class="chatbot-window">
@@ -436,11 +534,13 @@
             <div class="chatbot-message bot-message">
                 <div class="message-content">
                     שלום! 👋 אני העוזר החכם של ToolsLocker.<br>
-                    איך אוכל לעזור לך היום?<br><br>
-                    <strong>דוגמאות לשאלות:</strong><br>
-                    • "אני צריך משהו לחתוך עץ"<br>
-                    • "איזה מקדחה יותר טובה?"<br>
-                    • "כמה עולה לשכור מסור שרשרת?"
+                    אני יכול לעזור לך למצוא את הכלי המושלם לפרויקט שלך!<br><br>
+                    <strong>מה אפשר לשאול אותי:</strong><br>
+                    🔨 המלצות על כלי עבודה<br>
+                    💰 מידע על מחירים<br>
+                    📍 מיקום החנות<br>
+                    ⏰ שעות פעילות<br><br>
+                    איך אוכל לעזור? 😊
                 </div>
             </div>
 
@@ -455,7 +555,7 @@
             <input
                 type="text"
                 id="chatbotInput"
-                placeholder="כתוב הודעה..."
+                placeholder="כתוב את השאלה שלך..."
                 maxlength="500"
             />
             <button class="chatbot-send-btn" id="chatbotSend">
@@ -468,7 +568,78 @@
     </div>
 
     <script>
-        // Toggle chatbot window
+        // ================================
+        // SMART MOCK BOT - תשובות חכמות
+        // ================================
+
+        // מאגר תשובות חכמות
+        const responses = {
+            // מקדחות
+            'מקדחה': 'מעולה! 🔨 יש לנו מבחר מקדחות מקצועיות:\n\n🔵 **מקדחה רוטטת** (₪80/יום) - מושלמת לקידוח בבטון וקירות\n🔵 **מקדחה אלחוטית** (₪60/יום) - נוחה לעבודות קלות\n🔵 **מקדחה פטישית** (₪120/יום) - לעבודות כבדות\n\nכל המקדחות כולות מקדחים בגדלים שונים.\n\nאיזו רמת עבודה אתה מתכנן? 🛠️',
+
+            'בטון': 'לקידוח בבטון אני ממליץ על: 🎯\n\n**מקדחה פטישית רוטטת** (₪120/יום)\n\n✅ מתאימה מאוד לקידוח בבטון\n✅ כוללת 3 מצבי עבודה\n✅ עוצמת קידוח גבוהה\n✅ מקדחים בגדלים 6-18 מ"מ כלולים\n\nהמקדחה נמצאת במלאי! 📦\n\nרוצה לשמור אותה? 🔖',
+
+            // כלי חיתוך
+            'מסור': 'יש לנו מספר סוגי מסורים! 🪚\n\n🟢 **מסור עגול** (₪70/יום) - לחיתוך עץ ישר\n🟢 **מסור שרשרת** (₪150/יום) - לחיתוך עצים ענפים\n🟢 **מסור אנכי (ג\'יגסו)** (₪50/יום) - לחיתוכים מעוקלים\n🟢 **מסור שולחני** (₪200/יום) - לחיתוכים מדויקים\n\nמה בדיוק את/ה צריך/ה לחתוך? 🤔',
+
+            'עץ': 'לעבודות בעץ אני ממליץ על: 🌲\n\n**מסור עגול מקצועי** (₪70/יום)\n✅ מושלם לחיתוכים ישרים\n✅ עומק חיתוך עד 65 מ"מ\n✅ מנוע חזק 1400W\n\n**או מסור שולחני** (₪200/יום)\n✅ דיוק מירבי\n✅ חיתוכים ארוכים\n✅ כולל מדריך זווית\n\nבמה תעבוד? רצפות, ריהוט, עץ גרדן? 🪵',
+
+            // קמפינג
+            'קמפינג': 'וואו, קמפינג! ⛺ יש לנו ערכה מושלמת:\n\n🏕️ **ערכת קמפינג משפחתית** (₪180/יום):\n✅ אוהל ל-4 אנשים עמיד במים\n✅ 4 שקי שינה איכותיים\n✅ מנגל פורטבלי + כלים\n✅ מזרונים מתנפחים\n✅ תאורת LED נטענת\n✅ ערכת עזרה ראשונה\n\n🏕️ **ערכה זוגית** (₪120/יום) - גרסה קטנה יותר\n\nלכמה אנשים אתם מתכננים? 👨‍👩‍👧‍👦',
+
+            // מחירים
+            'מחיר': 'המחירים שלנו מאוד תחרותיים! 💰\n\n📊 **טווח מחירים:**\n• כלים קטנים: ₪40-80/יום\n• כלים בינוניים: ₪80-150/יום\n• ציוד מקצועי: ₪150-300/יום\n• ערכות משולבות: ₪120-250/יום\n\n🎁 **הנחות:**\n✅ השכרה ל-3+ ימים: 15% הנחה\n✅ השכרה שבועית: 25% הנחה\n✅ לקוחות חוזרים: 10% הנחה\n\nעל איזה כלי חשבת? אגיד לך את המחיר המדויק! 🎯',
+
+            // מיקום
+            'איפה': 'אנחנו ממוקמים במיקום מעולה! 📍\n\n🏢 **ToolsLocker - החנות האוטומטית**\nדיזנגוף סנטר, תל אביב\nקומה 2, ליד האסקלטור המרכזי\n\n⏰ **שעות פעילות:**\nזמינים 24/7! 🎉\n(החנות עובדת אוטומטית)\n\n🚗 **הגעה:**\n• חניה בקומות -2, -3\n• תחבורה ציבורית: קווים 5, 18, 39, 72\n• אופניים חשמליים: עמדה בכניסה\n\nקל להגיע! 🚀',
+
+            'מיקום': 'הנה המיקום שלנו! 📍\n\n**דיזנגוף סנטר, תל אביב**\n🏢 קומה 2, ליד האסקלטור המרכזי\n⏰ פתוח 24/7 (חנות אוטומטית)\n🚗 חניה זמינה בקומות מינוס\n🚌 תחבורה ציבורית: קווים 5, 18, 39, 72\n\nקל מאוד להגיע! צריך הסבר איך להגיע? 🗺️',
+
+            // שעות
+            'שעות': 'החנות שלנו מיוחדת! ⏰\n\n🎉 **פתוח 24/7!**\n\nכן, קראת נכון - זמינים סביב השעון! 🌙☀️\n\nהחנות עובדת באופן אוטומטי:\n✅ לקיחת ציוד בכל שעה\n✅ החזרה בכל שעה\n✅ תשלום אוטומטי בכרטיס\n✅ ללא תורים, ללא המתנה\n\nזה ממש נוח! מתי אתה רוצה להגיע? 🚀',
+
+            // ברירת מחדל - תשובה כללית
+            'default': 'שאלה מעניינת! 🤔\n\nאני יכול לעזור לך עם:\n\n🔨 **כלי עבודה**: מקדחות, מסורים, משחזות\n⛺ **ציוד קמפינג**: אוהלים, ערכות בישול\n🏡 **כלי גינה**: מכסחות, משפצי דשא\n👨‍🍳 **ציוד מטבח**: בלנדרים, מיקסרים\n📍 **מידע כללי**: מיקום, מחירים, זמינות\n\nמה בדיוק מעניין אותך? נשמח לעזור! 😊'
+        };
+
+        // פונקציה למציאת התשובה המתאימה
+        function findResponse(userMessage) {
+            const msg = userMessage.toLowerCase();
+
+            // חיפוש מילות מפתח
+            if (msg.includes('מקדח') || msg.includes('קידוח') || msg.includes('לקדוח')) {
+                if (msg.includes('בטון') || msg.includes('קיר')) return responses['בטון'];
+                return responses['מקדחה'];
+            }
+
+            if (msg.includes('מסור') || msg.includes('חיתוך') || msg.includes('לחתוך')) {
+                if (msg.includes('עץ') || msg.includes('עצים')) return responses['עץ'];
+                return responses['מסור'];
+            }
+
+            if (msg.includes('קמפינג') || msg.includes('אוהל') || msg.includes('טיול') || msg.includes('קייט')) {
+                return responses['קמפינג'];
+            }
+
+            if (msg.includes('מחיר') || msg.includes('עול') || msg.includes('כסף') || msg.includes('לשכור')) {
+                return responses['מחיר'];
+            }
+
+            if (msg.includes('איפה') || msg.includes('מיקום') || msg.includes('כתובת') || msg.includes('להגיע')) {
+                return responses['מיקום'];
+            }
+
+            if (msg.includes('שעות') || msg.includes('פתוח') || msg.includes('סגור') || msg.includes('מתי')) {
+                return responses['שעות'];
+            }
+
+            return responses['default'];
+        }
+
+        // ================================
+        // CHATBOT UI LOGIC
+        // ================================
+
         const toggle = document.getElementById('chatbotToggle');
         const window_el = document.getElementById('chatbotWindow');
         const closeBtn = document.getElementById('chatbotClose');
@@ -476,6 +647,7 @@
         const sendBtn = document.getElementById('chatbotSend');
         const messages = document.getElementById('chatbotMessages');
 
+        // פתיחה/סגירה
         toggle.addEventListener('click', () => {
             window_el.classList.add('active');
             input.focus();
@@ -485,7 +657,7 @@
             window_el.classList.remove('active');
         });
 
-        // Demo mode - simulate bot response
+        // הוספת הודעה
         function addMessage(text, isUser = false) {
             const msgDiv = document.createElement('div');
             msgDiv.className = `chatbot-message ${isUser ? 'user-message' : 'bot-message'}`;
@@ -496,24 +668,33 @@
             messages.scrollTop = messages.scrollHeight;
         }
 
-        function simulateTyping() {
+        // סימולציית הקלדה
+        function simulateTyping(callback) {
             const typingIndicator = messages.querySelector('.typing-indicator');
             typingIndicator.classList.add('active');
+            sendBtn.disabled = true;
 
             setTimeout(() => {
                 typingIndicator.classList.remove('active');
-                addMessage('זה רק דמו! 😊<br><br>באתר האמיתי, אני אענה על שאלות על המוצרים שלכם.<br><br>נסה לכתוב עוד משהו כדי לראות איך הממשק עובד! 🛠️');
-            }, 2000);
+                sendBtn.disabled = false;
+                callback();
+            }, 1500 + Math.random() * 1000); // 1.5-2.5 שניות
         }
 
+        // שליחת הודעה
         function sendMessage() {
             const text = input.value.trim();
             if (!text) return;
 
+            // הוספת הודעת המשתמש
             addMessage(text, true);
             input.value = '';
 
-            setTimeout(simulateTyping, 500);
+            // קבלת תשובה חכמה
+            simulateTyping(() => {
+                const response = findResponse(text);
+                addMessage(response.replace(/\n/g, '<br>'));
+            });
         }
 
         sendBtn.addEventListener('click', sendMessage);
@@ -521,6 +702,37 @@
             if (e.key === 'Enter') {
                 sendMessage();
             }
+        });
+
+        // שאלות לדוגמה - לחיצה עליהן ממלאת אוטומטית
+        document.getElementById('q1').addEventListener('click', () => {
+            window_el.classList.add('active');
+            input.value = 'אני צריך מקדחה לקידוח בבטון';
+            input.focus();
+        });
+
+        document.getElementById('q2').addEventListener('click', () => {
+            window_el.classList.add('active');
+            input.value = 'איזה מסור מתאים לחיתוך עץ?';
+            input.focus();
+        });
+
+        document.getElementById('q3').addEventListener('click', () => {
+            window_el.classList.add('active');
+            input.value = 'אני רוצה לקמפינג בצפון';
+            input.focus();
+        });
+
+        document.getElementById('q4').addEventListener('click', () => {
+            window_el.classList.add('active');
+            input.value = 'כמה עולה לשכור מסור שרשרת?';
+            input.focus();
+        });
+
+        document.getElementById('q5').addEventListener('click', () => {
+            window_el.classList.add('active');
+            input.value = 'איפה אתם נמצאים?';
+            input.focus();
         });
     </script>
 
