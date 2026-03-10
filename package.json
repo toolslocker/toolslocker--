@@ -1,0 +1,21 @@
+{
+  "name": "toolslocker-web",
+  "version": "1.0.0",
+  "description": "ToolsLocker - חנות אוטומטית להשכרת כלי עבודה וציוד",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "vercel build",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "tools",
+    "rental",
+    "chatbot",
+    "claude-ai"
+  ],
+  "author": "ToolsLocker",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}

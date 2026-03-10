@@ -2711,12 +2711,45 @@ document.addEventListener('click',function(e){
         if (typing) typing.remove();
     }
 
-    // Send message - MOCK MODE (instant smart responses!) 🚀
+    // Send message - Hybrid Mode: Try API first, fallback to MOCK 🚀
     async function sendToClaude(userMessage) {
         showTyping();
         chatbotSend.disabled = true;
 
-        // Simulate realistic response time
+        try {
+            // Try to call Vercel Serverless Function (if deployed)
+            const apiEndpoint = '/api/chat'; // Vercel will route this correctly
+
+            const response = await fetch(apiEndpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: userMessage,
+                    conversationHistory: [] // You can expand this to include history
+                }),
+                // Timeout after 10 seconds
+                signal: AbortSignal.timeout(10000)
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                hideTyping();
+                chatbotSend.disabled = false;
+                addMessage('bot', data.response + '<br><br><small style="opacity:0.7">🤖 Powered by Claude AI</small>');
+                return;
+            }
+
+            // If API returns error, fall through to MOCK
+            console.log('API returned error, falling back to MOCK mode');
+
+        } catch (error) {
+            // API not available or error - use MOCK mode
+            console.log('API not available, using MOCK mode:', error.message);
+        }
+
+        // FALLBACK: Use MOCK mode
         const responseTime = 1200 + Math.random() * 800; // 1.2-2 seconds
 
         setTimeout(() => {
@@ -2725,7 +2758,7 @@ document.addEventListener('click',function(e){
 
             // Get smart mock response
             const botResponse = findMockResponse(userMessage);
-            addMessage('bot', botResponse);
+            addMessage('bot', botResponse + '<br><br><small style="opacity:0.7">📝 Demo Mode (מצב הדגמה)</small>');
         }, responseTime);
     }
 
