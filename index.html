@@ -2113,683 +2113,85 @@ document.addEventListener('click',function(e){
 </script>
 
 <!-- ======================== -->
-<!-- CLAUDE AI CHATBOT START -->
+<!-- WHATSAPP BUTTON START -->
 <!-- ======================== -->
 
-<!-- Chatbot Toggle Button -->
-<div id="chatbotToggle" class="chatbot-toggle">
-    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/972523442641?text=שלום%20ToolsLocker,%20אני%20מעוניין/ת%20בפרטים%20נוספים"
+   class="whatsapp-button"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="צור קשר ב-WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
     </svg>
-    <span class="chatbot-badge">💬</span>
-</div>
-
-<!-- Chatbot Window -->
-<div id="chatbotWindow" class="chatbot-window">
-    <div class="chatbot-header">
-        <div class="chatbot-header-content">
-            <div class="chatbot-avatar">🤖</div>
-            <div>
-                <h3>עוזר ToolsLocker</h3>
-                <p class="chatbot-status">מוכן לעזור!</p>
-            </div>
-        </div>
-        <button class="chatbot-close" id="chatbotClose">✕</button>
-    </div>
-
-    <div class="chatbot-messages" id="chatbotMessages">
-        <div class="chatbot-message bot-message">
-            <div class="message-content">
-                שלום! 👋 אני העוזר החכם של ToolsLocker.<br>
-                איך אוכל לעזור לך היום?<br><br>
-                <strong>דוגמאות לשאלות:</strong><br>
-                • "אני צריך משהו לחתוך עץ"<br>
-                • "איזה מקדחה יותר טובה?"<br>
-                • "כמה עולה לשכור מסור שרשרת?"
-            </div>
-        </div>
-    </div>
-
-    <div class="chatbot-input-area">
-        <input
-            type="text"
-            id="chatbotInput"
-            class="chatbot-input"
-            placeholder="שאל אותי משהו..."
-            autocomplete="off"
-        />
-        <button class="chatbot-send" id="chatbotSend">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
-        </button>
-    </div>
-
-    <div class="chatbot-powered">
-        Powered by <strong>Claude AI</strong> ⚡
-    </div>
-</div>
-
-<!-- API Key Modal REMOVED - Using Mock Bot Instead -->
+    <span class="whatsapp-pulse"></span>
+</a>
 
 <style>
-/* ===================== */
-/* CHATBOT STYLES START */
-/* ===================== */
+/* ====================== */
+/* WHATSAPP BUTTON STYLES */
+/* ====================== */
 
-.chatbot-toggle {
+.whatsapp-button {
     position: fixed;
     bottom: 30px;
-    left: 110px; /* 🎯 מיקום חדש - לא חוסם את כפתור הנגישות! */
+    left: 110px;
     width: 64px;
     height: 64px;
-    background: linear-gradient(135deg, #176635, #0f4a24);
+    background: #25D366;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 8px 24px rgba(23, 102, 53, 0.4);
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 9998;
-    color: white;
+    text-decoration: none;
 }
 
-.chatbot-toggle:hover {
+.whatsapp-button:hover {
     transform: scale(1.1);
-    box-shadow: 0 12px 32px rgba(23, 102, 53, 0.5);
+    box-shadow: 0 12px 32px rgba(37, 211, 102, 0.6);
+    background: #20ba5a;
 }
 
-.chatbot-badge {
+.whatsapp-pulse {
     position: absolute;
     top: -4px;
     right: -4px;
-    background: #d7df23;
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
+    background: #ff3b30;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    animation: pulse 2s infinite;
+    animation: whatsappPulse 2s infinite;
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-}
-
-.chatbot-window {
-    position: fixed;
-    bottom: 110px;
-    left: 110px; /* 🎯 מתואם עם מיקום הכפתור */
-    width: 400px;
-    max-width: calc(100vw - 48px);
-    height: 600px;
-    max-height: calc(100vh - 150px);
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    display: none;
-    flex-direction: column;
-    z-index: 9999;
-    overflow: hidden;
-    animation: slideUp 0.3s ease-out;
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
+@keyframes whatsappPulse {
+    0%, 100% {
+        transform: scale(1);
         opacity: 1;
-        transform: translateY(0);
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.8;
     }
 }
-
-.chatbot-window.active {
-    display: flex;
-}
-
-.chatbot-header {
-    background: linear-gradient(135deg, #176635, #0f4a24);
-    color: white;
-    padding: 1.2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.chatbot-header-content {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-}
-
-.chatbot-avatar {
-    width: 48px;
-    height: 48px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-}
-
-.chatbot-header h3 {
-    margin: 0;
-    font-size: 1.1rem;
-}
-
-.chatbot-status {
-    margin: 0;
-    font-size: 0.85rem;
-    opacity: 0.9;
-}
-
-.chatbot-close {
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.3rem;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.chatbot-close:hover {
-    background: rgba(255, 255, 255, 0.3);
-    transform: rotate(90deg);
-}
-
-.chatbot-messages {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1.5rem;
-    background: #f8f8f8;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.chatbot-message {
-    display: flex;
-    animation: messageSlide 0.3s ease-out;
-}
-
-@keyframes messageSlide {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.message-content {
-    max-width: 80%;
-    padding: 0.9rem 1.1rem;
-    border-radius: 12px;
-    line-height: 1.5;
-    word-wrap: break-word;
-}
-
-.bot-message .message-content {
-    background: white;
-    color: #231f20;
-    border-bottom-left-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.user-message {
-    justify-content: flex-end;
-}
-
-.user-message .message-content {
-    background: linear-gradient(135deg, #176635, #0f4a24);
-    color: white;
-    border-bottom-right-radius: 4px;
-}
-
-.chatbot-input-area {
-    padding: 1rem;
-    background: white;
-    border-top: 1px solid #E0E0E0;
-    display: flex;
-    gap: 0.8rem;
-}
-
-.chatbot-input {
-    flex: 1;
-    border: 2px solid #E0E0E0;
-    border-radius: 24px;
-    padding: 0.8rem 1.2rem;
-    font-size: 0.95rem;
-    font-family: 'Varela Round', sans-serif;
-    transition: all 0.3s;
-    outline: none;
-}
-
-.chatbot-input:focus {
-    border-color: #176635;
-    box-shadow: 0 0 0 3px rgba(23, 102, 53, 0.1);
-}
-
-.chatbot-send {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, #176635, #0f4a24);
-    border: none;
-    border-radius: 50%;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s;
-    flex-shrink: 0;
-}
-
-.chatbot-send:hover {
-    transform: scale(1.1);
-    box-shadow: 0 4px 12px rgba(23, 102, 53, 0.3);
-}
-
-.chatbot-send:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-.chatbot-powered {
-    padding: 0.5rem;
-    text-align: center;
-    font-size: 0.75rem;
-    color: #666;
-    background: white;
-    border-top: 1px solid #E0E0E0;
-}
-
-.typing-indicator {
-    display: flex;
-    gap: 4px;
-    padding: 0.9rem 1.1rem;
-    background: white;
-    border-radius: 12px;
-    border-bottom-left-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    max-width: 60px;
-}
-
-.typing-dot {
-    width: 8px;
-    height: 8px;
-    background: #176635;
-    border-radius: 50%;
-    animation: typingBounce 1.4s infinite ease-in-out;
-}
-
-.typing-dot:nth-child(1) { animation-delay: 0s; }
-.typing-dot:nth-child(2) { animation-delay: 0.2s; }
-.typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes typingBounce {
-    0%, 60%, 100% { transform: translateY(0); }
-    30% { transform: translateY(-10px); }
-}
-
-/* API Key Modal - REMOVED (using mock bot instead) */
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-    .chatbot-window {
-        width: calc(100vw - 48px);
-        height: calc(100vh - 150px);
-    }
-
-    .chatbot-toggle {
+    .whatsapp-button {
         width: 56px;
         height: 56px;
         bottom: 20px;
-        left: 100px; /* גם במובייל - לא חוסם נגישות! */
+        left: 100px;
     }
 }
 
-/* =================== */
-/* CHATBOT STYLES END */
-/* =================== */
+/* ==================== */
+/* WHATSAPP STYLES END */
+/* ==================== */
 </style>
-
-<script>
-// ========================
-// CHATBOT JAVASCRIPT START
-// ========================
-
-(function() {
-    'use strict';
-
-    // Configuration - MOCK MODE (no API needed!)
-    const MOCK_MODE = true;
-
-    // Elements
-    const chatbotToggle = document.getElementById('chatbotToggle');
-    const chatbotWindow = document.getElementById('chatbotWindow');
-    const chatbotClose = document.getElementById('chatbotClose');
-    const chatbotMessages = document.getElementById('chatbotMessages');
-    const chatbotInput = document.getElementById('chatbotInput');
-    const chatbotSend = document.getElementById('chatbotSend');
-
-    // ENHANCED MOCK RESPONSES - Much smarter! 🧠
-    let conversationContext = { lastTopic: null, askedAbout: [] };
-
-    // Response variations for natural conversation
-    const responses = {
-        greeting: [
-            'שלום! 👋 נעים מאוד! אני העוזר הדיגיטלי של ToolsLocker.<br>איך אוכל לעזור לך היום? מה הפרויקט שאתה מתכנן? 🛠️',
-            'היי! 😊 ברוך הבא ל-ToolsLocker!<br>ספר לי - מה אתה צריך? אני כאן לעזור! 🔧',
-            'שלום וברוכים הבאים! 🎉<br>יש לך פרויקט? רעיון? אני כאן לעזור למצוא את הכלי המושלם! 💪'
-        ],
-
-        thanks: [
-            'בשמחה! 😊 אם יש עוד שאלות - אני פה! 🙌',
-            'תמיד לשירותך! 💚 מקווה שעזרתי! יום מעולה! ☀️',
-            'בכיף! 🎯 נשמח לראות אותך בחנות! 🚀'
-        ],
-
-        drill: {
-            general: [
-                'מקדחות! 🔨 זה התחום שלי!<br><br>ספר לי קצת יותר - מה תכנן לקדוח?<br>• בטון/קירות?<br>• עץ/ריהוט?<br>• מתכת?<br><br>כדי שאוכל להמליץ על הכלי המדויק! 🎯',
-                'יש לנו מקדחות מעולות! 💪<br><br>כמה שאלות מהירות:<br>1️⃣ איזה חומר תקדח? (בטון/עץ/מתכת)<br>2️⃣ איזה גודל קידוחים?<br>3️⃣ כמה קידוחים בערך?<br><br>אמליץ לך על הכלי המושלם! 🔧'
-            ],
-            concrete: [
-                'לבטון אני ממליץ בחום! 💥<br><br><strong>מקדחה פטישית MAKITA</strong> (₪120/יום)<br><br>למה היא מושלמת:<br>✅ 850W כוח אש!<br>✅ 3 מצבי עבודה<br>✅ קידוחים עד 20 מ"מ<br>✅ כוללת סט מקדחים SDS<br>✅ ידית רטט-מופחת<br><br>📦 יש במלאי!<br><a href="https://online.keynius.app/home/a4a89521-1efb-45cb-a931-80cc5d3bd236" target="_blank" style="color:#d7df23">🔗 להזמנה</a>',
-                'בטון זה עבודה! אבל עם הכלי הנכון - קל! 💪<br><br><strong>מקדחה רוטטת מקצועית</strong> (₪120/יום)<br><br>מה מיוחד בה:<br>🔥 מנוע 850W חזק במיוחד<br>🔥 מצב פטיש + סיבוב<br>🔥 קידוח מהיר בבטון מזוין<br>🔥 מקדחי SDS+ איכותיים כלולים<br><br>בונה משהו גדול? 🏗️'
-            ],
-            wood: [
-                'לעבודות עץ יש לנו כלי מנצח! 🌲<br><br><strong>מקדחה אלחוטית 18V BOSCH</strong> (₪60/יום)<br><br>מושלמת ל:<br>✅ ריהוט וארונות<br>✅ קידוחי פינים<br>✅ הרכבות<br>✅ עבודה בכל זווית<br><br>כוללת:<br>• 2 סוללות<br>• מטען מהיר<br>• סט מקדחים לעץ<br><br>על מה אתה עובד? ריהוט? רצפה? 🪵'
-            ]
-        },
-
-        saw: {
-            general: [
-                'מסורים! 🪚 יש לנו אוסף שלם!<br><br>נעזור לי לבחור - מה תרצה לחתוך?<br>• עץ (לוחות/קורות)?<br>• ענפים/עצים?<br>• חומרים דקים?<br>• חיתוכים מדויקים?<br><br>כל חומר צריך מסור אחר! 🎯',
-                'חיתוך! אני אוהב! 💪<br><br>בוא נמצא את המסור המושלם:<br>מה סוג העבודה?<br>🟢 חיתוך ישר/מהיר?<br>🟢 חיתוכים מעוקלים?<br>🟢 גיזום עצים?<br>🟢 דיוק מקסימלי?<br><br>יש לי המלצה מנצחת לכל סוג! ⚡'
-            ],
-            circular: [
-                'מסור עגול - המלך של חיתוכים ישרים! 👑<br><br><strong>מסור עגול MAKITA 1400W</strong> (₪75/יום)<br><br>מפלצת של כלי:<br>🔵 חיתוך עד 65 מ"מ עומק<br>🔵 דיסק 190 מ"מ<br>🔵 מדריך זווית מדויק<br>🔵 ידית ארגונומית<br><br>מושלם ל:<br>• לוחות עץ<br>• פרקט<br>• עבודות נגרות<br><br>על מה תעבוד? 🪵'
-            ],
-            chainsaw: [
-                'מסור שרשרת! זה כבר רציני! 💥<br><br><strong>מסור שרשרת STIHL 16"</strong> (₪165/יום)<br><br>חיה אמיתית:<br>⚡ מנוע 2.3 כ"ס<br>⚡ להב 40 ס"מ<br>⚡ גיזום + חיתוך עצים<br>⚡ מערכת בטיחות מתקדמת<br><br>כולל:<br>✅ שרשרת מושחזת<br>✅ שמן שרשרת<br>✅ ציוד מגן<br><br>איזה עצים יש לך? 🌳'
-            ]
-        },
-
-        camping: {
-            general: [
-                'קמפינג! איזה כיף! ⛺🔥<br><br>לאן אתם מתכננים? צפון? דרום? פארק לאומי?<br><br>ספר לי:<br>1️⃣ כמה אנשים?<br>2️⃣ כמה לילות?<br>3️⃣ באיזה עונה?<br><br>אכין לך חבילה מושלמת! 🎒',
-                'וואו קמפינג! 🏕️ זה הולך להיות מדהים!<br><br>יש לנו ערכות מלאות שחוסכות לך כאב ראש.<br><br>משפחה? זוג? חברים?<br>חורף או קיץ?<br><br>בוא נבנה את הערכה המושלמת! 🌟'
-            ],
-            family: [
-                'ערכה משפחתית פרימיום! 👨‍👩‍👧‍👦<br><br><strong>חבילת קמפינג VIP</strong> (₪220/יום)<br><br>מה כלול:<br>🏕️ אוהל 6 אנשים Coleman עמיד במים<br>🏕️ 6 שקי שינה קיץ/חורף<br>🏕️ מזרונים מתנפחים עם משאבה<br>🏕️ מנגל + גז + כלים<br>🏕️ שולחן + כיסאות מתקפלים<br>🏕️ תאורת LED + פנס ראש<br>🏕️ צידנית ענקית<br>🏕️ ערכת עזרה ראשונה<br><br>כל מה שצריך למשפחה! 💚'
-            ]
-        },
-
-        paint: [
-            'צביעה! יאללה לשדרוג! 🎨<br><br>איזה שטח תצבע?<br>• חדר אחד?<br>• דירה שלמה?<br>• גדר/חוץ?<br><br>יש לנו:<br>🎨 <strong>מרסס צבע חשמלי</strong> (₪85/יום)<br>• פי 10 יותר מהיר ממברשת!<br>• צביעה אחידה ומקצועית<br>• קל לשימוש<br><br>כולל הדרכה! 🖌️',
-            'צביעה זה אומנות! 🎨<br><br><strong>ערכת צביעה מקצועית</strong> (₪110/יום)<br><br>מה כלול:<br>✅ מרסס צבע WAGNER<br>✅ סטנדים לעבודה בגובה<br>✅ ניילונים וסרטי הגנה<br>✅ מסכה + כפפות<br>✅ מגשים ומברשות<br><br>צובעים חדר? דירה? בניין? 😄'
-        ],
-
-        garden: [
-            'גינון! אני אוהב! 🌿✂️<br><br>מה יש לטפל?<br>• דשא לכסח?<br>• גדר חיה לגזום?<br>• עצים לשפר?<br><br>יש לנו:<br>🟢 מכסחות דשא<br>🟢 גוזם חיה חשמלי<br>🟢 מסור שרשרת<br>🟢 מגרפות ואביזרים<br><br>איזה גינה יש לך? 🏡',
-            'הגינה תהיה מושלמת! 🌳<br><br><strong>חבילת גינון קיץ</strong> (₪140/יום)<br><br>כולל:<br>✅ מכסחת דשא חשמלית<br>✅ גוזם חיה 450W<br>✅ מפוח עלים<br>✅ כפפות + משקפי מגן<br><br>גינה קטנה? גדולה? ג\'ונגל? 😅🌴'
-        ],
-
-        price: [
-            'מחירים! בוא נדבר על זה 💰<br><br>המחירים שלנו סופר הוגנים:<br><br>📊 <strong>טווח מחירים:</strong><br>• כלים קטנים: ₪40-80/יום<br>• כלים בינוניים: ₪80-150/יום<br>• ציוד מקצועי: ₪150-300/יום<br><br>🎁 <strong>הנחות מטורפות:</strong><br>✅ 3+ ימים: 15% הנחה<br>✅ שבוע: 25% הנחה<br>✅ לקוח חוזר: 10% נוספים<br><br>על איזה כלי חשבת? 🤔',
-            'בוא נדבר כסף! 💵<br><br>כל הכלים שלנו במחירים נוחים מאוד.<br><br>למשל:<br>• מקדחה: ₪60-120/יום<br>• מסור: ₪70-165/יום<br>• קמפינג: ₪120-220/יום<br><br>ויש לנו הנחות על השכרות ארוכות!<br><br>מה מעניין אותך בדיוק? אגיד לך המחיר המדויק! 🎯'
-        ],
-
-        location: [
-            'מיקום! קל להגיע! 📍<br><br><strong>ToolsLocker - החנות האוטומטית</strong><br>🏢 דיזנגוף סנטר, תל אביב<br>קומה 2, ליד האסקלטור המרכזי<br><br>⏰ <strong>פתוח 24/7!</strong> (כן, גם בלילה! 🌙)<br><br>🚗 חניה: קומות -2, -3<br>🚌 תחבורה: 5, 18, 39, 72<br>🚲 עמדת אופניים חשמליים בכניסה<br><br>מגיע ברגל? רכב? אופניים? 🚴‍♂️',
-            'החנות שלנו במיקום מעולה! 🎯<br><br>📍 <strong>דיזנגוף סנטר</strong> (המרכז הכי מרכזי בת"א!)<br><br>איך מגיעים:<br>🚗 <strong>ברכב:</strong> חניה בשפע בקומות מינוס<br>🚌 <strong>באוטובוס:</strong> כל הקווים המרכזיים<br>🚶 <strong>ברגל:</strong> ממרכז העיר 10 דק\'<br><br>והכי טוב - <strong>פתוח 24/7</strong>!<br>בא לקחת ציוד ב-3 בלילה? בכיף! 😎'
-        ],
-
-        hours: [
-            'שעות פעילות? יש לנו חדשות טובות! ⏰<br><br>🎉 <strong>אנחנו פתוחים 24/7!</strong> 🎉<br><br>כן כן, קראת נכון:<br>✅ שני בבוקר? פתוח!<br>✅ שישי בלילה? פתוח!<br>✅ שבת? פתוח!<br>✅ חג? פתוח!<br><br>החנות אוטומטית לחלוטין!<br>מתי נוח לך להגיע? 🚀',
-            'החנות שלנו לעולם לא ישנה! 😴❌<br><br>⏰ <strong>24 שעות ביממה, 7 ימים בשבוע!</strong><br><br>למה? כי אנחנו חנות אוטומטית!<br>• לקיחת ציוד - בכל שעה<br>• החזרה - בכל שעה<br>• תשלום - אוטומטי בכרטיס<br><br>נוח להגיע אחרי עבודה? בלילה? שבת?<br><strong>אין בעיה!</strong> 💪'
-        ],
-
-        help: [
-            'אני פה בשבילך! 💚<br><br>אני יכול לעזור עם:<br><br>🔨 <strong>כלי עבודה:</strong> מקדחות, מסורים, משחזות, צביעה<br>⛺ <strong>קמפינג:</strong> אוהלים, ערכות שטח, ציוד טיולים<br>🏡 <strong>גינון:</strong> מכסחות, גוזמים, כלי גינה<br>👨‍🍳 <strong>מטבח:</strong> בלנדרים, מיקסרים, כלים מקצועיים<br>📍 <strong>מידע:</strong> מיקום, מחירים, שעות<br><br>מה תרצה לדעת? שאל בחופשיות! 😊',
-            'בוא נמצא לך את מה שאתה צריך! 🎯<br><br>יש לנו:<br>• <strong>כלי עבודה</strong> לכל פרויקט 🔧<br>• <strong>ציוד קמפינג</strong> לכל טיול ⛺<br>• <strong>כלי גינה</strong> לכל עונה 🌿<br>• <strong>ציוד מקצועי</strong> למומחים 💼<br><br>ואני פה לעזור לך לבחור!<br>אז... מה הפרויקט? 🚀'
-        ]
-    };
-
-    // Smart response selector with variety
-    function getRandomResponse(category) {
-        if (Array.isArray(category)) {
-            return category[Math.floor(Math.random() * category.length)];
-        }
-        return category;
-    }
-
-    // Enhanced intent detection
-    function findMockResponse(userMessage) {
-        const msg = userMessage.toLowerCase();
-
-        // Greeting detection
-        if (msg.match(/^(שלום|היי|הי|מה קורה|בוקר טוב|ערב טוב|לילה טוב|מה נשמע|הלו)/)) {
-            conversationContext.lastTopic = 'greeting';
-            return getRandomResponse(responses.greeting);
-        }
-
-        // Thanks detection
-        if (msg.match(/(תודה|תודות|רבה|אפק|יפה|מעולה|אחלה|סופר|מדהים|מגניב)/)) {
-            return getRandomResponse(responses.thanks);
-        }
-
-        // Drill detection with context
-        if (msg.match(/(מקדח|קידוח|לקדוח|חור|חורים|לנקב)/)) {
-            conversationContext.lastTopic = 'drill';
-            if (msg.match(/(בטון|קיר|קירות|מזוין|אבן|לבנ)/)) {
-                conversationContext.askedAbout.push('concrete');
-                return getRandomResponse(responses.drill.concrete);
-            }
-            if (msg.match(/(עץ|עצים|ריהוט|ארון|לוח|דיקט|פורמייקה)/)) {
-                conversationContext.askedAbout.push('wood');
-                return responses.drill.wood[0];
-            }
-            return getRandomResponse(responses.drill.general);
-        }
-
-        // Saw detection with context
-        if (msg.match(/(מסור|לחתוך|חיתוך|לגזור|לנסר)/)) {
-            conversationContext.lastTopic = 'saw';
-            if (msg.match(/(עגול|ישר|לוח|קרש)/)) {
-                return responses.saw.circular[0];
-            }
-            if (msg.match(/(שרשרת|עץ גדול|עצים|גזע|ענף|ענפים|גיזום)/)) {
-                return responses.saw.chainsaw[0];
-            }
-            if (msg.match(/(עץ|עצים|לוח|קרש)/)) {
-                return responses.saw.circular[0];
-            }
-            return getRandomResponse(responses.saw.general);
-        }
-
-        // Camping detection
-        if (msg.match(/(קמפינג|אוהל|טיול|שטח|לינה|שק שינה|מנגל)/)) {
-            conversationContext.lastTopic = 'camping';
-            if (msg.match(/(משפח|ילד|אנשים|4|5|6)/)) {
-                return responses.camping.family[0];
-            }
-            return getRandomResponse(responses.camping.general);
-        }
-
-        // Paint detection
-        if (msg.match(/(צבע|צביעה|לצבוע|מרסס|מברשת)/)) {
-            conversationContext.lastTopic = 'paint';
-            return getRandomResponse(responses.paint);
-        }
-
-        // Garden detection
-        if (msg.match(/(גינ|דשא|כסח|מכסח|גוזם|גיזום|חצר|עצים)/)) {
-            conversationContext.lastTopic = 'garden';
-            return getRandomResponse(responses.garden);
-        }
-
-        // Price detection
-        if (msg.match(/(מחיר|עול|כסף|לשכור|השכר|תעריף|כמה)/)) {
-            return getRandomResponse(responses.price);
-        }
-
-        // Location detection
-        if (msg.match(/(איפה|מיקום|כתובת|להגיע|נמצא|ממוקם|מגיע)/)) {
-            return getRandomResponse(responses.location);
-        }
-
-        // Hours detection
-        if (msg.match(/(שעות|פתוח|סגור|מתי|זמינ|לעבוד)/)) {
-            return getRandomResponse(responses.hours);
-        }
-
-        // Help/General
-        return getRandomResponse(responses.help);
-    }
-
-    // Toggle chatbot - NO API KEY NEEDED! 🎉
-    chatbotToggle.addEventListener('click', function() {
-        chatbotWindow.classList.add('active');
-        chatbotInput.focus();
-    });
-
-    chatbotClose.addEventListener('click', function() {
-        chatbotWindow.classList.remove('active');
-    });
-
-    // Add message to chat
-    function addMessage(type, content) {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `chatbot-message ${type}-message`;
-
-        const contentDiv = document.createElement('div');
-        contentDiv.className = 'message-content';
-        contentDiv.innerHTML = content;
-
-        messageDiv.appendChild(contentDiv);
-        chatbotMessages.appendChild(messageDiv);
-        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-    }
-
-    // Show typing indicator
-    function showTyping() {
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'chatbot-message bot-message';
-        typingDiv.id = 'typingIndicator';
-
-        const indicator = document.createElement('div');
-        indicator.className = 'typing-indicator';
-        indicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-
-        typingDiv.appendChild(indicator);
-        chatbotMessages.appendChild(typingDiv);
-        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-    }
-
-    // Hide typing indicator
-    function hideTyping() {
-        const typing = document.getElementById('typingIndicator');
-        if (typing) typing.remove();
-    }
-
-    // Send message - Hybrid Mode: Try API first, fallback to MOCK 🚀
-    async function sendToClaude(userMessage) {
-        showTyping();
-        chatbotSend.disabled = true;
-
-        try {
-            // Try to call Vercel Serverless Function (if deployed)
-            const apiEndpoint = '/api/chat'; // Vercel will route this correctly
-
-            const response = await fetch(apiEndpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: userMessage,
-                    conversationHistory: [] // You can expand this to include history
-                }),
-                // Timeout after 10 seconds
-                signal: AbortSignal.timeout(10000)
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                hideTyping();
-                chatbotSend.disabled = false;
-                addMessage('bot', data.response + '<br><br><small style="opacity:0.7">🤖 Powered by Claude AI</small>');
-                return;
-            }
-
-            // If API returns error, fall through to MOCK
-            console.log('API returned error, falling back to MOCK mode');
-
-        } catch (error) {
-            // API not available or error - use MOCK mode
-            console.log('API not available, using MOCK mode:', error.message);
-        }
-
-        // FALLBACK: Use MOCK mode
-        const responseTime = 1200 + Math.random() * 800; // 1.2-2 seconds
-
-        setTimeout(() => {
-            hideTyping();
-            chatbotSend.disabled = false;
-
-            // Get smart mock response
-            const botResponse = findMockResponse(userMessage);
-            addMessage('bot', botResponse + '<br><br><small style="opacity:0.7">📝 Demo Mode (מצב הדגמה)</small>');
-        }, responseTime);
-    }
-
-    // Handle send button click
-    chatbotSend.addEventListener('click', function() {
-        sendMessage();
-    });
-
-    // Handle Enter key
-    chatbotInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
-
-    // Send message function
-    function sendMessage() {
-        const message = chatbotInput.value.trim();
-        if (!message) return;
-
-        addMessage('user', message);
-        chatbotInput.value = '';
-
-        sendToClaude(message);
-    }
-})();
-
-// ======================
-// CHATBOT JAVASCRIPT END
-// ======================
-</script>
 
 </body>
 </html>
